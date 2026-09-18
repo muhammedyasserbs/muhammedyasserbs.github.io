@@ -1044,6 +1044,485 @@
             .problem-accordion-item[open] .problem-accordion-panel { animation: none; }
         }
 
+
+
+        /* ===== تحسينات الحركة والعرض المطلوبة ===== */
+        :root {
+            --gold: #F59E0B;
+            --gold-soft: rgba(245, 158, 11, 0.13);
+        }
+
+        /* شريط الخدمات: مجموعتان متطابقتان تتحركان 50% فقط، لذلك الحلقة مستمرة بدون قفزة. */
+        .seo-ticker {
+            position: relative;
+            overflow: hidden;
+            margin: 10px 0 8px;
+            padding: 12px 0;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #fff;
+            box-shadow: 0 12px 30px -15px rgba(59, 130, 246, 0.72);
+            transform: rotate(-0.45deg) scaleX(1.01);
+        }
+        .seo-ticker::before,
+        .seo-ticker::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+            width: 70px;
+            pointer-events: none;
+        }
+        .seo-ticker::before { right: 0; background: linear-gradient(90deg, transparent, var(--accent)); }
+        .seo-ticker::after { left: 0; background: linear-gradient(90deg, var(--accent2), transparent); }
+        .seo-ticker-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+            animation: seoTickerLoop 27s linear infinite;
+        }
+        .seo-ticker-group {
+            display: flex;
+            flex: none;
+            align-items: center;
+            gap: 20px;
+            padding-inline: 20px;
+            white-space: nowrap;
+        }
+        .seo-ticker-group > span {
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+        .seo-ticker-divider {
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-style: normal;
+        }
+        @keyframes seoTickerLoop {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* شريط الأرقام */
+        .stats-bar {
+            padding: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .stats-bar .container {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 27px 12px;
+            border-inline-start: 1px dashed rgba(148, 163, 184, 0.22);
+        }
+        .stat-item:last-child { border-inline-end: 1px dashed rgba(148, 163, 184, 0.22); }
+        .stat-item .number {
+            background: none;
+            color: var(--accent2);
+            -webkit-text-fill-color: var(--accent2);
+            font-family: 'Inter', sans-serif;
+            direction: ltr;
+            unicode-bidi: isolate;
+            font-size: clamp(1.75rem, 3.3vw, 2.45rem);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .stat-item .description {
+            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* الخدمات: نفس أسلوب الصفوف المرقمة المرجعي مع الذهبي كلون ثانوي. */
+        .svc-index {
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 1.5px solid var(--text);
+        }
+        .svc-row {
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+        .svc-row[open] { border-bottom-color: rgba(245, 158, 11, 0.42); }
+        .svc-btn {
+            width: 100%;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto auto;
+            align-items: center;
+            gap: clamp(14px, 3vw, 27px);
+            padding: 22px 8px;
+            color: var(--text);
+            cursor: pointer;
+            list-style: none;
+            text-align: right;
+            transition: padding 0.3s ease;
+        }
+        .svc-btn::-webkit-details-marker { display: none; }
+        .svc-btn::marker { content: ''; }
+        .svc-btn:hover { padding-right: 18px; }
+        .svc-btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: -3px;
+        }
+        .svc-num {
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            direction: ltr;
+        }
+        .svc-title {
+            min-width: 0;
+            font-size: clamp(1.12rem, 2.4vw, 1.48rem);
+            font-weight: 800;
+            line-height: 1.45;
+            transition: color 0.25s ease;
+        }
+        .svc-btn:hover .svc-title,
+        .svc-row[open] .svc-title { color: var(--gold); }
+        .svc-hint {
+            color: var(--text-secondary);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.78rem;
+            white-space: nowrap;
+        }
+        .svc-plus {
+            width: 22px;
+            height: 22px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease, transform 0.35s ease;
+        }
+        .svc-row[open] .svc-plus {
+            color: var(--gold);
+            transform: rotate(45deg);
+        }
+        .svc-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.45s cubic-bezier(.25, .8, .3, 1);
+        }
+        .svc-row[open] .svc-body { grid-template-rows: 1fr; }
+        .svc-in { min-height: 0; overflow: hidden; }
+        .svc-in-pad { max-width: 70ch; padding: 0 8px 26px; }
+        .svc-in-pad > p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.85;
+        }
+        .svc-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px 26px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .svc-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 9px;
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.7;
+        }
+        .svc-list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            flex: none;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 0 4px var(--gold-soft);
+            transform: translateY(-1px);
+        }
+
+        /* النتائج: لقطة كاملة بعرض الكارت، من غير crop أو ارتفاع ثابت. */
+        .gsc-grid {
+            gap: 20px;
+            padding: 6px 3px 18px;
+            scroll-padding-inline: 3px;
+        }
+        .gsc-card {
+            --result-tilt: 0deg;
+            flex: 0 0 100%;
+            rotate: var(--result-tilt);
+            overflow: hidden;
+            border-radius: 18px;
+            background: var(--card-bg);
+            border-color: var(--border);
+            transition: transform 0.32s ease, rotate 0.32s ease, border-color 0.32s ease, box-shadow 0.32s ease;
+            will-change: transform;
+        }
+        .gsc-card:nth-child(odd) { --result-tilt: 0.28deg; }
+        .gsc-card:nth-child(even) { --result-tilt: -0.28deg; }
+        .gsc-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 18px 42px rgba(6, 182, 212, 0.12);
+        }
+        .gsc-tabs {
+            gap: 8px;
+            padding: 15px 18px 0;
+        }
+        .gsc-tab {
+            flex: initial;
+            padding: 7px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+        }
+        .gsc-tab.active {
+            background: var(--gradient1);
+            border-color: transparent;
+            color: #fff;
+        }
+        .gsc-tab.active .dot { background: #fff; }
+        .gsc-shot {
+            display: block;
+            height: auto;
+            aspect-ratio: auto;
+            margin: 14px 18px 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(15, 23, 42, 0.45);
+        }
+        .gsc-shot img {
+            display: none;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: none;
+            margin: 0;
+            object-fit: contain;
+            object-position: center;
+        }
+        .gsc-shot img.active { display: block; animation: resultShotIn 0.35s ease; }
+        @keyframes resultShotIn {
+            from { opacity: 0; transform: scale(0.985); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .gsc-shot::after {
+            content: '🔍 تكبير اختياري';
+            pointer-events: none;
+        }
+        .gsc-meta { padding: 14px 18px 19px; }
+        .gsc-niche {
+            display: inline-block;
+            margin-bottom: 8px;
+            padding: 4px 12px;
+            border: 1px solid rgba(6, 182, 212, 0.24);
+            border-radius: 999px;
+            background: rgba(6, 182, 212, 0.08);
+            color: var(--accent2);
+            font-size: 0.81rem;
+        }
+        .gsc-sum { font-size: 0.89rem; line-height: 1.85; }
+        .gsc-nav {
+            width: 44px;
+            height: 44px;
+            background: var(--card-bg);
+            box-shadow: 0 10px 26px rgba(2, 6, 23, 0.22);
+        }
+
+        /* حركة كروت الكيس استادي تحافظ على الميل البسيط حتى مع ظهور fade-up. */
+        .portfolio-card {
+            --case-tilt: 0deg;
+            rotate: var(--case-tilt);
+            transition: transform 0.34s ease, rotate 0.34s ease, border-color 0.34s ease, box-shadow 0.34s ease;
+            will-change: transform;
+        }
+        .portfolio-card:nth-child(odd) { --case-tilt: 0.38deg; }
+        .portfolio-card:nth-child(even) { --case-tilt: -0.38deg; }
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.55);
+            box-shadow: 0 18px 42px rgba(2, 6, 23, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.08);
+        }
+        .portfolio-card:hover .portfolio-thumb img { transform: scale(1.055); }
+
+        /* معاينة النتيجة تكون RTL بالكامل مع بقاء الرابط قابلًا للقراءة. */
+        #serp-preview .serp-result {
+            direction: rtl;
+            text-align: right;
+        }
+        #serp-preview .serp-result-head {
+            direction: rtl;
+            justify-content: flex-start;
+        }
+        #serp-preview .serp-result-site,
+        #serp-preview .serp-result-title,
+        #serp-preview .serp-result-description {
+            direction: rtl;
+            text-align: right;
+        }
+        #serp-preview .serp-result-url {
+            direction: ltr;
+            text-align: right;
+            unicode-bidi: plaintext;
+        }
+
+        /* لماذا السيو استثمار لا مصروف */
+        .why-seo-grid {
+            max-width: 1050px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+        .why-seo-card {
+            min-height: 230px;
+            padding: 29px 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.32s ease, border-color 0.32s ease, box-shadow 0.32s ease;
+        }
+        .why-seo-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 14px 36px rgba(59, 130, 246, 0.1);
+        }
+        .why-seo-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 20px;
+            border-radius: 14px;
+        }
+        .why-seo-icon svg { width: 27px; height: 27px; }
+        .why-seo-icon-gold { background: var(--gold-soft); color: var(--gold); }
+        .why-seo-icon-cyan { background: rgba(6, 182, 212, 0.12); color: var(--accent2); }
+        .why-seo-icon-purple { background: rgba(139, 92, 246, 0.12); color: var(--accent3); }
+        .why-seo-card h3 {
+            color: var(--text);
+            font-size: 1.12rem;
+            font-weight: 800;
+        }
+        .why-seo-card p {
+            margin-top: 8px;
+            color: var(--text-secondary);
+            font-size: 0.89rem;
+            line-height: 1.9;
+        }
+
+        /* تعديلات محددة داخل الهيرو فقط: الشعارات، الصورة، وكارت النتيجة الأولى. */
+        .hero-platforms img.hp-big { height: 70px; }
+        .profile-photo-wrapper { width: min(380px, 88vw); }
+        .photo-card {
+            overflow: hidden;
+            transform: rotate(0.6deg);
+            animation: heroPhotoFloat 6s ease-in-out infinite;
+        }
+        .photo-card img { height: 380px; }
+        @keyframes heroPhotoFloat {
+            0%, 100% { transform: translateY(0) rotate(0.6deg); }
+            50% { transform: translateY(-10px) rotate(0.6deg); }
+        }
+        .rank-card {
+            right: -16px;
+            bottom: -22px;
+            padding: 13px 18px;
+            border-color: var(--border);
+            transform: rotate(2deg);
+            animation: rankCardFloat 6s ease-in-out 1.2s infinite;
+        }
+        @keyframes rankCardFloat {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .rank-pos-wrap { position: relative; display: inline-block; }
+        .rank-card .pos {
+            background: var(--gradient1);
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.7rem;
+        }
+        .rank-scribble {
+            position: absolute;
+            top: -11px;
+            right: -13px;
+            width: calc(100% + 26px);
+            height: calc(100% + 22px);
+            overflow: visible;
+            pointer-events: none;
+        }
+        .rank-scribble path {
+            stroke-dasharray: 170;
+            stroke-dashoffset: 170;
+            animation: drawRankScribble 0.8s ease 0.8s forwards;
+        }
+        @keyframes drawRankScribble { to { stroke-dashoffset: 0; } }
+        .rank-card .lbl { font-size: 0.78rem; }
+        .rank-card .lbl strong { font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .seo-ticker { margin-top: 6px; padding: 10px 0; transform: rotate(-0.35deg) scaleX(1.01); }
+            .seo-ticker-group { gap: 16px; padding-inline: 16px; }
+            .seo-ticker-group > span { font-size: 0.78rem; }
+            .stats-bar .container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+            .stat-item { padding: 20px 8px; }
+            .stat-item .number { font-size: 1.8rem; }
+            .stat-item .description { font-size: 0.78rem; }
+            .svc-btn {
+                grid-template-columns: auto minmax(0, 1fr) auto;
+                gap: 12px;
+                padding: 18px 4px;
+            }
+            .svc-btn:hover { padding-right: 10px; }
+            .svc-title { font-size: 1rem; }
+            .svc-hint { display: none; }
+            .svc-list { grid-template-columns: 1fr; gap: 7px; }
+            .svc-in-pad { padding: 0 4px 21px; }
+            .gsc-grid { gap: 16px; padding: 5px 2px 16px; }
+            .gsc-card { flex-basis: 100%; --result-tilt: 0deg; rotate: 0deg; }
+            .gsc-tabs { padding: 12px 12px 0; }
+            .gsc-tab { padding: 6px 11px; font-size: 0.71rem; }
+            .gsc-shot { margin: 12px 12px 0; }
+            .gsc-meta { padding: 13px 14px 17px; }
+            .gsc-niche { font-size: 0.75rem; }
+            .gsc-sum { font-size: 0.8rem; }
+            .portfolio-card { --case-tilt: 0deg; rotate: 0deg; }
+            .why-seo-grid { grid-template-columns: 1fr; gap: 14px; }
+            .why-seo-card { min-height: 0; padding: 23px 20px; }
+            .why-seo-icon { margin-bottom: 15px; }
+            .hero-platforms img.hp-big { height: 58px; }
+            .profile-photo-wrapper { width: min(250px, 82vw); }
+            .photo-card img { height: 250px; }
+            .rank-card { right: -12px; bottom: -17px; padding: 9px 13px; }
+            .rank-card .pos { font-size: 1.25rem; }
+            .rank-card .lbl { font-size: 0.64rem; }
+            .rank-card .lbl strong { font-size: 0.71rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .seo-ticker-track,
+            .photo-card,
+            .rank-card,
+            .rank-scribble path { animation: none; }
+            .seo-ticker-track { transform: none; }
+            .seo-ticker-group[aria-hidden="true"] { display: none; }
+            .gsc-card,
+            .portfolio-card,
+            .why-seo-card,
+            .svc-row { transition: none; rotate: 0deg; }
+        }
+
     </style>
 
     <!-- Schema Markup -->
@@ -1233,7 +1712,10 @@
                             <img src="https://i.postimg.cc/XvYJFGrX/muhammed-yasser-seo-specialist.png" alt="Muhammed Yasser - SEO Specialist">
                         </div>
                         <div class="rank-card">
-                            <span class="pos">#1</span>
+                            <span class="rank-pos-wrap">
+                                <span class="pos">#1</span>
+                                <svg class="rank-scribble" viewBox="0 0 70 46" aria-hidden="true"><path d="M10 27 C 9 12, 55 5, 62 19 C 68 32, 26 44, 13 36 C 4 30, 16 13, 42 10" fill="none" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round"/></svg>
+                            </span>
                             <span class="lbl"><strong>النتيجة الأولى</strong>في نتائج البحث</span>
                         </div>
                     </div>
@@ -1242,12 +1724,35 @@
         </div>
     </section>
 
+
+    <!-- شريط خدمات متحرك فوق الأرقام -->
+    <div class="seo-ticker" aria-hidden="true">
+        <div class="seo-ticker-track">
+            <div class="seo-ticker-group">
+                <span>بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
+                <span>Technical SEO</span><i class="seo-ticker-divider">✦</i>
+                <span>سيو متاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+                <span>On-Page SEO</span><i class="seo-ticker-divider">✦</i>
+                <span>تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
+                <span>مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
+            </div>
+            <div class="seo-ticker-group" aria-hidden="true">
+                <span>بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
+                <span>Technical SEO</span><i class="seo-ticker-divider">✦</i>
+                <span>سيو متاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+                <span>On-Page SEO</span><i class="seo-ticker-divider">✦</i>
+                <span>تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
+                <span>مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
+            </div>
+        </div>
+    </div>
+
     <!-- Stats -->
     <div class="stats-bar">
         <div class="container">
             <div class="stat-item fade-up"><div class="number">+2</div><div class="description">سنة خبرة في SEO</div></div>
-            <div class="stat-item fade-up"><div class="number">30+</div><div class="description">مشروع ناجح</div></div>
-            <div class="stat-item fade-up"><div class="number">500+</div><div class="description">كلمة مفتاحية في الصفحة الأولى</div></div>
+            <div class="stat-item fade-up"><div class="number">+30</div><div class="description">مشروع ناجح</div></div>
+            <div class="stat-item fade-up"><div class="number">+500</div><div class="description">كلمة مفتاحية في الصفحة الأولى</div></div>
             <div class="stat-item fade-up"><div class="number">100%</div><div class="description">رضا العملاء</div></div>
         </div>
     </div>
@@ -1261,132 +1766,108 @@
                 <h2>خدماتي <span>المتخصصة</span></h2>
                 <p>اضغط على أي خدمة عشان تشوف التفاصيل اللي بشتغل عليها</p>
             </div>
-            <div class="services-accordion">
-                <details class="service-accordion-item fade-up" open>
-                    <summary>
-                        <span class="service-accordion-number">01</span>
-                        <span class="service-accordion-copy">
-                            <span class="service-accordion-title" role="heading" aria-level="3">بحث الكلمات المفتاحية</span>
-                            <span class="service-accordion-hint">حجم البحث · النية · المنافسون</span>
-                        </span>
-                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+            <div class="svc-index fade-up">
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">01</span>
+                        <span class="svc-title" role="heading" aria-level="3">بحث الكلمات المفتاحية</span>
+                        <span class="svc-hint">حجم البحث · النية · المنافسون</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                     </summary>
-                    <div class="service-accordion-panel">
-                        <div class="service-accordion-panel-inner">
-                            <p>تحليل شامل للسوق والمنافسين لتحديد الكلمات الأكثر قيمة لمتجرك.</p>
-                            <ul class="service-accordion-list">
-                                <li>تحليل حجم البحث والمنافسة</li>
-                                <li>كلمات مفتاحية طويلة الذيل</li>
-                                <li>تحليل نية البحث</li>
-                                <li>رصد كلمات المنافسين</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>تحليل شامل للسوق والمنافسين لتحديد الكلمات الأكثر قيمة لمتجرك.</p>
+                        <ul class="svc-list">
+                            <li>تحليل حجم البحث والمنافسة</li>
+                            <li>كلمات مفتاحية طويلة الذيل</li>
+                            <li>تحليل نية البحث</li>
+                            <li>رصد كلمات المنافسين</li>
+                        </ul>
+                    </div></div></div>
                 </details>
-                <details class="service-accordion-item fade-up" style="transition-delay:0.06s">
-                    <summary>
-                        <span class="service-accordion-number">02</span>
-                        <span class="service-accordion-copy">
-                            <span class="service-accordion-title" role="heading" aria-level="3">On-Page SEO وكتابة المحتوى</span>
-                            <span class="service-accordion-hint">Meta Tags · العناوين · المحتوى</span>
-                        </span>
-                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">02</span>
+                        <span class="svc-title" role="heading" aria-level="3">On-Page SEO وكتابة المحتوى</span>
+                        <span class="svc-hint">Meta Tags · العناوين · المحتوى</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                     </summary>
-                    <div class="service-accordion-panel">
-                        <div class="service-accordion-panel-inner">
-                            <p>تحسين كل عنصر في صفحات متجرك لتحقيق أعلى ترتيب ممكن.</p>
-                            <ul class="service-accordion-list">
-                                <li>كتابة وصف المنتجات المتوافق مع SEO</li>
-                                <li>تحسين H1 وH2 وMeta Tags</li>
-                                <li>تحسين الروابط الداخلية</li>
-                                <li>تحسين ALT text للصور</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>تحسين كل عنصر في صفحات متجرك لتحقيق أعلى ترتيب ممكن.</p>
+                        <ul class="svc-list">
+                            <li>كتابة وصف المنتجات المتوافق مع SEO</li>
+                            <li>تحسين H1 وH2 وMeta Tags</li>
+                            <li>تحسين الروابط الداخلية</li>
+                            <li>تحسين ALT text للصور</li>
+                        </ul>
+                    </div></div></div>
                 </details>
-                <details class="service-accordion-item fade-up" style="transition-delay:0.12s">
-                    <summary>
-                        <span class="service-accordion-number">03</span>
-                        <span class="service-accordion-copy">
-                            <span class="service-accordion-title" role="heading" aria-level="3">Technical SEO</span>
-                            <span class="service-accordion-hint">الزحف · الفهرسة · السرعة</span>
-                        </span>
-                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">03</span>
+                        <span class="svc-title" role="heading" aria-level="3">Technical SEO</span>
+                        <span class="svc-hint">الزحف · الفهرسة · السرعة</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                     </summary>
-                    <div class="service-accordion-panel">
-                        <div class="service-accordion-panel-inner">
-                            <p>ضمان أن موقعك محسن تقنيًا لزحف وأرشفة محركات البحث.</p>
-                            <ul class="service-accordion-list">
-                                <li>إعداد Sitemap وRobots.txt</li>
-                                <li>بنية Silo Structure</li>
-                                <li>فحص شامل بـ Screaming Frog</li>
-                                <li>تحسين Core Web Vitals</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>ضمان أن موقعك محسن تقنيًا لزحف وأرشفة محركات البحث.</p>
+                        <ul class="svc-list">
+                            <li>إعداد Sitemap وRobots.txt</li>
+                            <li>بنية Silo Structure</li>
+                            <li>فحص شامل بـ Screaming Frog</li>
+                            <li>تحسين Core Web Vitals</li>
+                        </ul>
+                    </div></div></div>
                 </details>
-                <details class="service-accordion-item fade-up" style="transition-delay:0.18s">
-                    <summary>
-                        <span class="service-accordion-number">04</span>
-                        <span class="service-accordion-copy">
-                            <span class="service-accordion-title" role="heading" aria-level="3">تتبع الأداء والتقارير</span>
-                            <span class="service-accordion-hint">Search Console · Analytics · تقارير شهرية</span>
-                        </span>
-                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">04</span>
+                        <span class="svc-title" role="heading" aria-level="3">تتبع الأداء والتقارير</span>
+                        <span class="svc-hint">Search Console · Analytics · تقارير شهرية</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                     </summary>
-                    <div class="service-accordion-panel">
-                        <div class="service-accordion-panel-inner">
-                            <p>متابعة مستمرة لأداء متجرك مع تقارير دورية مفصلة وواضحة.</p>
-                            <ul class="service-accordion-list">
-                                <li>تتبع ترتيب الكلمات المفتاحية</li>
-                                <li>تحليل بيانات Search Console</li>
-                                <li>تقارير Ahrefs وSEMrush</li>
-                                <li>تقارير أداء شهرية</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>متابعة مستمرة لأداء متجرك مع تقارير دورية مفصلة وواضحة.</p>
+                        <ul class="svc-list">
+                            <li>تتبع ترتيب الكلمات المفتاحية</li>
+                            <li>تحليل بيانات Search Console</li>
+                            <li>تقارير Ahrefs وSEMrush</li>
+                            <li>تقارير أداء شهرية</li>
+                        </ul>
+                    </div></div></div>
                 </details>
-                <details class="service-accordion-item fade-up" style="transition-delay:0.24s">
-                    <summary>
-                        <span class="service-accordion-number">05</span>
-                        <span class="service-accordion-copy">
-                            <span class="service-accordion-title" role="heading" aria-level="3">SEO المتاجر الإلكترونية</span>
-                            <span class="service-accordion-hint">المنتجات · Schema · التحويل</span>
-                        </span>
-                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">05</span>
+                        <span class="svc-title" role="heading" aria-level="3">SEO المتاجر الإلكترونية</span>
+                        <span class="svc-hint">المنتجات · Schema · التحويل</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                     </summary>
-                    <div class="service-accordion-panel">
-                        <div class="service-accordion-panel-inner">
-                            <p>تحسين شامل للمتاجر والمواقع الإلكترونية لزيادة المبيعات والزيارات.</p>
-                            <ul class="service-accordion-list">
-                                <li>تحسين صفحات المنتجات والتصنيفات</li>
-                                <li>Schema Markup للمنتجات</li>
-                                <li>تحسين تجربة المستخدم</li>
-                                <li>تحسين نسبة التحويل</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>تحسين شامل للمتاجر والمواقع الإلكترونية لزيادة المبيعات والزيارات.</p>
+                        <ul class="svc-list">
+                            <li>تحسين صفحات المنتجات والتصنيفات</li>
+                            <li>Schema Markup للمنتجات</li>
+                            <li>تحسين تجربة المستخدم</li>
+                            <li>تحسين نسبة التحويل</li>
+                        </ul>
+                    </div></div></div>
                 </details>
-                <details class="service-accordion-item fade-up" style="transition-delay:0.3s">
-                    <summary>
-                        <span class="service-accordion-number">06</span>
-                        <span class="service-accordion-copy">
-                            <span class="service-accordion-title" role="heading" aria-level="3">SEO للمواقع الخدمية وSaaS</span>
-                            <span class="service-accordion-hint">Landing Pages · المحتوى · Topical Authority</span>
-                        </span>
-                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">06</span>
+                        <span class="svc-title" role="heading" aria-level="3">SEO للمواقع الخدمية وSaaS</span>
+                        <span class="svc-hint">Landing Pages · المحتوى · Topical Authority</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                     </summary>
-                    <div class="service-accordion-panel">
-                        <div class="service-accordion-panel-inner">
-                            <p>استراتيجيات SEO مخصصة لجذب العملاء المحتملين بجودة أعلى.</p>
-                            <ul class="service-accordion-list">
-                                <li>تحسين صفحات الخدمات Landing Pages</li>
-                                <li>استراتيجية محتوى SaaS</li>
-                                <li>تحسين Conversion Rate</li>
-                                <li>Building Topical Authority</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>استراتيجيات SEO مخصصة لجذب العملاء المحتملين بجودة أعلى.</p>
+                        <ul class="svc-list">
+                            <li>تحسين صفحات الخدمات Landing Pages</li>
+                            <li>استراتيجية محتوى SaaS</li>
+                            <li>تحسين Conversion Rate</li>
+                            <li>Building Topical Authority</li>
+                        </ul>
+                    </div></div></div>
                 </details>
             </div>
         </div>
@@ -1609,7 +2090,7 @@
                 </div>
                 <div class="serp-preview-shell fade-up" style="transition-delay:0.12s">
                     <span class="serp-preview-label">معاينة نتيجة البحث</span>
-                    <div class="serp-result" aria-live="polite">
+                    <div class="serp-result" aria-live="polite" dir="rtl">
                         <div class="serp-result-head">
                             <span class="serp-result-mark" aria-hidden="true">م</span>
                             <span>
@@ -2073,15 +2554,38 @@
         </div>
     </section>
 
-    <!-- CTA -->
-    <div class="cta-section">
-        <h2>جاهز تزود <span>مبيعاتك العضوية؟</span></h2>
-        <p>احجز استشارة SEO مجانية واكتشف فرص النمو في متجرك</p>
-        <a href="#contact" class="btn btn-primary" style="font-size:1.05rem">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            احجز استشارتك المجانية
-        </a>
-    </div>
+    <!-- لماذا السيو استثمار لا مصروف؟ -->
+    <section id="why">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>لماذا السيو <span>استثمار لا مصروف؟</span></h2>
+                <p>لأنك بتبني قناة نمو تفضل تخدم موقعك بدل ما تبدأ من الصفر كل مرة.</p>
+            </div>
+            <div class="why-seo-grid">
+                <article class="why-seo-card fade-up">
+                    <div class="why-seo-icon why-seo-icon-gold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3>أصل بيتراكم</h3>
+                    <p>كل صفحة بتتحسن وكل كلمة بتكسب ظهور بتزود فرص وصول العملاء لموقعك مع الوقت.</p>
+                </article>
+                <article class="why-seo-card fade-up" style="transition-delay:0.08s">
+                    <div class="why-seo-icon why-seo-icon-cyan">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                    </div>
+                    <h3>بيشتغل طول الوقت</h3>
+                    <p>نتيجة البحث بتكون موجودة للعميل في اللحظة اللي يدور فيها على منتجك أو خدمتك.</p>
+                </article>
+                <article class="why-seo-card fade-up" style="transition-delay:0.16s">
+                    <div class="why-seo-icon why-seo-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/><path d="m16 13 1.5 1.5L21 11"/></svg>
+                    </div>
+                    <h3>يوصل لعميل بنيّة أوضح</h3>
+                    <p>اللي بيبحث بكلمة شرائية غالبًا عارف هو محتاج إيه، وده يخلي الزيارة أكثر قيمة.</p>
+                </article>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact -->
     <section id="contact">
@@ -2330,7 +2834,8 @@
             const s = document.getElementById('gscSlider');
             if (!s) return;
             const card = s.querySelector('.gsc-card');
-            const step = card ? card.offsetWidth + 22 : 400;
+            const gap = parseFloat(getComputedStyle(s).columnGap) || 20;
+            const step = card ? card.offsetWidth + gap : 400;
             s.scrollBy({ left: dir * step, behavior: 'smooth' });
         }
         function openLightbox(el) {
@@ -2541,6 +3046,23 @@
                 updatePreview();
             } catch (error) {
                 console.warn('تعذر تشغيل معاينة نتيجة البحث:', error);
+            }
+        })();
+
+        /* ===== Accordion الخدمات: خدمة واحدة مفتوحة في كل مرة ===== */
+        (function initServicesAccordion() {
+            try {
+                const serviceRows = Array.from(document.querySelectorAll('.svc-index .svc-row'));
+                serviceRows.forEach((row) => {
+                    row.addEventListener('toggle', () => {
+                        if (!row.open) return;
+                        serviceRows.forEach((otherRow) => {
+                            if (otherRow !== row && otherRow.open) otherRow.open = false;
+                        });
+                    });
+                });
+            } catch (error) {
+                console.warn('تعذر تشغيل Accordion الخدمات:', error);
             }
         })();
 
