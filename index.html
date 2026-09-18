@@ -128,11 +128,13 @@
         /* ===== شريط المنصات في الهيرو ===== */
         .hero-platforms { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
         .hero-platforms .hp-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 600; }
-        .hero-platform-logos { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 1.5vw, 22px); flex-wrap: nowrap; }
+        /* كل شعار له عمود مستقل والمسافة الثابتة بين الأعمدة هي نفسها دائمًا. */
+        .hero-platform-logos { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; align-items: center; column-gap: 18px; }
+        .hero-platform-logos > img { display: block; margin: 0; }
         .hero-platforms img { height: 26px; width: auto; object-fit: contain; filter: grayscale(1) opacity(0.55); transition: filter 0.3s; }
         .hero-platforms img.hp-big { height: 54px; }
         .hero-platforms img:hover { filter: grayscale(0) opacity(1); }
-        @media (max-width: 768px) { .hero-platforms { justify-content: center; gap: 10px; } .hero-platform-logos { gap: 12px; } .hero-platforms img { height: 22px; } .hero-platforms img.hp-big { height: 44px; } }
+        @media (max-width: 768px) { .hero-platforms { justify-content: center; gap: 10px; } .hero-platform-logos { column-gap: 12px; } .hero-platforms img { height: 22px; } .hero-platforms img.hp-big { height: 44px; } }
 
         /* ===== بريلودر ===== */
         #preloader { position: fixed; inset: 0; z-index: 9999; background: var(--primary); display: flex; align-items: center; justify-content: center; transition: opacity 0.45s ease, visibility 0.45s; animation: preloader-autohide 0.4s ease 2.2s forwards; }
@@ -1033,7 +1035,7 @@
             --gold-soft: rgba(245, 158, 11, 0.13);
         }
 
-        /* شريط الخدمات: مجموعتان متطابقتان تتحركان 50% فقط، لذلك الحلقة مستمرة بدون قفزة. */
+        /* الشريط يستخدم نفس محرك أدوات العمل: قياس المجموعة، نسخها، ثم لفّها بـ modulo بلا فراغ. */
         .seo-ticker {
             position: relative;
             overflow: hidden;
@@ -1043,7 +1045,11 @@
             color: #fff;
             box-shadow: 0 12px 30px -15px rgba(59, 130, 246, 0.72);
             transform: rotate(-0.45deg) scaleX(1.01);
+            touch-action: pan-y;
+            cursor: grab;
+            user-select: none;
         }
+        .seo-ticker.is-dragging { cursor: grabbing; }
         .seo-ticker::before,
         .seo-ticker::after {
             content: '';
@@ -1061,7 +1067,6 @@
             width: max-content;
             direction: ltr;
             will-change: transform;
-            animation: seoTickerLoop 27s linear infinite;
         }
         .seo-ticker-group {
             display: flex;
@@ -1082,10 +1087,6 @@
             color: var(--gold);
             font-size: 0.72rem;
             font-style: normal;
-        }
-        @keyframes seoTickerLoop {
-            from { transform: translate3d(0, 0, 0); }
-            to { transform: translate3d(-50%, 0, 0); }
         }
 
         /* شريط الأرقام */
@@ -3275,7 +3276,8 @@
             requestAnimationFrame(animate);
         }
 
-        // Platforms moves right. Tools moves left.
+        // كل المسارات تستخدم نفس محرك الـ infinite loop: مسار الخدمات ثم المنصات والأدوات.
+        initSeamlessMarquee({ marqueeSelector: '.seo-ticker', trackSelector: '.seo-ticker-track', direction: -1, speed: 55 });
         initSeamlessMarquee({ marqueeSelector: '.platforms-marquee', trackSelector: '.platforms-track', direction: 1, speed: 60 });
         initSeamlessMarquee({ marqueeSelector: '.tools-marquee', trackSelector: '.tools-track', direction: -1, speed: 55 });
     </script>
