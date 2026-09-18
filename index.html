@@ -458,10 +458,10 @@
         .faq-answer p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.8; }
         .faq-arrow { transition: transform 0.3s; font-size: 0.8rem; color: var(--accent); }
         .faq-arrow.open { transform: rotate(180deg); }
-        
-        @media (max-width: 768px) { 
-            .whatsapp-float { bottom: 20px; left: 20px; } 
-            .back-to-top { bottom: 20px; right: 20px; } 
+
+        @media (max-width: 768px) {
+            .whatsapp-float { bottom: 20px; left: 20px; }
+            .back-to-top { bottom: 20px; right: 20px; }
         }
 
         @media (max-width: 1024px) {
@@ -499,7 +499,551 @@
             .timeline-content { width: 100%; }
             .timeline-dot { display: none; }
         }
-    
+
+
+
+        /* ===== تحسينات مستوحاة من النسخة المرجعية ===== */
+        /* شريط بسيط يوضح مكانك في الصفحة بدون ما يغطي المحتوى */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1101;
+            height: 3px;
+            background: var(--gradient1);
+            box-shadow: 0 1px 12px rgba(59, 130, 246, 0.45);
+            transform: scaleX(0);
+            transform-origin: right center;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        /* شريط البحث في الهيرو: يفضل النص الثابت لو JavaScript غير متاح */
+        .search-pill .q {
+            min-width: 118px;
+            direction: auto;
+            unicode-bidi: plaintext;
+        }
+
+        /* ===== الخدمات بشكل Accordion ===== */
+        .services-accordion {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            gap: 13px;
+        }
+        .service-accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-accordion-item:hover {
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 10px 35px rgba(59, 130, 246, 0.08);
+        }
+        .service-accordion-item summary {
+            display: grid;
+            grid-template-columns: 58px minmax(0, 1fr) 38px;
+            align-items: center;
+            gap: 17px;
+            padding: 18px 22px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+        .service-accordion-item summary::-webkit-details-marker { display: none; }
+        .service-accordion-item summary::marker,
+        .problem-accordion-item summary::marker { content: ''; }
+        .service-accordion-item summary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -4px;
+        }
+        .service-accordion-number {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent2);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 800;
+            direction: ltr;
+        }
+        .service-accordion-copy { min-width: 0; }
+        .service-accordion-title {
+            display: block;
+            color: var(--text);
+            font-size: 1.08rem;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+        .service-accordion-hint {
+            display: block;
+            color: var(--text-secondary);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.79rem;
+            margin-top: 3px;
+        }
+        .service-accordion-toggle,
+        .problem-accordion-toggle {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            line-height: 1;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+        .service-accordion-item[open] .service-accordion-toggle,
+        .problem-accordion-item[open] .problem-accordion-toggle {
+            color: #fff;
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: rotate(45deg);
+        }
+        .service-accordion-panel {
+            border-top: 1px solid transparent;
+        }
+        .service-accordion-item[open] .service-accordion-panel {
+            border-top-color: var(--border);
+            animation: accordionReveal 0.35s ease both;
+        }
+        .service-accordion-panel-inner {
+            padding: 18px 24px 23px 97px;
+        }
+        .service-accordion-panel p,
+        .problem-accordion-panel p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.9;
+        }
+        .service-accordion-list,
+        .problem-accordion-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px 22px;
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .service-accordion-list li,
+        .problem-accordion-list li {
+            position: relative;
+            padding-right: 19px;
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.7;
+        }
+        .service-accordion-list li::before,
+        .problem-accordion-list li::before {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            top: 1px;
+            color: var(--accent2);
+            font-size: 0.7rem;
+        }
+        @keyframes accordionReveal {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== المشاكل التي أتعامل معها ===== */
+        #problems { position: relative; }
+        .problems-accordion {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            gap: 13px;
+        }
+        .problem-accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .problem-accordion-item:hover {
+            border-color: rgba(6, 182, 212, 0.48);
+            box-shadow: 0 10px 35px rgba(6, 182, 212, 0.08);
+        }
+        .problem-accordion-item summary {
+            display: grid;
+            grid-template-columns: 50px minmax(0, 1fr) auto 36px;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 22px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+        .problem-accordion-item summary::-webkit-details-marker { display: none; }
+        .problem-accordion-item summary:focus-visible {
+            outline: 2px solid var(--accent2);
+            outline-offset: -4px;
+        }
+        .problem-accordion-number {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--accent2);
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 800;
+            direction: ltr;
+        }
+        .problem-accordion-copy { min-width: 0; }
+        .problem-accordion-title {
+            display: block;
+            color: var(--text);
+            font-size: 1.04rem;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+        .problem-accordion-subtitle {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 3px;
+        }
+        .problem-accordion-tag {
+            padding: 5px 10px;
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 999px;
+            background: rgba(6, 182, 212, 0.08);
+            color: var(--accent2);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .problem-accordion-panel {
+            border-top: 1px solid transparent;
+        }
+        .problem-accordion-item[open] .problem-accordion-panel {
+            border-top-color: var(--border);
+            animation: accordionReveal 0.35s ease both;
+        }
+        .problem-accordion-panel-inner {
+            padding: 18px 24px 23px 86px;
+        }
+
+        /* ===== معاينة نتيجة البحث ===== */
+        .serp-tool-grid {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+        .serp-editor,
+        .serp-preview-shell {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            backdrop-filter: blur(10px);
+        }
+        .serp-field + .serp-field { margin-top: 18px; }
+        .serp-field label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--text);
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .serp-count {
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.73rem;
+            font-weight: 700;
+            direction: ltr;
+        }
+        .serp-count.is-warning { color: #F59E0B; }
+        .serp-count.is-over { color: #EF4444; }
+        .serp-field input,
+        .serp-field textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.42);
+            color: var(--text);
+            font-family: 'Cairo', 'Inter', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        body.light .serp-field input,
+        body.light .serp-field textarea { background: rgba(255, 255, 255, 0.9); }
+        .serp-field textarea { min-height: 104px; resize: vertical; }
+        .serp-field input:focus,
+        .serp-field textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .serp-meter {
+            display: block;
+            height: 4px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.22);
+            margin-top: 9px;
+        }
+        .serp-meter i {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--gradient1);
+            transition: width 0.2s ease, background 0.2s ease;
+        }
+        .serp-meter i.is-warning { background: #F59E0B; }
+        .serp-meter i.is-over { background: #EF4444; }
+        .serp-editor-note {
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            line-height: 1.75;
+            margin-top: 18px;
+        }
+        .serp-preview-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-secondary);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.73rem;
+            font-weight: 700;
+            margin-bottom: 13px;
+        }
+        .serp-preview-label::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4285F4;
+            box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.12);
+        }
+        .serp-result {
+            min-height: 223px;
+            background: #fff;
+            color: #202124;
+            border-radius: 13px;
+            padding: 22px;
+            direction: ltr;
+            text-align: left;
+            box-shadow: 0 10px 28px rgba(2, 6, 23, 0.18);
+        }
+        .serp-result-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 9px;
+        }
+        .serp-result-mark {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e8f0fe;
+            color: #1a73e8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 800;
+        }
+        .serp-result-site {
+            display: block;
+            color: #202124;
+            font-family: Arial, sans-serif;
+            font-size: 0.83rem;
+            line-height: 1.2;
+        }
+        .serp-result-url {
+            display: block;
+            overflow: hidden;
+            color: #4d5156;
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+            line-height: 1.35;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .serp-result-title {
+            overflow: hidden;
+            color: #1a0dab;
+            font-family: Arial, sans-serif;
+            font-size: clamp(1.18rem, 2.5vw, 1.42rem);
+            font-weight: 400;
+            line-height: 1.35;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .serp-result-description {
+            display: -webkit-box;
+            overflow: hidden;
+            color: #4d5156;
+            font-family: Arial, sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.58;
+            margin-top: 7px;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .serp-guidance {
+            min-height: 50px;
+            margin: 14px 0 0;
+            padding: 11px 13px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            line-height: 1.65;
+        }
+        .serp-guidance strong { color: #10B981; }
+
+        /* ===== ما بعد إرسال الفورم ===== */
+        .after-contact-steps {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .after-contact-step {
+            position: relative;
+            min-height: 194px;
+            padding: 23px 21px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .after-contact-step:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.1);
+        }
+        .after-contact-number {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 17px;
+            border-radius: 11px;
+            background: var(--gradient1);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            direction: ltr;
+            box-shadow: 0 7px 18px rgba(59, 130, 246, 0.26);
+        }
+        .after-contact-step h3 {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+        .after-contact-step p {
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.8;
+            margin-top: 7px;
+        }
+
+        @media (max-width: 768px) {
+            .search-pill .q { min-width: 100px; }
+            .service-accordion-item summary {
+                grid-template-columns: 44px minmax(0, 1fr) 30px;
+                gap: 12px;
+                padding: 16px;
+            }
+            .service-accordion-number {
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                font-size: 0.75rem;
+            }
+            .service-accordion-title { font-size: 0.96rem; }
+            .service-accordion-hint { font-size: 0.71rem; }
+            .service-accordion-toggle,
+            .problem-accordion-toggle {
+                width: 28px;
+                height: 28px;
+                border-radius: 9px;
+                font-size: 1.15rem;
+            }
+            .service-accordion-panel-inner,
+            .problem-accordion-panel-inner { padding: 16px 18px 20px; }
+            .service-accordion-list,
+            .problem-accordion-list { grid-template-columns: 1fr; gap: 7px; }
+            .problem-accordion-item summary {
+                grid-template-columns: 42px minmax(0, 1fr) 28px;
+                gap: 11px;
+                padding: 16px;
+            }
+            .problem-accordion-number {
+                width: 36px;
+                height: 36px;
+                font-size: 0.72rem;
+            }
+            .problem-accordion-title { font-size: 0.94rem; }
+            .problem-accordion-subtitle { font-size: 0.74rem; }
+            .problem-accordion-tag {
+                grid-column: 2;
+                grid-row: 2;
+                justify-self: start;
+                margin-top: -2px;
+                font-size: 0.65rem;
+            }
+            .problem-accordion-toggle { grid-column: 3; grid-row: 1; }
+            .serp-tool-grid { grid-template-columns: 1fr; gap: 18px; }
+            .serp-editor,
+            .serp-preview-shell { padding: 20px; }
+            .serp-result { min-height: 205px; padding: 18px; }
+            .after-contact-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+            .after-contact-step { min-height: 182px; padding: 19px 17px; }
+            .after-contact-number { margin-bottom: 14px; }
+        }
+        @media (max-width: 460px) {
+            .after-contact-steps { grid-template-columns: 1fr; }
+            .after-contact-step { min-height: auto; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-progress,
+            .service-accordion-item,
+            .problem-accordion-item,
+            .after-contact-step,
+            .serp-meter i { transition: none; }
+            .service-accordion-item[open] .service-accordion-panel,
+            .problem-accordion-item[open] .problem-accordion-panel { animation: none; }
+        }
+
     </style>
 
     <!-- Schema Markup -->
@@ -619,6 +1163,7 @@
     </script>
 </head>
 <body>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <div id="preloader"><div class="pre-ring"></div></div>
     <div class="bg-animation"><div class="circle"></div><div class="circle"></div><div class="circle"></div></div>
 
@@ -679,7 +1224,7 @@
                     <div class="profile-photo-wrapper">
                         <div class="search-pill">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <span class="q">seo specialist</span>
+                            <span class="q" id="heroSearchQuery" dir="auto">seo specialist</span>
                             <span class="caret"></span>
                         </div>
                         <div class="photo-backdrop"></div>
@@ -707,52 +1252,142 @@
         </div>
     </div>
 
-    
+
 
     <!-- Services -->
     <section id="services">
         <div class="container">
             <div class="section-header fade-up">
                 <h2>خدماتي <span>المتخصصة</span></h2>
-                <p>حلول SEO شاملة لرفع ظهور متجرك الإلكتروني وزيادة مبيعاتك</p>
+                <p>اضغط على أي خدمة عشان تشوف التفاصيل اللي بشتغل عليها</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(59,130,246,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-                    <h3>بحث الكلمات المفتاحية</h3>
-                    <p>تحليل شامل للسوق والمنافسين لتحديد الكلمات الأكثر قيمة</p>
-                    <ul><li>تحليل حجم البحث والمنافسة</li><li>كلمات مفتاحية طويلة الذيل</li><li>تحليل نية البحث</li><li>رصد كلمات المنافسين</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(6,182,212,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
-                    <h3>On-Page SEO & كتابة المحتوى</h3>
-                    <p>تحسين كل عنصر في صفحات متجرك لتحقيق أعلى ترتيب</p>
-                    <ul><li>كتابة وصف المنتجات المتوافق مع SEO</li><li>تحسين H1, H2, Meta Tags</li><li>تحسين الروابط الداخلية</li><li>تحسين ALT text للصور</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(139,92,246,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></div>
-                    <h3>Technical SEO</h3>
-                    <p>ضمان أن موقعك محسن تقنياً لزحف وأرشفة محركات البحث</p>
-                    <ul><li>إعداد Sitemap و Robots.txt</li><li>بنية Silo Structure</li><li>فحص شامل بـ Screaming Frog</li><li>تحسين Core Web Vitals</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(59,130,246,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-                    <h3>تتبع الأداء والتقارير</h3>
-                    <p>متابعة مستمرة لأداء متجرك مع تقارير دورية مفصلة</p>
-                    <ul><li>تتبع ترتيب الكلمات المفتاحية</li><li>تحليل بيانات Search Console</li><li>تقارير Ahrefs و SEMrush</li><li>تقارير أداء شهرية</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(93,202,124,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#5DCA7C" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-                    <h3>SEO المتاجر الإلكترونية</h3>
-                    <p>تحسين شامل للمتاجر والمواقع الإلكترونية لزيادة المبيعات والزيارات</p>
-                    <ul><li>تحسين صفحات المنتجات والتصنيفات</li><li>Schema Markup للمنتجات</li><li>تحسين تجربة المستخدم</li><li>تحسين نسبة التحويل</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(108,99,255,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-                    <h3>SEO للمواقع الخدمية و SaaS</h3>
-                    <p>استراتيجيات SEO مخصصة لجذب العملاء المحتملين</p>
-                    <ul><li>تحسين صفحات الخدمات Landing Pages</li><li>استراتيجية محتوى SaaS</li><li>تحسين Conversion Rate</li><li>Building Topical Authority</li></ul>
-                </div>
+            <div class="services-accordion">
+                <details class="service-accordion-item fade-up" open>
+                    <summary>
+                        <span class="service-accordion-number">01</span>
+                        <span class="service-accordion-copy">
+                            <span class="service-accordion-title" role="heading" aria-level="3">بحث الكلمات المفتاحية</span>
+                            <span class="service-accordion-hint">حجم البحث · النية · المنافسون</span>
+                        </span>
+                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="service-accordion-panel">
+                        <div class="service-accordion-panel-inner">
+                            <p>تحليل شامل للسوق والمنافسين لتحديد الكلمات الأكثر قيمة لمتجرك.</p>
+                            <ul class="service-accordion-list">
+                                <li>تحليل حجم البحث والمنافسة</li>
+                                <li>كلمات مفتاحية طويلة الذيل</li>
+                                <li>تحليل نية البحث</li>
+                                <li>رصد كلمات المنافسين</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="service-accordion-item fade-up" style="transition-delay:0.06s">
+                    <summary>
+                        <span class="service-accordion-number">02</span>
+                        <span class="service-accordion-copy">
+                            <span class="service-accordion-title" role="heading" aria-level="3">On-Page SEO وكتابة المحتوى</span>
+                            <span class="service-accordion-hint">Meta Tags · العناوين · المحتوى</span>
+                        </span>
+                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="service-accordion-panel">
+                        <div class="service-accordion-panel-inner">
+                            <p>تحسين كل عنصر في صفحات متجرك لتحقيق أعلى ترتيب ممكن.</p>
+                            <ul class="service-accordion-list">
+                                <li>كتابة وصف المنتجات المتوافق مع SEO</li>
+                                <li>تحسين H1 وH2 وMeta Tags</li>
+                                <li>تحسين الروابط الداخلية</li>
+                                <li>تحسين ALT text للصور</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="service-accordion-item fade-up" style="transition-delay:0.12s">
+                    <summary>
+                        <span class="service-accordion-number">03</span>
+                        <span class="service-accordion-copy">
+                            <span class="service-accordion-title" role="heading" aria-level="3">Technical SEO</span>
+                            <span class="service-accordion-hint">الزحف · الفهرسة · السرعة</span>
+                        </span>
+                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="service-accordion-panel">
+                        <div class="service-accordion-panel-inner">
+                            <p>ضمان أن موقعك محسن تقنيًا لزحف وأرشفة محركات البحث.</p>
+                            <ul class="service-accordion-list">
+                                <li>إعداد Sitemap وRobots.txt</li>
+                                <li>بنية Silo Structure</li>
+                                <li>فحص شامل بـ Screaming Frog</li>
+                                <li>تحسين Core Web Vitals</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="service-accordion-item fade-up" style="transition-delay:0.18s">
+                    <summary>
+                        <span class="service-accordion-number">04</span>
+                        <span class="service-accordion-copy">
+                            <span class="service-accordion-title" role="heading" aria-level="3">تتبع الأداء والتقارير</span>
+                            <span class="service-accordion-hint">Search Console · Analytics · تقارير شهرية</span>
+                        </span>
+                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="service-accordion-panel">
+                        <div class="service-accordion-panel-inner">
+                            <p>متابعة مستمرة لأداء متجرك مع تقارير دورية مفصلة وواضحة.</p>
+                            <ul class="service-accordion-list">
+                                <li>تتبع ترتيب الكلمات المفتاحية</li>
+                                <li>تحليل بيانات Search Console</li>
+                                <li>تقارير Ahrefs وSEMrush</li>
+                                <li>تقارير أداء شهرية</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="service-accordion-item fade-up" style="transition-delay:0.24s">
+                    <summary>
+                        <span class="service-accordion-number">05</span>
+                        <span class="service-accordion-copy">
+                            <span class="service-accordion-title" role="heading" aria-level="3">SEO المتاجر الإلكترونية</span>
+                            <span class="service-accordion-hint">المنتجات · Schema · التحويل</span>
+                        </span>
+                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="service-accordion-panel">
+                        <div class="service-accordion-panel-inner">
+                            <p>تحسين شامل للمتاجر والمواقع الإلكترونية لزيادة المبيعات والزيارات.</p>
+                            <ul class="service-accordion-list">
+                                <li>تحسين صفحات المنتجات والتصنيفات</li>
+                                <li>Schema Markup للمنتجات</li>
+                                <li>تحسين تجربة المستخدم</li>
+                                <li>تحسين نسبة التحويل</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="service-accordion-item fade-up" style="transition-delay:0.3s">
+                    <summary>
+                        <span class="service-accordion-number">06</span>
+                        <span class="service-accordion-copy">
+                            <span class="service-accordion-title" role="heading" aria-level="3">SEO للمواقع الخدمية وSaaS</span>
+                            <span class="service-accordion-hint">Landing Pages · المحتوى · Topical Authority</span>
+                        </span>
+                        <span class="service-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="service-accordion-panel">
+                        <div class="service-accordion-panel-inner">
+                            <p>استراتيجيات SEO مخصصة لجذب العملاء المحتملين بجودة أعلى.</p>
+                            <ul class="service-accordion-list">
+                                <li>تحسين صفحات الخدمات Landing Pages</li>
+                                <li>استراتيجية محتوى SaaS</li>
+                                <li>تحسين Conversion Rate</li>
+                                <li>Building Topical Authority</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
@@ -842,6 +1477,151 @@
                 <div class="process-step fade-up"><div class="step-number">2</div><h3>وضع الاستراتيجية</h3><p>بناء خطة SEO متكاملة تشمل On-Page و Technical و Content Strategy</p></div>
                 <div class="process-step fade-up"><div class="step-number">3</div><h3>التنفيذ والتحسين</h3><p>تطبيق التحسينات على كل الصفحات مع كتابة المحتوى المتوافق مع SEO</p></div>
                 <div class="process-step fade-up"><div class="step-number">4</div><h3>المتابعة والتطوير</h3><p>مراقبة الأداء المستمرة وتحديث الاستراتيجية بناءً على البيانات</p></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- المشاكل التي أتعامل معها -->
+    <section id="problems">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>المشاكل اللي <span>بحلّها</span></h2>
+                <p>لو واحدة من دول بتحصل في موقعك، البداية بتكون من السبب الحقيقي مش من تخمين.</p>
+            </div>
+            <div class="problems-accordion">
+                <details class="problem-accordion-item fade-up" open>
+                    <summary>
+                        <span class="problem-accordion-number">01</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">صفحات متجرك مش بتظهر في Google</span>
+                            <span class="problem-accordion-subtitle">أول خطوة: نتأكد إن Google يقدر يوصل للصفحات المهمة.</span>
+                        </span>
+                        <span class="problem-accordion-tag">الفهرسة والزحف</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>لما صفحات مهمة تبقى مستبعدة أو مش ظاهرة في البحث، بنراجع أسباب الزحف والفهرسة قبل أي تحسينات تانية.</p>
+                            <ul class="problem-accordion-list">
+                                <li>مراجعة Robots.txt ووسم noindex</li>
+                                <li>فحص Sitemap وCanonical</li>
+                                <li>تحديد الصفحات المستبعدة</li>
+                                <li>تقوية الروابط الداخلية للصفحات المهمة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="problem-accordion-item fade-up" style="transition-delay:0.06s">
+                    <summary>
+                        <span class="problem-accordion-number">02</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">عندك زيارات لكن المبيعات العضوية ضعيفة</span>
+                            <span class="problem-accordion-subtitle">مش كل زيارة جاهزة للشراء، وده بيغير طريقة اختيار الصفحات والكلمات.</span>
+                        </span>
+                        <span class="problem-accordion-tag">نية الشراء</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>الزيارات وحدها مش الهدف. بنركز على الكلمات والصفحات اللي تقرّب العميل من قرار الشراء.</p>
+                            <ul class="problem-accordion-list">
+                                <li>تحديد الكلمات الشرائية للمنتجات والتصنيفات</li>
+                                <li>تحسين Title وMeta Description</li>
+                                <li>توضيح مسار العميل للصفحات المهمة</li>
+                                <li>تحسين المحتوى حسب نية البحث</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="problem-accordion-item fade-up" style="transition-delay:0.12s">
+                    <summary>
+                        <span class="problem-accordion-number">03</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">المنتجات أو الصفحات المتشابهة بتنافس بعض</span>
+                            <span class="problem-accordion-subtitle">تكرار العناوين والمحتوى بيصعّب على Google فهم الصفحة الأهم.</span>
+                        </span>
+                        <span class="problem-accordion-tag">On-Page SEO</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>لما صفحات متشابهة تستخدم نفس العناوين أو تتكلم عن نفس الموضوع، بنوضح دور كل صفحة عشان ما تتنافسش مع بعضها.</p>
+                            <ul class="problem-accordion-list">
+                                <li>عناوين Title وH1 مميزة</li>
+                                <li>Meta Descriptions واضحة ومختلفة</li>
+                                <li>تنظيم التصنيفات وصفحات المنتجات</li>
+                                <li>استخدام Canonical عند الحاجة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="problem-accordion-item fade-up" style="transition-delay:0.18s">
+                    <summary>
+                        <span class="problem-accordion-number">04</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">الظهور أو النقرات بتقل ومش عارف السبب</span>
+                            <span class="problem-accordion-subtitle">بنبدأ بالبيانات عشان نحدد الصفحة أو الكلمة المتأثرة فعلًا.</span>
+                        </span>
+                        <span class="problem-accordion-tag">تحليل الأداء</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>بدل ما نجرّب تغييرات عشوائية، بنقارن بيانات Search Console وAnalytics ونرتب الأولويات حسب التأثير.</p>
+                            <ul class="problem-accordion-list">
+                                <li>تحديد الصفحات والكلمات المتأثرة</li>
+                                <li>فحص المشاكل التقنية أو تغييرات المحتوى</li>
+                                <li>تحسين CTR من نتيجة البحث</li>
+                                <li>خطة تجمع المكاسب السريعة والتحسين المستمر</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- معاينة شكل النتيجة في Google -->
+    <section id="serp-preview" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>شكل موقعك في <span>Google</span></h2>
+                <p>اكتب عنوان الصفحة والوصف وشوف معاينة تقريبية لنتيجتك قبل النشر.</p>
+            </div>
+            <div class="serp-tool-grid">
+                <div class="serp-editor fade-up">
+                    <div class="serp-field">
+                        <label for="serpTitleInput"><span>عنوان الصفحة (Title)</span><b class="serp-count" id="serpTitleCount">0 / 60</b></label>
+                        <input id="serpTitleInput" type="text" maxlength="120" autocomplete="off" placeholder="مثال: أفضل غسالات أوتوماتيك في السعودية | اسم متجرك">
+                        <span class="serp-meter" aria-hidden="true"><i id="serpTitleMeter"></i></span>
+                    </div>
+                    <div class="serp-field">
+                        <label for="serpDescriptionInput"><span>وصف الميتا (Meta Description)</span><b class="serp-count" id="serpDescriptionCount">0 / 155</b></label>
+                        <textarea id="serpDescriptionInput" maxlength="320" placeholder="اكتب وصفًا واضحًا يشرح الصفحة ويشجع العميل على الدخول..."></textarea>
+                        <span class="serp-meter" aria-hidden="true"><i id="serpDescriptionMeter"></i></span>
+                    </div>
+                    <div class="serp-field">
+                        <label for="serpUrlInput"><span>رابط الصفحة (اختياري)</span></label>
+                        <input id="serpUrlInput" type="text" inputmode="url" dir="ltr" style="text-align:left" autocomplete="url" placeholder="example.com/category">
+                    </div>
+                    <p class="serp-editor-note">المعاينة للتوضيح فقط؛ Google ممكن يغيّر العنوان أو الوصف حسب بحث المستخدم والجهاز.</p>
+                </div>
+                <div class="serp-preview-shell fade-up" style="transition-delay:0.12s">
+                    <span class="serp-preview-label">معاينة نتيجة البحث</span>
+                    <div class="serp-result" aria-live="polite">
+                        <div class="serp-result-head">
+                            <span class="serp-result-mark" aria-hidden="true">م</span>
+                            <span>
+                                <span class="serp-result-site" id="serpPreviewSite" dir="auto">موقعك</span>
+                                <span class="serp-result-url" id="serpPreviewUrl" dir="ltr">example.com</span>
+                            </span>
+                        </div>
+                        <p class="serp-result-title" id="serpPreviewTitle">عنوان صفحتك يظهر هنا</p>
+                        <p class="serp-result-description" id="serpPreviewDescription">وصف الميتا هيظهر هنا ويساعد العميل يفهم الصفحة قبل ما يضغط على النتيجة.</p>
+                    </div>
+                    <p class="serp-guidance" id="serpGuidance">اكتب عنوانًا ووصفًا عشان تشوف تقييم الطول المناسب للعرض.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1118,13 +1898,13 @@
                         <div class="tool-name">Tag Manager</div>
                         <div class="tool-desc">إدارة أدوات التتبع</div>
                     </div>
-                
+
                 </div>
             </div>
         </div>
     </section>
 
-    
+
 
     <!-- Experience -->
     <section id="experience">
@@ -1257,6 +2037,39 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+
+    <!-- ما بعد إرسال الفورم -->
+    <section id="after-contact" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>بعد ما تبعت <span>الفورم</span>، إيه اللي بيحصل؟</h2>
+                <p>خطوات واضحة من أول رسالة لحد ما نحدد أنسب بداية لمشروعك.</p>
+            </div>
+            <ol class="after-contact-steps">
+                <li class="after-contact-step fade-up">
+                    <span class="after-contact-number">01</span>
+                    <h3>تبعت تفاصيل موقعك</h3>
+                    <p>تكتب رابط الموقع واحتياجك في الفورم عشان تكون الصورة واضحة من البداية.</p>
+                </li>
+                <li class="after-contact-step fade-up" style="transition-delay:0.08s">
+                    <span class="after-contact-number">02</span>
+                    <h3>يوصلك تأكيد بالإيميل</h3>
+                    <p>الرد التلقائي بيأكد إن رسالتك وصلت بنجاح ومش محتاج تتابع عليها تاني.</p>
+                </li>
+                <li class="after-contact-step fade-up" style="transition-delay:0.16s">
+                    <span class="after-contact-number">03</span>
+                    <h3>أراجع احتياج مشروعك</h3>
+                    <p>أطلع على الرابط والتفاصيل اللي بعتها عشان أحدد أهم نقاط البداية.</p>
+                </li>
+                <li class="after-contact-step fade-up" style="transition-delay:0.24s">
+                    <span class="after-contact-number">04</span>
+                    <h3>أرد عليك خلال 24 ساعة</h3>
+                    <p>أرجعلك بالخطوة المناسبة للتواصل وبداية شغل واضح على أهداف موقعك.</p>
+                </li>
+            </ol>
         </div>
     </section>
 
@@ -1394,6 +2207,64 @@
                 if (btn) btn.textContent = '☀️';
             }
         } catch (e) {}
+
+
+        /* ===== شريط تقدّم القراءة ===== */
+        (function initScrollProgress() {
+            try {
+                const progress = document.getElementById('scrollProgress');
+                if (!progress) return;
+                const updateProgress = () => {
+                    const root = document.documentElement;
+                    const scrollable = root.scrollHeight - root.clientHeight;
+                    const ratio = scrollable > 0 ? Math.min(Math.max(root.scrollTop / scrollable, 0), 1) : 0;
+                    progress.style.transform = `scaleX(${ratio})`;
+                };
+                window.addEventListener('scroll', updateProgress, { passive: true });
+                window.addEventListener('resize', updateProgress);
+                updateProgress();
+            } catch (error) {
+                console.warn('تعذر تشغيل شريط تقدّم الصفحة:', error);
+            }
+        })();
+
+        /* ===== كتابة كلمات بحث متحركة في الهيرو ===== */
+        (function initHeroSearchTyping() {
+            try {
+                const query = document.getElementById('heroSearchQuery');
+                if (!query || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                const phrases = ['seo specialist', 'سيو متجر سلة', 'Technical SEO', 'خبير SEO للمتاجر'];
+                let phraseIndex = 0;
+                let characterIndex = 0;
+                let deleting = false;
+
+                const type = () => {
+                    const phrase = phrases[phraseIndex];
+                    if (!deleting) {
+                        characterIndex += 1;
+                        query.textContent = phrase.slice(0, characterIndex);
+                        if (characterIndex === phrase.length) {
+                            deleting = true;
+                            window.setTimeout(type, 1800);
+                            return;
+                        }
+                    } else {
+                        characterIndex -= 1;
+                        query.textContent = phrase.slice(0, characterIndex);
+                        if (characterIndex === 0) {
+                            deleting = false;
+                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                        }
+                    }
+                    window.setTimeout(type, deleting ? 38 : 78);
+                };
+
+                query.textContent = '';
+                type();
+            } catch (error) {
+                console.warn('تعذر تشغيل كتابة شريط البحث:', error);
+            }
+        })();
 
         /* ===== عداد الأرقام المتحرك ===== */
         function animateCounter(el) {
@@ -1603,6 +2474,75 @@
                 arrow.classList.add('open');
             }
         }
+
+
+        /* ===== معاينة نتيجة Google — تفاعلية وبدون أي API ===== */
+        (function initSerpPreview() {
+            try {
+                const titleInput = document.getElementById('serpTitleInput');
+                const descriptionInput = document.getElementById('serpDescriptionInput');
+                const urlInput = document.getElementById('serpUrlInput');
+                const previewTitle = document.getElementById('serpPreviewTitle');
+                const previewDescription = document.getElementById('serpPreviewDescription');
+                const previewSite = document.getElementById('serpPreviewSite');
+                const previewUrl = document.getElementById('serpPreviewUrl');
+                const guidance = document.getElementById('serpGuidance');
+                const titleCount = document.getElementById('serpTitleCount');
+                const descriptionCount = document.getElementById('serpDescriptionCount');
+                const titleMeter = document.getElementById('serpTitleMeter');
+                const descriptionMeter = document.getElementById('serpDescriptionMeter');
+
+                if (!titleInput || !descriptionInput || !urlInput || !previewTitle || !previewDescription || !previewSite || !previewUrl || !guidance || !titleCount || !descriptionCount || !titleMeter || !descriptionMeter) return;
+
+                const setMeter = (value, limit, countElement, meterElement) => {
+                    const percentage = Math.min((value / limit) * 100, 100);
+                    const state = value > limit ? 'is-over' : (value > limit * 0.86 ? 'is-warning' : '');
+                    countElement.textContent = `${value} / ${limit}`;
+                    countElement.classList.toggle('is-warning', state === 'is-warning');
+                    countElement.classList.toggle('is-over', state === 'is-over');
+                    meterElement.style.width = `${percentage}%`;
+                    meterElement.classList.toggle('is-warning', state === 'is-warning');
+                    meterElement.classList.toggle('is-over', state === 'is-over');
+                };
+
+                const normalizeUrl = (value) => {
+                    const raw = value.trim().replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+                    if (!raw) return { site: 'موقعك', url: 'example.com' };
+                    const host = raw.split('/')[0] || raw;
+                    return { site: host, url: raw };
+                };
+
+                const updatePreview = () => {
+                    const title = titleInput.value.trim();
+                    const description = descriptionInput.value.trim();
+                    const urlData = normalizeUrl(urlInput.value);
+                    const titleLength = title.length;
+                    const descriptionLength = description.length;
+
+                    previewTitle.textContent = title || 'عنوان صفحتك يظهر هنا';
+                    previewDescription.textContent = description || 'وصف الميتا هيظهر هنا ويساعد العميل يفهم الصفحة قبل ما يضغط على النتيجة.';
+                    previewSite.textContent = urlData.site;
+                    previewUrl.textContent = urlData.url;
+                    setMeter(titleLength, 60, titleCount, titleMeter);
+                    setMeter(descriptionLength, 155, descriptionCount, descriptionMeter);
+
+                    if (!title && !description) {
+                        guidance.textContent = 'اكتب عنوانًا ووصفًا عشان تشوف تقييم الطول المناسب للعرض.';
+                    } else if (titleLength > 60 || descriptionLength > 155) {
+                        guidance.innerHTML = '<strong>ملاحظة:</strong> النص الطويل ممكن يتقص في نتيجة البحث، فحاول تخلي أهم معلومة في البداية.';
+                    } else if ((titleLength && titleLength < 25) || (descriptionLength && descriptionLength < 70)) {
+                        guidance.innerHTML = '<strong>نصيحة:</strong> تقدر تستفيد من مساحة أكبر وتوضح للعميل فائدة الصفحة بشكل أدق.';
+                    } else {
+                        guidance.innerHTML = '<strong>ممتاز:</strong> طول العنوان والوصف مناسب تقريبًا للعرض في نتائج البحث.';
+                    }
+                };
+
+                [titleInput, descriptionInput, urlInput].forEach((input) => input.addEventListener('input', updatePreview));
+                updatePreview();
+            } catch (error) {
+                console.warn('تعذر تشغيل معاينة نتيجة البحث:', error);
+            }
+        })();
 
         /* TRUE Seamless Infinite Marquee + drag/swipe
            Why this is seamless:
