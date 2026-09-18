@@ -128,13 +128,26 @@
         /* ===== شريط المنصات في الهيرو ===== */
         .hero-platforms { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
         .hero-platforms .hp-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 600; }
-        /* كل شعار له عمود مستقل والمسافة الثابتة بين الأعمدة هي نفسها دائمًا. */
-        .hero-platform-logos { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; align-items: center; column-gap: 18px; }
-        .hero-platform-logos > img { display: block; margin: 0; }
+        /* أربع مسارات مرئية متساوية: المركز والمسافة بين كل شعارين ثابتان بالنظر. */
+        .hero-platform-logos {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            align-items: center;
+            width: min(424px, 100%);
+            column-gap: 18px;
+        }
+        .hero-platform-logo { min-width: 0; height: 70px; display: grid; place-items: center; }
+        .hero-platform-logo > img { display: block; max-width: 100%; margin: 0; }
         .hero-platforms img { height: 26px; width: auto; object-fit: contain; filter: grayscale(1) opacity(0.55); transition: filter 0.3s; }
         .hero-platforms img.hp-big { height: 54px; }
         .hero-platforms img:hover { filter: grayscale(0) opacity(1); }
-        @media (max-width: 768px) { .hero-platforms { justify-content: center; gap: 10px; } .hero-platform-logos { column-gap: 12px; } .hero-platforms img { height: 22px; } .hero-platforms img.hp-big { height: 44px; } }
+        @media (max-width: 768px) {
+            .hero-platforms { justify-content: center; gap: 10px; }
+            .hero-platform-logos { width: min(304px, 100%); column-gap: 8px; }
+            .hero-platform-logo { height: 58px; }
+            .hero-platforms img { height: 22px; }
+            .hero-platforms img.hp-big { height: 44px; }
+        }
 
         /* ===== بريلودر ===== */
         #preloader { position: fixed; inset: 0; z-index: 9999; background: var(--primary); display: flex; align-items: center; justify-content: center; transition: opacity 0.45s ease, visibility 0.45s; animation: preloader-autohide 0.4s ease 2.2s forwards; }
@@ -912,6 +925,8 @@
         .after-contact-steps {
             max-width: 1120px;
             margin: 0 auto;
+            padding: 0;
+            list-style: none;
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 18px;
@@ -1035,7 +1050,7 @@
             --gold-soft: rgba(245, 158, 11, 0.13);
         }
 
-        /* الشريط يستخدم نفس محرك أدوات العمل: قياس المجموعة، نسخها، ثم لفّها بـ modulo بلا فراغ. */
+        /* نفس فكرة أدوات العمل: عناصر مباشرة تتكرر ويقيسها محرك marquee ثم يلفها بلا فراغ. */
         .seo-ticker {
             position: relative;
             overflow: hidden;
@@ -1045,6 +1060,7 @@
             color: #fff;
             box-shadow: 0 12px 30px -15px rgba(59, 130, 246, 0.72);
             transform: rotate(-0.45deg) scaleX(1.01);
+            direction: ltr;
             touch-action: pan-y;
             cursor: grab;
             user-select: none;
@@ -1064,26 +1080,25 @@
         .seo-ticker::after { left: 0; background: linear-gradient(90deg, var(--accent2), transparent); }
         .seo-ticker-track {
             display: flex;
+            align-items: center;
+            gap: 0;
             width: max-content;
             direction: ltr;
             will-change: transform;
         }
-        .seo-ticker-group {
-            display: flex;
+        .seo-ticker-item {
             flex: none;
-            min-width: 100vw;
-            align-items: center;
-            justify-content: space-around;
-            gap: 20px;
-            padding-inline: 20px;
-            white-space: nowrap;
+            margin-inline: 10px;
+            color: #fff;
             direction: rtl;
-        }
-        .seo-ticker-group > span {
+            unicode-bidi: plaintext;
+            white-space: nowrap;
             font-size: 0.9rem;
             font-weight: 800;
         }
         .seo-ticker-divider {
+            flex: none;
+            margin-inline: 10px;
             color: var(--gold);
             font-size: 0.72rem;
             font-style: normal;
@@ -1382,50 +1397,81 @@
             unicode-bidi: plaintext;
         }
 
-        /* لماذا السيو استثمار لا مصروف */
-        .why-seo-grid {
-            max-width: 1050px;
+        /* السيو أم الإعلانات: مقارنة صريحة ومختصرة، بدون وعود بنتيجة مضمونة. */
+        #compare { position: relative; }
+        .compare-grid {
+            max-width: 940px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            gap: 18px;
+            align-items: stretch;
         }
-        .why-seo-card {
-            min-height: 230px;
-            padding: 29px 25px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.32s ease, border-color 0.32s ease, box-shadow 0.32s ease;
-        }
-        .why-seo-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(59, 130, 246, 0.45);
-            box-shadow: 0 14px 36px rgba(59, 130, 246, 0.1);
-        }
-        .why-seo-icon {
-            width: 52px;
-            height: 52px;
+        .vs-badge {
+            align-self: center;
+            width: 58px;
+            height: 58px;
             display: grid;
             place-items: center;
-            margin-bottom: 20px;
-            border-radius: 14px;
+            border: 1px solid rgba(245, 158, 11, 0.46);
+            border-radius: 50%;
+            background: var(--gold-soft);
+            color: var(--gold);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 900;
+            box-shadow: 0 10px 24px rgba(245, 158, 11, 0.1);
         }
-        .why-seo-icon svg { width: 27px; height: 27px; }
-        .why-seo-icon-gold { background: var(--gold-soft); color: var(--gold); }
-        .why-seo-icon-cyan { background: rgba(6, 182, 212, 0.12); color: var(--accent2); }
-        .why-seo-icon-purple { background: rgba(139, 92, 246, 0.12); color: var(--accent3); }
-        .why-seo-card h3 {
-            color: var(--text);
-            font-size: 1.12rem;
+        .cmp-card {
+            padding: 28px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+        }
+        .cmp-card h3 {
+            margin-bottom: 14px;
+            font-size: 1.2rem;
             font-weight: 800;
         }
-        .why-seo-card p {
-            margin-top: 8px;
+        .cmp-card ul {
+            display: grid;
+            gap: 11px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .cmp-card li {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
             color: var(--text-secondary);
             font-size: 0.89rem;
-            line-height: 1.9;
+            line-height: 1.75;
+        }
+        .cmp-card li::before { flex: none; font-family: 'Inter', sans-serif; font-weight: 900; }
+        .cmp-ads { border-color: rgba(239, 68, 68, 0.36); }
+        .cmp-ads h3, .cmp-ads li::before { color: #EF4444; }
+        .cmp-ads li::before { content: '−'; }
+        .cmp-ads:hover { border-color: rgba(239, 68, 68, 0.64); box-shadow: 0 16px 38px rgba(239, 68, 68, 0.09); }
+        .cmp-seo { border-color: rgba(6, 182, 212, 0.42); }
+        .cmp-seo h3, .cmp-seo li::before { color: var(--accent2); }
+        .cmp-seo li::before { content: '✓'; }
+        .cmp-seo:hover { border-color: rgba(6, 182, 212, 0.66); box-shadow: 0 16px 38px rgba(6, 182, 212, 0.1); }
+        .cmp-truth {
+            max-width: 760px;
+            margin: 26px auto 0;
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.98rem;
+            line-height: 1.85;
+        }
+        .cmp-truth strong { color: var(--gold); }
+        @media (max-width: 768px) {
+            .compare-grid { grid-template-columns: 1fr; gap: 14px; }
+            .vs-badge { justify-self: center; width: 50px; height: 50px; }
+            .cmp-card { padding: 23px 20px; }
+            .cmp-truth { font-size: 0.9rem; }
         }
 
         /* تعديلات محددة داخل الهيرو فقط: الشعارات، الصورة، وكارت النتيجة الأولى. */
@@ -1491,7 +1537,7 @@
             #experience .timeline-content,
             #faq .faq-item,
             #after-contact .after-contact-step,
-            #why .why-seo-card,
+            #compare .cmp-card,
             #contact .contact-profile-card,
             #contact .contact-item,
             #contact .contact-form
@@ -1510,7 +1556,7 @@
             #experience .timeline-content,
             #faq .faq-item,
             #after-contact .after-contact-step,
-            #why .why-seo-card,
+            #compare .cmp-card,
             #contact .contact-profile-card,
             #contact .contact-item,
             #contact .contact-form
@@ -1519,7 +1565,7 @@
         #platforms .platform-card:nth-child(odd),
         #tools .tool-item:nth-child(odd),
         #after-contact .after-contact-step:nth-child(odd),
-        #why .why-seo-card:nth-child(odd),
+        #compare .cmp-ads,
         #contact .contact-item:nth-child(odd),
         #experience .timeline-item:nth-child(odd) .timeline-content,
         #serp-preview .serp-editor,
@@ -1528,7 +1574,7 @@
         #platforms .platform-card:nth-child(even),
         #tools .tool-item:nth-child(even),
         #after-contact .after-contact-step:nth-child(even),
-        #why .why-seo-card:nth-child(even),
+        #compare .cmp-seo,
         #contact .contact-item:nth-child(even),
         #experience .timeline-item:nth-child(even) .timeline-content,
         #serp-preview .serp-preview-shell,
@@ -1548,8 +1594,8 @@
 
         @media (max-width: 768px) {
             .seo-ticker { margin-top: 6px; padding: 10px 0; transform: rotate(-0.35deg) scaleX(1.01); }
-            .seo-ticker-group { gap: 16px; padding-inline: 16px; }
-            .seo-ticker-group > span { font-size: 0.78rem; }
+            .seo-ticker-item { margin-inline: 8px; font-size: 0.78rem; }
+            .seo-ticker-divider { margin-inline: 8px; }
             .stats-bar .container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
             .stat-item { padding: 20px 8px; }
             .stat-item .number { font-size: 1.8rem; }
@@ -1583,14 +1629,11 @@
                 #experience .timeline-content,
                 #faq .faq-item,
                 #after-contact .after-contact-step,
-                #why .why-seo-card,
+                #compare .cmp-card,
                 #contact .contact-profile-card,
                 #contact .contact-item,
                 #contact .contact-form
             ) { --surface-tilt: 0deg; rotate: 0deg; }
-            .why-seo-grid { grid-template-columns: 1fr; gap: 14px; }
-            .why-seo-card { min-height: 0; padding: 23px 20px; }
-            .why-seo-icon { margin-bottom: 15px; }
             .hero-platforms img.hp-big { height: 58px; }
             .profile-photo-wrapper { width: min(250px, 82vw); }
             .photo-card img { height: 250px; }
@@ -1605,10 +1648,8 @@
             .rank-card,
             .rank-scribble path { animation: none; }
             .seo-ticker-track { transform: none; }
-            .seo-ticker-group[aria-hidden="true"] { display: none; }
             .gsc-card,
             .portfolio-card,
-            .why-seo-card,
             .svc-row,
             #process .process-step,
             #problems .problem-accordion-item,
@@ -1619,13 +1660,13 @@
             #experience .timeline-content,
             #faq .faq-item,
             #after-contact .after-contact-step,
+            #compare .cmp-card,
             #contact .contact-profile-card,
             #contact .contact-item,
             #contact .contact-form { transition: none; rotate: 0deg; }
             :is(
                 .gsc-card,
                 .portfolio-card,
-                .why-seo-card,
                 #process .process-step,
                 #problems .problem-accordion-item,
                 #serp-preview .serp-editor,
@@ -1635,6 +1676,7 @@
                 #experience .timeline-content,
                 #faq .faq-item,
                 #after-contact .after-contact-step,
+                #compare .cmp-card,
                 #contact .contact-profile-card,
                 #contact .contact-item,
                 #contact .contact-form
@@ -1811,10 +1853,10 @@
                 <div class="hero-platforms">
                     <span class="hp-label">بشتغل على:</span>
                     <div class="hero-platform-logos">
-                        <img src="https://i.postimg.cc/pTVrtbKD/Salla2-01.png" alt="سلة" title="سلة" class="hp-big" loading="lazy">
-                        <img src="https://i.postimg.cc/Tw21XMnH/Zid-En-01.png" alt="زد" title="زد" class="hp-big" loading="lazy">
-                        <img src="https://i.postimg.cc/xd95B51C/shopify.png" alt="Shopify" title="Shopify" loading="lazy">
-                        <img src="https://i.postimg.cc/d0j3XtZ0/logo-wordpress-49497.png" alt="WordPress" title="WordPress" loading="lazy">
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/pTVrtbKD/Salla2-01.png" alt="سلة" title="سلة" class="hp-big" loading="lazy"></span>
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/Tw21XMnH/Zid-En-01.png" alt="زد" title="زد" class="hp-big" loading="lazy"></span>
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/xd95B51C/shopify.png" alt="Shopify" title="Shopify" loading="lazy"></span>
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/d0j3XtZ0/logo-wordpress-49497.png" alt="WordPress" title="WordPress" loading="lazy"></span>
                     </div>
                 </div>
             </div>
@@ -1848,22 +1890,18 @@
     <!-- شريط خدمات متحرك فوق الأرقام -->
     <div class="seo-ticker" aria-hidden="true">
         <div class="seo-ticker-track">
-            <div class="seo-ticker-group">
-                <span>بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
-                <span>Technical SEO</span><i class="seo-ticker-divider">✦</i>
-                <span>SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
-                <span>On-Page SEO</span><i class="seo-ticker-divider">✦</i>
-                <span>تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
-                <span>مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
-            </div>
-            <div class="seo-ticker-group" aria-hidden="true">
-                <span>بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
-                <span>Technical SEO</span><i class="seo-ticker-divider">✦</i>
-                <span>SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
-                <span>On-Page SEO</span><i class="seo-ticker-divider">✦</i>
-                <span>تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
-                <span>مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
-            </div>
+            <span class="seo-ticker-item">بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">Technical SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">On-Page SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">Technical SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">On-Page SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
         </div>
     </div>
 
@@ -1878,6 +1916,67 @@
     </div>
 
 
+
+    <!-- Results (نتائج من Search Console) -->
+    <section id="results" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-up"><h2>النتائج <span>اللي حققتها</span></h2><p>دي لقطات مباشرة من Google Search Console لمشاريع اشتغلت عليها</p></div>
+            <div class="gsc-slider-wrap fade-up">
+                <button class="gsc-nav prev" onclick="gscSlide(1)" aria-label="السابق">‹</button>
+                <button class="gsc-nav next" onclick="gscSlide(-1)" aria-label="التالي">›</button>
+                <div class="gsc-grid" id="gscSlider">
+                <div class="gsc-card fade-up">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
+                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين" src="https://i.postimg.cc/ZnGVpmJ4/mtjr-jwfna-kwnswl-mqarnt-shhryn.png" alt="نتائج Search Console - متجر زيت زيتون في السعودية" loading="lazy">
+                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 22.2 ألف لـ <strong>31.3 ألف ريال (+40.8%)</strong> والجلسات من 2,988 لـ <strong>6,419</strong> (+114%)" src="https://i.postimg.cc/wv3Ck6Yk/analtyks-jwfna-mqarnt-shhryn.png" alt="نتائج Google Analytics - متجر زيت زيتون في السعودية" loading="lazy">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر زيت زيتون في السعودية</span>
+                        </div>
+                        <p class="gsc-sum">النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين</p>
+                    </div>
+                </div>
+                <div class="gsc-card fade-up">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
+                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور" src="https://i.postimg.cc/SNSpbcpM/kwnswl-mtjr-zywt-tbyʿyt.webp" alt="نتائج Search Console - متجر زيوت وعطارة" loading="lazy">
+                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 26.5 ألف لـ <strong>106.3 ألف ريال</strong> والجلسات من 3,131 لـ <strong>18,839</strong> (+501%)" src="https://i.postimg.cc/DyvK31KG/analytyks-mtjr-zywt-tbyʿyt.webp" alt="نتائج Google Analytics - متجر زيوت وعطارة" loading="lazy">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر زيوت وعطارة في السعودية</span>
+                        </div>
+                        <p class="gsc-sum">النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور</p>
+                    </div>
+                </div>
+                <div class="gsc-card fade-up" style="transition-delay:0.1s">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
+                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-sum="النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين" src="https://i.postimg.cc/3JJWP2cQ/kwnswl-mtjr-ajhzt-mnzlyt-wkhrbyt.webp" alt="نتائج Search Console - متجر أجهزة منزلية" loading="lazy">
+                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 689 لـ <strong>42,859 ريال</strong> والجلسات من 662 لـ <strong>4,267</strong> (+544%)" src="https://i.postimg.cc/NjDsHybK/kys-astady-mtjr-adwat-mnzlyh-wkhrbyt-mqarnh-shhryn.webp" alt="نتائج Google Analytics - متجر أجهزة منزلية" loading="lazy">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر أجهزة منزلية وكهربائية في السعودية</span>
+                        </div>
+                        <p class="gsc-sum">النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Services -->
     <section id="services">
@@ -1993,64 +2092,35 @@
         </div>
     </section>
 
-    <!-- Results (نتائج من Search Console) -->
-    <section id="results" class="section-alt">
+    <!-- السيو أم الإعلانات؟ -->
+    <section id="compare" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up"><h2>النتائج <span>اللي حققتها</span></h2><p>دي لقطات مباشرة من Google Search Console لمشاريع اشتغلت عليها</p></div>
-            <div class="gsc-slider-wrap fade-up">
-                <button class="gsc-nav prev" onclick="gscSlide(1)" aria-label="السابق">‹</button>
-                <button class="gsc-nav next" onclick="gscSlide(-1)" aria-label="التالي">›</button>
-                <div class="gsc-grid" id="gscSlider">
-                <div class="gsc-card fade-up">
-                    <div class="gsc-tabs">
-                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
-                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
-                    </div>
-                    <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين" src="https://i.postimg.cc/ZnGVpmJ4/mtjr-jwfna-kwnswl-mqarnt-shhryn.png" alt="نتائج Search Console - متجر زيت زيتون في السعودية" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 22.2 ألف لـ <strong>31.3 ألف ريال (+40.8%)</strong> والجلسات من 2,988 لـ <strong>6,419</strong> (+114%)" src="https://i.postimg.cc/wv3Ck6Yk/analtyks-jwfna-mqarnt-shhryn.png" alt="نتائج Google Analytics - متجر زيت زيتون في السعودية" loading="lazy">
-                    </div>
-                    <div class="gsc-meta">
-                        <div class="g-top">
-                            <span class="gsc-niche">متجر زيت زيتون في السعودية</span>
-                        </div>
-                        <p class="gsc-sum">النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين</p>
-                    </div>
-                </div>
-                <div class="gsc-card fade-up">
-                    <div class="gsc-tabs">
-                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
-                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
-                    </div>
-                    <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور" src="https://i.postimg.cc/SNSpbcpM/kwnswl-mtjr-zywt-tbyʿyt.webp" alt="نتائج Search Console - متجر زيوت وعطارة" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 26.5 ألف لـ <strong>106.3 ألف ريال</strong> والجلسات من 3,131 لـ <strong>18,839</strong> (+501%)" src="https://i.postimg.cc/DyvK31KG/analytyks-mtjr-zywt-tbyʿyt.webp" alt="نتائج Google Analytics - متجر زيوت وعطارة" loading="lazy">
-                    </div>
-                    <div class="gsc-meta">
-                        <div class="g-top">
-                            <span class="gsc-niche">متجر زيوت وعطارة في السعودية</span>
-                        </div>
-                        <p class="gsc-sum">النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور</p>
-                    </div>
-                </div>
-                <div class="gsc-card fade-up" style="transition-delay:0.1s">
-                    <div class="gsc-tabs">
-                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
-                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
-                    </div>
-                    <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين" src="https://i.postimg.cc/3JJWP2cQ/kwnswl-mtjr-ajhzt-mnzlyt-wkhrbyt.webp" alt="نتائج Search Console - متجر أجهزة منزلية" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 689 لـ <strong>42,859 ريال</strong> والجلسات من 662 لـ <strong>4,267</strong> (+544%)" src="https://i.postimg.cc/NjDsHybK/kys-astady-mtjr-adwat-mnzlyh-wkhrbyt-mqarnh-shhryn.webp" alt="نتائج Google Analytics - متجر أجهزة منزلية" loading="lazy">
-                    </div>
-                    <div class="gsc-meta">
-                        <div class="g-top">
-                            <span class="gsc-niche">متجر أجهزة منزلية وكهربائية في السعودية</span>
-                        </div>
-                        <p class="gsc-sum">النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين</p>
-                    </div>
-                </div>
-                </div>
+            <div class="section-header fade-up">
+                <h2>السيو أم <span>الإعلانات؟</span></h2>
+                <p>كل قناة ليها دور؛ الاختيار الصح بيعتمد على هدفك ومرحلة مشروعك.</p>
             </div>
+            <div class="compare-grid fade-up">
+                <article class="cmp-card cmp-ads">
+                    <h3>الحملات الإعلانية</h3>
+                    <ul>
+                        <li>بتديك وصول أسرع طول ما الحملة والميزانية شغالين.</li>
+                        <li>بتدفع مقابل النقرات أو الظهور حسب نوع الحملة.</li>
+                        <li>الزيارات المدفوعة بتقل لما توقف الإنفاق.</li>
+                        <li>مفيدة للعروض والمواسم واختبار الطلب بسرعة.</li>
+                    </ul>
+                </article>
+                <div class="vs-badge" aria-hidden="true">أم</div>
+                <article class="cmp-card cmp-seo">
+                    <h3>SEO</h3>
+                    <ul>
+                        <li>بياخد وقت في البداية، لكنه بيبني ظهورًا عضويًا تدريجيًا.</li>
+                        <li>مفيش تكلفة مباشرة على كل نقرة من Google.</li>
+                        <li>بيخدم الصفحات اللي عليها بحث فعلي من عملاء محتملين.</li>
+                        <li>قيمته بتتراكم مع التحسين والمتابعة على المدى الطويل.</li>
+                    </ul>
+                </article>
+            </div>
+            <p class="cmp-truth fade-up">الأفضل مش دايمًا واحد بدل التاني: <strong>الإعلانات</strong> تدعم احتياجك السريع، و<strong>السيو</strong> يبني حضورًا عضويًا على المدى الطويل.</p>
         </div>
     </section>
 
@@ -2070,18 +2140,50 @@
             </div>
         </div>
     </section>
-    <section id="process" class="section-alt">
+
+    <!-- معاينة شكل النتيجة في Google -->
+    <section id="serp-preview" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up"><h2>منهجية <span>العمل</span></h2><p>خطوات واضحة لبناء نمو مستدام لمتجرك</p></div>
-            <div class="process-steps">
-                <div class="process-step fade-up"><div class="step-number">1</div><h3>التحليل والبحث</h3><p>تحليل شامل للموقع والمنافسين والكلمات المفتاحية + مراجعة تقنية</p></div>
-                <div class="process-step fade-up"><div class="step-number">2</div><h3>وضع الاستراتيجية</h3><p>بناء خطة SEO متكاملة تشمل On-Page و Technical و Content Strategy</p></div>
-                <div class="process-step fade-up"><div class="step-number">3</div><h3>التنفيذ والتحسين</h3><p>تطبيق التحسينات على كل الصفحات مع كتابة المحتوى المتوافق مع SEO</p></div>
-                <div class="process-step fade-up"><div class="step-number">4</div><h3>المتابعة والتطوير</h3><p>مراقبة الأداء المستمرة وتحديث الاستراتيجية بناءً على البيانات</p></div>
+            <div class="section-header fade-up">
+                <h2>شكل موقعك في <span>Google</span></h2>
+                <p>اكتب عنوان الصفحة والوصف وشوف معاينة تقريبية لنتيجتك قبل النشر.</p>
+            </div>
+            <div class="serp-tool-grid">
+                <div class="serp-editor fade-up">
+                    <div class="serp-field">
+                        <label for="serpTitleInput"><span>عنوان الصفحة (Title)</span><b class="serp-count" id="serpTitleCount">0 / 60</b></label>
+                        <input id="serpTitleInput" type="text" maxlength="120" autocomplete="off" placeholder="مثال: أفضل غسالات أوتوماتيك في السعودية | اسم متجرك">
+                        <span class="serp-meter" aria-hidden="true"><i id="serpTitleMeter"></i></span>
+                    </div>
+                    <div class="serp-field">
+                        <label for="serpDescriptionInput"><span>وصف الميتا (Meta Description)</span><b class="serp-count" id="serpDescriptionCount">0 / 155</b></label>
+                        <textarea id="serpDescriptionInput" maxlength="320" placeholder="اكتب وصفًا واضحًا يشرح الصفحة ويشجع العميل على الدخول..."></textarea>
+                        <span class="serp-meter" aria-hidden="true"><i id="serpDescriptionMeter"></i></span>
+                    </div>
+                    <div class="serp-field">
+                        <label for="serpUrlInput"><span>رابط الصفحة (اختياري)</span></label>
+                        <input id="serpUrlInput" type="text" inputmode="url" dir="ltr" style="text-align:left" autocomplete="url" placeholder="example.com/category">
+                    </div>
+                    <p class="serp-editor-note">المعاينة للتوضيح فقط؛ Google ممكن يغيّر العنوان أو الوصف حسب بحث المستخدم والجهاز.</p>
+                </div>
+                <div class="serp-preview-shell fade-up" style="transition-delay:0.12s">
+                    <span class="serp-preview-label">معاينة نتيجة البحث</span>
+                    <div class="serp-result" aria-live="polite" dir="rtl">
+                        <div class="serp-result-head">
+                            <span class="serp-result-mark" aria-hidden="true">م</span>
+                            <span>
+                                <span class="serp-result-site" id="serpPreviewSite" dir="auto">موقعك</span>
+                                <span class="serp-result-url" id="serpPreviewUrl" dir="ltr">example.com</span>
+                            </span>
+                        </div>
+                        <p class="serp-result-title" id="serpPreviewTitle">عنوان صفحتك يظهر هنا</p>
+                        <p class="serp-result-description" id="serpPreviewDescription">وصف الميتا هيظهر هنا ويساعد العميل يفهم الصفحة قبل ما يضغط على النتيجة.</p>
+                    </div>
+                    <p class="serp-guidance" id="serpGuidance">اكتب عنوانًا ووصفًا عشان تشوف تقييم الطول المناسب للعرض.</p>
+                </div>
             </div>
         </div>
     </section>
-
 
     <!-- المشاكل التي أتعامل معها -->
     <section id="problems">
@@ -2183,46 +2285,15 @@
         </div>
     </section>
 
-    <!-- معاينة شكل النتيجة في Google -->
-    <section id="serp-preview" class="section-alt">
+    <!-- منهجية العمل -->
+    <section id="process" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up">
-                <h2>شكل موقعك في <span>Google</span></h2>
-                <p>اكتب عنوان الصفحة والوصف وشوف معاينة تقريبية لنتيجتك قبل النشر.</p>
-            </div>
-            <div class="serp-tool-grid">
-                <div class="serp-editor fade-up">
-                    <div class="serp-field">
-                        <label for="serpTitleInput"><span>عنوان الصفحة (Title)</span><b class="serp-count" id="serpTitleCount">0 / 60</b></label>
-                        <input id="serpTitleInput" type="text" maxlength="120" autocomplete="off" placeholder="مثال: أفضل غسالات أوتوماتيك في السعودية | اسم متجرك">
-                        <span class="serp-meter" aria-hidden="true"><i id="serpTitleMeter"></i></span>
-                    </div>
-                    <div class="serp-field">
-                        <label for="serpDescriptionInput"><span>وصف الميتا (Meta Description)</span><b class="serp-count" id="serpDescriptionCount">0 / 155</b></label>
-                        <textarea id="serpDescriptionInput" maxlength="320" placeholder="اكتب وصفًا واضحًا يشرح الصفحة ويشجع العميل على الدخول..."></textarea>
-                        <span class="serp-meter" aria-hidden="true"><i id="serpDescriptionMeter"></i></span>
-                    </div>
-                    <div class="serp-field">
-                        <label for="serpUrlInput"><span>رابط الصفحة (اختياري)</span></label>
-                        <input id="serpUrlInput" type="text" inputmode="url" dir="ltr" style="text-align:left" autocomplete="url" placeholder="example.com/category">
-                    </div>
-                    <p class="serp-editor-note">المعاينة للتوضيح فقط؛ Google ممكن يغيّر العنوان أو الوصف حسب بحث المستخدم والجهاز.</p>
-                </div>
-                <div class="serp-preview-shell fade-up" style="transition-delay:0.12s">
-                    <span class="serp-preview-label">معاينة نتيجة البحث</span>
-                    <div class="serp-result" aria-live="polite" dir="rtl">
-                        <div class="serp-result-head">
-                            <span class="serp-result-mark" aria-hidden="true">م</span>
-                            <span>
-                                <span class="serp-result-site" id="serpPreviewSite" dir="auto">موقعك</span>
-                                <span class="serp-result-url" id="serpPreviewUrl" dir="ltr">example.com</span>
-                            </span>
-                        </div>
-                        <p class="serp-result-title" id="serpPreviewTitle">عنوان صفحتك يظهر هنا</p>
-                        <p class="serp-result-description" id="serpPreviewDescription">وصف الميتا هيظهر هنا ويساعد العميل يفهم الصفحة قبل ما يضغط على النتيجة.</p>
-                    </div>
-                    <p class="serp-guidance" id="serpGuidance">اكتب عنوانًا ووصفًا عشان تشوف تقييم الطول المناسب للعرض.</p>
-                </div>
+            <div class="section-header fade-up"><h2>منهجية <span>العمل</span></h2><p>خطوات واضحة لبناء نمو مستدام لمتجرك</p></div>
+            <div class="process-steps">
+                <div class="process-step fade-up"><div class="step-number">1</div><h3>التحليل والبحث</h3><p>تحليل شامل للموقع والمنافسين والكلمات المفتاحية + مراجعة تقنية</p></div>
+                <div class="process-step fade-up"><div class="step-number">2</div><h3>وضع الاستراتيجية</h3><p>بناء خطة SEO متكاملة تشمل On-Page و Technical و Content Strategy</p></div>
+                <div class="process-step fade-up"><div class="step-number">3</div><h3>التنفيذ والتحسين</h3><p>تطبيق التحسينات على كل الصفحات مع كتابة المحتوى المتوافق مع SEO</p></div>
+                <div class="process-step fade-up"><div class="step-number">4</div><h3>المتابعة والتطوير</h3><p>مراقبة الأداء المستمرة وتحديث الاستراتيجية بناءً على البيانات</p></div>
             </div>
         </div>
     </section>
@@ -2311,6 +2382,34 @@
                         <p class="platform-desc">SEO لمواقع مبرمجة<br>بشكل خاص</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header fade-up"><h2>مسيرتي <span>العملية</span></h2><p>مسار مهني متميز في عالم تحسين محركات البحث</p></div>
+            <div class="timeline">
+                <div class="timeline-item fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="date">أبريل 2025 - حتى الآن</div>
+                        <h3>SEO Specialist</h3>
+                        <div class="company">TAR</div>
+                        <p>إدارة تحسين محركات البحث للعملاء • تحليل المواقع وكتابة المحتوى المتوافق مع SEO • تحسين On-Page و Technical SEO للمواقع والمتاجر الإلكترونية ومواقع SaaS • رصد الكلمات المفتاحية وتتبع الأداء</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="date">فبراير 2024 - أبريل 2024</div>
+                        <h3>Marketing Intern</h3>
+                        <div class="company">Azzrk - أزرق</div>
+                        <p>تدريب عملي في التسويق الرقمي • تعلم أساسيات SEO والتسويق الإلكتروني • بناء الاستراتيجيات الرقمية والعمل على مشاريع حقيقية</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -2505,36 +2604,6 @@
         </div>
     </section>
 
-
-
-    <!-- Experience -->
-    <section id="experience">
-        <div class="container">
-            <div class="section-header fade-up"><h2>مسيرتي <span>العملية</span></h2><p>مسار مهني متميز في عالم تحسين محركات البحث</p></div>
-            <div class="timeline">
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="date">أبريل 2025 - حتى الآن</div>
-                        <h3>SEO Specialist</h3>
-                        <div class="company">TAR</div>
-                        <p>إدارة تحسين محركات البحث للعملاء • تحليل المواقع وكتابة المحتوى المتوافق مع SEO • تحسين On-Page و Technical SEO للمواقع والمتاجر الإلكترونية ومواقع SaaS • رصد الكلمات المفتاحية وتتبع الأداء</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="date">فبراير 2024 - أبريل 2024</div>
-                        <h3>Marketing Intern</h3>
-                        <div class="company">Azzrk - أزرق</div>
-                        <p>تدريب عملي في التسويق الرقمي • تعلم أساسيات SEO والتسويق الإلكتروني • بناء الاستراتيجيات الرقمية والعمل على مشاريع حقيقية</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
     <!-- FAQ -->
     <section id="faq">
         <div class="container">
@@ -2610,7 +2679,6 @@
         </div>
     </section>
 
-
     <!-- ما بعد إرسال الفورم -->
     <section id="after-contact" class="section-alt">
         <div class="container">
@@ -2640,39 +2708,6 @@
                     <p>أرجعلك بالخطوة المناسبة للتواصل وبداية شغل واضح على أهداف موقعك.</p>
                 </li>
             </ol>
-        </div>
-    </section>
-
-    <!-- لماذا السيو استثمار لا مصروف؟ -->
-    <section id="why">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>لماذا السيو <span>استثمار لا مصروف؟</span></h2>
-                <p>لأنك بتبني قناة نمو تفضل تخدم موقعك بدل ما تبدأ من الصفر كل مرة.</p>
-            </div>
-            <div class="why-seo-grid">
-                <article class="why-seo-card fade-up">
-                    <div class="why-seo-icon why-seo-icon-gold">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </div>
-                    <h3>أصل بيتراكم</h3>
-                    <p>كل صفحة بتتحسن وكل كلمة بتكسب ظهور بتزود فرص وصول العملاء لموقعك مع الوقت.</p>
-                </article>
-                <article class="why-seo-card fade-up" style="transition-delay:0.08s">
-                    <div class="why-seo-icon why-seo-icon-cyan">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-                    </div>
-                    <h3>بيشتغل طول الوقت</h3>
-                    <p>نتيجة البحث بتكون موجودة للعميل في اللحظة اللي يدور فيها على منتجك أو خدمتك.</p>
-                </article>
-                <article class="why-seo-card fade-up" style="transition-delay:0.16s">
-                    <div class="why-seo-icon why-seo-icon-purple">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/><path d="m16 13 1.5 1.5L21 11"/></svg>
-                    </div>
-                    <h3>يوصل لعميل بنيّة أوضح</h3>
-                    <p>اللي بيبحث بكلمة شرائية غالبًا عارف هو محتاج إيه، وده يخلي الزيارة أكثر قيمة.</p>
-                </article>
-            </div>
         </div>
     </section>
 
