@@ -125,33 +125,14 @@
         .section-header h2 span { background: var(--gradient1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .section-header p { color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
         .section-alt { background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        /* ===== آراء العملاء ===== */
-        .testi-slider-wrap { position: relative; }
-        .testi-grid { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 10px 4px 20px; scrollbar-width: none; }
-        .testi-grid::-webkit-scrollbar { display: none; }
-        .testi-card { flex: 0 0 calc(50% - 11px); scroll-snap-align: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; backdrop-filter: blur(10px); position: relative; transition: all 0.35s ease; display: flex; flex-direction: column; }
-        .testi-card .testi-text { flex: 1; }
-        .testi-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); }
-        .testi-card .quote-mark { position: absolute; top: 18px; left: 22px; font-size: 3rem; line-height: 1; color: rgba(59, 130, 246, 0.15); font-family: serif; }
-        .testi-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 12px; }
-        .testi-text { color: var(--text); font-size: 0.95rem; line-height: 2; margin-bottom: 18px; }
-        .testi-who { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); padding-top: 16px; }
-        .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--gradient1); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 1rem; flex-shrink: 0; }
-        .testi-who .w-name { font-size: 0.88rem; font-weight: 700; }
-        .testi-who .w-role { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
-        @media (max-width: 768px) { .testi-card { flex: 0 0 88%; } .testi-nav { display: none; } }
-        .testi-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 42px; height: 42px; border-radius: 50%; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border); color: var(--accent); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; backdrop-filter: blur(10px); }
-        .testi-nav:hover { background: var(--accent); color: #fff; }
-        .testi-nav.prev { right: -14px; }
-        .testi-nav.next { left: -14px; }
-
         /* ===== شريط المنصات في الهيرو ===== */
-        .hero-platforms { display: flex; align-items: center; gap: 18px; margin-top: 28px; flex-wrap: wrap; }
+        .hero-platforms { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
         .hero-platforms .hp-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 600; }
+        .hero-platform-logos { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 1.5vw, 22px); flex-wrap: nowrap; }
         .hero-platforms img { height: 26px; width: auto; object-fit: contain; filter: grayscale(1) opacity(0.55); transition: filter 0.3s; }
         .hero-platforms img.hp-big { height: 54px; }
         .hero-platforms img:hover { filter: grayscale(0) opacity(1); }
-        @media (max-width: 768px) { .hero-platforms { justify-content: center; } .hero-platforms img { height: 22px; } .hero-platforms img.hp-big { height: 44px; } }
+        @media (max-width: 768px) { .hero-platforms { justify-content: center; gap: 10px; } .hero-platform-logos { gap: 12px; } .hero-platforms img { height: 22px; } .hero-platforms img.hp-big { height: 44px; } }
 
         /* ===== بريلودر ===== */
         #preloader { position: fixed; inset: 0; z-index: 9999; background: var(--primary); display: flex; align-items: center; justify-content: center; transition: opacity 0.45s ease, visibility 0.45s; animation: preloader-autohide 0.4s ease 2.2s forwards; }
@@ -1078,16 +1059,20 @@
         .seo-ticker-track {
             display: flex;
             width: max-content;
+            direction: ltr;
             will-change: transform;
             animation: seoTickerLoop 27s linear infinite;
         }
         .seo-ticker-group {
             display: flex;
             flex: none;
+            min-width: 100vw;
             align-items: center;
+            justify-content: space-around;
             gap: 20px;
             padding-inline: 20px;
             white-space: nowrap;
+            direction: rtl;
         }
         .seo-ticker-group > span {
             font-size: 0.9rem;
@@ -1140,6 +1125,10 @@
             margin-top: 5px;
             color: var(--text-secondary);
             font-size: 0.85rem;
+        }
+        .stat-item:nth-child(2) .number {
+            color: var(--gold);
+            -webkit-text-fill-color: var(--gold);
         }
 
         /* الخدمات: نفس أسلوب الصفوف المرقمة المرجعي مع الذهبي كلون ثانوي. */
@@ -1254,7 +1243,7 @@
         }
         .gsc-card {
             --result-tilt: 0deg;
-            flex: 0 0 100%;
+            flex: 0 0 calc((100% - 40px) / 3);
             rotate: var(--result-tilt);
             overflow: hidden;
             border-radius: 18px;
@@ -1330,11 +1319,29 @@
             font-size: 0.81rem;
         }
         .gsc-sum { font-size: 0.89rem; line-height: 1.85; }
+        #results .gsc-card:nth-child(2) .gsc-niche {
+            border-color: rgba(245, 158, 11, 0.34);
+            background: var(--gold-soft);
+            color: var(--gold);
+        }
         .gsc-nav {
             width: 44px;
             height: 44px;
             background: var(--card-bg);
             box-shadow: 0 10px 26px rgba(2, 6, 23, 0.22);
+        }
+
+        /* على الكمبيوتر تظهر الأدلة الثلاثة معًا؛ على التابلت تبقى كارتين وعلى الموبايل كارت واحد. */
+        @media (min-width: 1024px) {
+            #results .gsc-grid {
+                overflow: visible;
+                scroll-snap-type: none;
+                padding-inline: 0;
+            }
+            #results .gsc-nav { display: none; }
+        }
+        @media (min-width: 769px) and (max-width: 1023px) {
+            #results .gsc-card { flex: 0 0 calc((100% - 20px) / 2); }
         }
 
         /* حركة كروت الكيس استادي تحافظ على الميل البسيط حتى مع ظهور fade-up. */
@@ -1472,6 +1479,72 @@
         .rank-card .lbl { font-size: 0.78rem; }
         .rank-card .lbl strong { font-size: 0.9rem; }
 
+        /* حركة هادئة وموحّدة للكروت من غير مبالغة أو تأثير على المحتوى. */
+        :is(
+            #process .process-step,
+            #problems .problem-accordion-item,
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #platforms .platform-card,
+            #tools .tool-item,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #after-contact .after-contact-step,
+            #why .why-seo-card,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form
+        ) {
+            --surface-tilt: 0deg;
+            rotate: var(--surface-tilt);
+            transition: transform 0.34s ease, rotate 0.34s ease, border-color 0.34s ease, box-shadow 0.34s ease;
+        }
+        :is(
+            #process .process-step,
+            #problems .problem-accordion-item,
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #platforms .platform-card,
+            #tools .tool-item,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #after-contact .after-contact-step,
+            #why .why-seo-card,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form
+        ):hover { transform: translateY(-6px); }
+        #process .process-step:nth-child(odd),
+        #platforms .platform-card:nth-child(odd),
+        #tools .tool-item:nth-child(odd),
+        #after-contact .after-contact-step:nth-child(odd),
+        #why .why-seo-card:nth-child(odd),
+        #contact .contact-item:nth-child(odd),
+        #experience .timeline-item:nth-child(odd) .timeline-content,
+        #serp-preview .serp-editor,
+        #contact .contact-profile-card { --surface-tilt: 0.2deg; }
+        #process .process-step:nth-child(even),
+        #platforms .platform-card:nth-child(even),
+        #tools .tool-item:nth-child(even),
+        #after-contact .after-contact-step:nth-child(even),
+        #why .why-seo-card:nth-child(even),
+        #contact .contact-item:nth-child(even),
+        #experience .timeline-item:nth-child(even) .timeline-content,
+        #serp-preview .serp-preview-shell,
+        #contact .contact-form { --surface-tilt: -0.2deg; }
+        :is(
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form
+        ):hover {
+            border-color: rgba(59, 130, 246, 0.46);
+            box-shadow: 0 16px 38px rgba(59, 130, 246, 0.11);
+        }
+
         @media (max-width: 768px) {
             .seo-ticker { margin-top: 6px; padding: 10px 0; transform: rotate(-0.35deg) scaleX(1.01); }
             .seo-ticker-group { gap: 16px; padding-inline: 16px; }
@@ -1499,6 +1572,21 @@
             .gsc-niche { font-size: 0.75rem; }
             .gsc-sum { font-size: 0.8rem; }
             .portfolio-card { --case-tilt: 0deg; rotate: 0deg; }
+            :is(
+                #process .process-step,
+                #problems .problem-accordion-item,
+                #serp-preview .serp-editor,
+                #serp-preview .serp-preview-shell,
+                #platforms .platform-card,
+                #tools .tool-item,
+                #experience .timeline-content,
+                #faq .faq-item,
+                #after-contact .after-contact-step,
+                #why .why-seo-card,
+                #contact .contact-profile-card,
+                #contact .contact-item,
+                #contact .contact-form
+            ) { --surface-tilt: 0deg; rotate: 0deg; }
             .why-seo-grid { grid-template-columns: 1fr; gap: 14px; }
             .why-seo-card { min-height: 0; padding: 23px 20px; }
             .why-seo-icon { margin-bottom: 15px; }
@@ -1520,7 +1608,36 @@
             .gsc-card,
             .portfolio-card,
             .why-seo-card,
-            .svc-row { transition: none; rotate: 0deg; }
+            .svc-row,
+            #process .process-step,
+            #problems .problem-accordion-item,
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #platforms .platform-card,
+            #tools .tool-item,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #after-contact .after-contact-step,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form { transition: none; rotate: 0deg; }
+            :is(
+                .gsc-card,
+                .portfolio-card,
+                .why-seo-card,
+                #process .process-step,
+                #problems .problem-accordion-item,
+                #serp-preview .serp-editor,
+                #serp-preview .serp-preview-shell,
+                #platforms .platform-card,
+                #tools .tool-item,
+                #experience .timeline-content,
+                #faq .faq-item,
+                #after-contact .after-contact-step,
+                #contact .contact-profile-card,
+                #contact .contact-item,
+                #contact .contact-form
+            ):hover { transform: none; }
         }
 
     </style>
@@ -1692,10 +1809,12 @@
                 </div>
                 <div class="hero-platforms">
                     <span class="hp-label">بشتغل على:</span>
-                    <img src="https://i.postimg.cc/pTVrtbKD/Salla2-01.png" alt="سلة" title="سلة" class="hp-big" loading="lazy">
-                    <img src="https://i.postimg.cc/Tw21XMnH/Zid-En-01.png" alt="زد" title="زد" class="hp-big" loading="lazy">
-                    <img src="https://i.postimg.cc/xd95B51C/shopify.png" alt="Shopify" title="Shopify" loading="lazy">
-                    <img src="https://i.postimg.cc/d0j3XtZ0/logo-wordpress-49497.png" alt="WordPress" title="WordPress" loading="lazy">
+                    <div class="hero-platform-logos">
+                        <img src="https://i.postimg.cc/pTVrtbKD/Salla2-01.png" alt="سلة" title="سلة" class="hp-big" loading="lazy">
+                        <img src="https://i.postimg.cc/Tw21XMnH/Zid-En-01.png" alt="زد" title="زد" class="hp-big" loading="lazy">
+                        <img src="https://i.postimg.cc/xd95B51C/shopify.png" alt="Shopify" title="Shopify" loading="lazy">
+                        <img src="https://i.postimg.cc/d0j3XtZ0/logo-wordpress-49497.png" alt="WordPress" title="WordPress" loading="lazy">
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
@@ -1731,7 +1850,7 @@
             <div class="seo-ticker-group">
                 <span>بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
                 <span>Technical SEO</span><i class="seo-ticker-divider">✦</i>
-                <span>سيو متاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+                <span>SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
                 <span>On-Page SEO</span><i class="seo-ticker-divider">✦</i>
                 <span>تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
                 <span>مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
@@ -1739,7 +1858,7 @@
             <div class="seo-ticker-group" aria-hidden="true">
                 <span>بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
                 <span>Technical SEO</span><i class="seo-ticker-divider">✦</i>
-                <span>سيو متاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+                <span>SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
                 <span>On-Page SEO</span><i class="seo-ticker-divider">✦</i>
                 <span>تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
                 <span>مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
@@ -1764,7 +1883,7 @@
         <div class="container">
             <div class="section-header fade-up">
                 <h2>خدماتي <span>المتخصصة</span></h2>
-                <p>اضغط على أي خدمة عشان تشوف التفاصيل اللي بشتغل عليها</p>
+                <p>اضغط على أي خدمة عشان تشوف تفاصيل الشغل فيها</p>
             </div>
             <div class="svc-index fade-up">
                 <details class="svc-row">
@@ -1952,7 +2071,7 @@
     </section>
     <section id="process" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up"><h2>منهجية <span>العمل</span></h2><p>خطوات مضمونة لتحقيق نتائج مستدامة لمتجرك</p></div>
+            <div class="section-header fade-up"><h2>منهجية <span>العمل</span></h2><p>خطوات واضحة لبناء نمو مستدام لمتجرك</p></div>
             <div class="process-steps">
                 <div class="process-step fade-up"><div class="step-number">1</div><h3>التحليل والبحث</h3><p>تحليل شامل للموقع والمنافسين والكلمات المفتاحية + مراجعة تقنية</p></div>
                 <div class="process-step fade-up"><div class="step-number">2</div><h3>وضع الاستراتيجية</h3><p>بناء خطة SEO متكاملة تشمل On-Page و Technical و Content Strategy</p></div>
@@ -2416,37 +2535,6 @@
     </section>
 
     <!-- FAQ -->
-    <!-- Testimonials -->
-    <section id="testimonials" class="section-alt">
-        <div class="container">
-            <div class="section-header fade-up"><h2>آراء <span>العملاء</span></h2><p>اللي بيقولوه أصحاب المشاريع اللي اشتغلت معاهم</p></div>
-            <div class="testi-slider-wrap fade-up">
-                <button class="testi-nav prev" onclick="testiSlide(1)" aria-label="السابق">‹</button>
-                <button class="testi-nav next" onclick="testiSlide(-1)" aria-label="التالي">›</button>
-                <div class="testi-grid" id="testiSlider">
-                <div class="testi-card fade-up">
-                    <span class="quote-mark">"</span>
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">كنا بندفع آلاف الريالات شهريًا في الإعلانات، دلوقتي البحث العضوي بيجيب لنا طلبات يومية من غير ما ندفع ريال. أفضل استثمار عملناه للمتجر.</p>
-                    <div class="testi-who">
-                        <div class="testi-avatar">ع</div>
-                        <div><div class="w-name">صاحب متجر زيوت وعطارة</div><div class="w-role">متجر إلكتروني · السعودية</div></div>
-                    </div>
-                </div>
-                <div class="testi-card fade-up" style="transition-delay:0.1s">
-                    <span class="quote-mark">"</span>
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">أول مرة نشوف مبيعات حقيقية جاية من جوجل. الشغل كان منظم بتقارير واضحة كل شهر، وكل رقم كان له إثبات قدامنا.</p>
-                    <div class="testi-who">
-                        <div class="testi-avatar">م</div>
-                        <div><div class="w-name">مدير متجر أجهزة منزلية</div><div class="w-role">متجر إلكتروني · السعودية</div></div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="faq">
         <div class="container">
             <div class="section-header fade-up">
@@ -2689,7 +2777,8 @@
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="cases-data.js"></script><script>
+    <script src="cases-data.js"></script>
+    <script>
         try { renderCases("homeCasesGrid", 3); } catch (e) { console.warn("cases-data.js لم يتم تحميله:", e); }
         /* ===== بريلودر ===== */
         window.addEventListener('load', () => {
@@ -2787,23 +2876,21 @@
             }
             requestAnimationFrame(tick);
         }
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting && !e.target.dataset.counted) {
-                    e.target.dataset.counted = "1";
-                    animateCounter(e.target);
-                }
-            });
-        }, { threshold: 0.6 });
-        document.querySelectorAll('.stat-item .number').forEach(el => counterObserver.observe(el));
-
-        function testiSlide(dir) {
-            const s = document.getElementById('testiSlider');
-            if (!s) return;
-            const card = s.querySelector('.testi-card');
-            const step = card ? card.offsetWidth + 22 : 400;
-            s.scrollBy({ left: dir * step, behavior: 'smooth' });
+        const statNumbers = document.querySelectorAll('.stat-item .number');
+        if ('IntersectionObserver' in window) {
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting && !e.target.dataset.counted) {
+                        e.target.dataset.counted = "1";
+                        animateCounter(e.target);
+                    }
+                });
+            }, { threshold: 0.6 });
+            statNumbers.forEach(el => counterObserver.observe(el));
+        } else {
+            statNumbers.forEach(animateCounter);
         }
+
         /* لو الكارت فيه صورة واحدة بس — التابات تتخفي تلقائي */
         document.querySelectorAll('.gsc-card').forEach(card => {
             const imgs = card.querySelectorAll('.gsc-shot img');
@@ -2818,7 +2905,8 @@
             }
         });
         function gscTab(btn) {
-            const card = btn.closest('.gsc-card');
+            const card = btn?.closest('.gsc-card');
+            if (!card) return;
             const tab = btn.dataset.tab;
             card.querySelectorAll('.gsc-tab').forEach(t => t.classList.toggle('active', t === btn));
             let activeImg = null;
@@ -2839,21 +2927,31 @@
             s.scrollBy({ left: dir * step, behavior: 'smooth' });
         }
         function openLightbox(el) {
-            const img = el.querySelector('img.active') || el.querySelector('img');
-            document.getElementById('lightboxImg').src = img.src;
-            document.getElementById('lightbox').classList.add('open');
+            const img = el?.querySelector('img.active') || el?.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            if (!img || !lightbox || !lightboxImg) return;
+            lightboxImg.src = img.src;
+            lightbox.classList.add('open');
             document.body.style.overflow = 'hidden';
         }
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('open');
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox) return;
+            lightbox.classList.remove('open');
             document.body.style.overflow = '';
         }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        const fadeItems = document.querySelectorAll('.fade-up');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            fadeItems.forEach(el => observer.observe(el));
+        } else {
+            fadeItems.forEach(el => el.classList.add('visible'));
+        }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -3181,7 +3279,8 @@
         initSeamlessMarquee({ marqueeSelector: '.platforms-marquee', trackSelector: '.platforms-track', direction: 1, speed: 60 });
         initSeamlessMarquee({ marqueeSelector: '.tools-marquee', trackSelector: '.tools-track', direction: -1, speed: 55 });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1308cdebfef1852',t:'MTc4MjY5MDE3MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+<script>
         const fy = document.getElementById('footerYear'); if (fy) fy.textContent = new Date().getFullYear();
-    </script></body>
+    </script>
+</body>
 </html>
