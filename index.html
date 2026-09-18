@@ -1334,7 +1334,35 @@
             color: var(--accent2);
             font-size: 0.81rem;
         }
-        .gsc-sum { font-size: 0.89rem; line-height: 1.85; }
+        .gsc-sum { margin: 0; font-size: 0.89rem; line-height: 1.85; }
+        .gsc-sum strong { color: #34D399; font-weight: 900; white-space: nowrap; }
+        .gsc-key-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin: 0 0 12px;
+        }
+        .gsc-key-metric {
+            min-width: 0;
+            display: grid;
+            gap: 3px;
+            padding: 10px 11px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.08));
+        }
+        .gsc-key-label { color: var(--text-secondary); font-size: 0.67rem; font-weight: 700; line-height: 1.4; }
+        .gsc-key-value {
+            display: block;
+            color: #34D399;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: clamp(1rem, 1.35vw, 1.2rem);
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+        body.light .gsc-key-metric { background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(6, 182, 212, 0.07)); }
+        body.light .gsc-key-value { color: #047857; }
         #results .gsc-card:nth-child(2) .gsc-niche {
             border-color: rgba(245, 158, 11, 0.34);
             background: var(--gold-soft);
@@ -1375,6 +1403,86 @@
             box-shadow: 0 18px 42px rgba(2, 6, 23, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.08);
         }
         .portfolio-card:hover .portfolio-thumb img { transform: scale(1.055); }
+
+        /* كارت الكيس استادي يعرض النتيجة كدليل بصري قبل الوصف الطويل. */
+        .portfolio-card {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.09), var(--card-bg) 58%, rgba(6, 182, 212, 0.05));
+        }
+        .portfolio-thumb { height: 212px; }
+        .portfolio-body { padding: 23px; }
+        .portfolio-body h3 { margin-bottom: 9px; font-weight: 800; }
+        .portfolio-body p { margin-bottom: 18px; }
+        .portfolio-result {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            padding: 15px 16px 14px;
+            border: 1px solid rgba(16, 185, 129, 0.38);
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.17), rgba(6, 182, 212, 0.1));
+            color: var(--text);
+        }
+        .portfolio-result::after {
+            content: '';
+            position: absolute;
+            top: -48px;
+            left: -38px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.16), transparent 68%);
+            pointer-events: none;
+        }
+        .portfolio-result > * { position: relative; z-index: 1; }
+        .portfolio-result-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #6EE7B7;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+        .portfolio-result-icon {
+            width: 23px;
+            height: 23px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 7px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #34D399;
+        }
+        .portfolio-result-icon svg { width: 14px; height: 14px; }
+        .portfolio-result-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .portfolio-result-metric {
+            min-width: 0;
+            display: grid;
+            gap: 3px;
+            padding: 8px 9px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.22);
+        }
+        .portfolio-result-metric b {
+            color: #D1FAE5;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: clamp(0.96rem, 1.45vw, 1.2rem);
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+        .portfolio-result-metric small { color: var(--text-secondary); font-size: 0.67rem; font-weight: 700; line-height: 1.4; }
+        .portfolio-result-period { display: block; margin-top: 8px; color: #A7F3D0; font-size: 0.7rem; font-weight: 700; }
+        body.light .portfolio-result { background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(6, 182, 212, 0.08)); }
+        body.light .portfolio-result-kicker, body.light .portfolio-result-period { color: #047857; }
+        body.light .portfolio-result-metric { background: rgba(255, 255, 255, 0.7); border-color: rgba(16, 185, 129, 0.2); }
+        body.light .portfolio-result-metric b { color: #047857; }
+        .card-more { margin-top: 16px; }
 
         /* معاينة النتيجة تكون RTL بالكامل مع بقاء الرابط قابلًا للقراءة. */
         #serp-preview .serp-result {
@@ -1931,12 +2039,16 @@
                         <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
                     </div>
                     <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين" src="https://i.postimg.cc/ZnGVpmJ4/mtjr-jwfna-kwnswl-mqarnt-shhryn.png" alt="نتائج Search Console - متجر زيت زيتون في السعودية" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 22.2 ألف لـ <strong>31.3 ألف ريال (+40.8%)</strong> والجلسات من 2,988 لـ <strong>6,419</strong> (+114%)" src="https://i.postimg.cc/wv3Ck6Yk/analtyks-jwfna-mqarnt-shhryn.png" alt="نتائج Google Analytics - متجر زيت زيتون في السعودية" loading="lazy">
+                        <img class="active" data-shot="gsc" data-metric-one-value="7.21 ألف" data-metric-one-label="نقرة من البحث" data-metric-two-value="+115%" data-metric-two-label="نمو النقرات" data-sum="النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين" src="https://i.postimg.cc/ZnGVpmJ4/mtjr-jwfna-kwnswl-mqarnt-shhryn.png" alt="نتائج Search Console - متجر زيت زيتون في السعودية" loading="lazy">
+                        <img data-shot="ga" data-metric-one-value="31.3 ألف ريال" data-metric-one-label="إيرادات عضوية" data-metric-two-value="+114%" data-metric-two-label="نمو الجلسات" data-sum="الإيرادات العضوية قفزت من 22.2 ألف لـ <strong>31.3 ألف ريال (+40.8%)</strong> والجلسات من 2,988 لـ <strong>6,419</strong> (+114%)" src="https://i.postimg.cc/wv3Ck6Yk/analtyks-jwfna-mqarnt-shhryn.png" alt="نتائج Google Analytics - متجر زيت زيتون في السعودية" loading="lazy">
                     </div>
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر زيت زيتون في السعودية</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">7.21 ألف</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+115%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين</p>
                     </div>
@@ -1947,12 +2059,16 @@
                         <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
                     </div>
                     <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور" src="https://i.postimg.cc/SNSpbcpM/kwnswl-mtjr-zywt-tbyʿyt.webp" alt="نتائج Search Console - متجر زيوت وعطارة" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 26.5 ألف لـ <strong>106.3 ألف ريال</strong> والجلسات من 3,131 لـ <strong>18,839</strong> (+501%)" src="https://i.postimg.cc/DyvK31KG/analytyks-mtjr-zywt-tbyʿyt.webp" alt="نتائج Google Analytics - متجر زيوت وعطارة" loading="lazy">
+                        <img class="active" data-shot="gsc" data-metric-one-value="17.1 ألف" data-metric-one-label="نقرة من البحث" data-metric-two-value="1.45 مليون" data-metric-two-label="مرة ظهور" data-sum="النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور" src="https://i.postimg.cc/SNSpbcpM/kwnswl-mtjr-zywt-tbyʿyt.webp" alt="نتائج Search Console - متجر زيوت وعطارة" loading="lazy">
+                        <img data-shot="ga" data-metric-one-value="106.3 ألف ريال" data-metric-one-label="إيرادات عضوية" data-metric-two-value="+501%" data-metric-two-label="نمو الجلسات" data-sum="الإيرادات العضوية قفزت من 26.5 ألف لـ <strong>106.3 ألف ريال</strong> والجلسات من 3,131 لـ <strong>18,839</strong> (+501%)" src="https://i.postimg.cc/DyvK31KG/analytyks-mtjr-zywt-tbyʿyt.webp" alt="نتائج Google Analytics - متجر زيوت وعطارة" loading="lazy">
                     </div>
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر زيوت وعطارة في السعودية</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">17.1 ألف</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">مرة ظهور</span><strong class="gsc-key-value">1.45 مليون</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور</p>
                     </div>
@@ -1963,12 +2079,16 @@
                         <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
                     </div>
                     <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين" src="https://i.postimg.cc/3JJWP2cQ/kwnswl-mtjr-ajhzt-mnzlyt-wkhrbyt.webp" alt="نتائج Search Console - متجر أجهزة منزلية" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 689 لـ <strong>42,859 ريال</strong> والجلسات من 662 لـ <strong>4,267</strong> (+544%)" src="https://i.postimg.cc/NjDsHybK/kys-astady-mtjr-adwat-mnzlyh-wkhrbyt-mqarnh-shhryn.webp" alt="نتائج Google Analytics - متجر أجهزة منزلية" loading="lazy">
+                        <img class="active" data-shot="gsc" data-metric-one-value="+119%" data-metric-one-label="نمو النقرات" data-metric-two-value="2.8%" data-metric-two-label="CTR بعد التحسين" data-sum="النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين" src="https://i.postimg.cc/3JJWP2cQ/kwnswl-mtjr-ajhzt-mnzlyt-wkhrbyt.webp" alt="نتائج Search Console - متجر أجهزة منزلية" loading="lazy">
+                        <img data-shot="ga" data-metric-one-value="42,859 ريال" data-metric-one-label="إيرادات عضوية" data-metric-two-value="+544%" data-metric-two-label="نمو الجلسات" data-sum="الإيرادات العضوية قفزت من 689 لـ <strong>42,859 ريال</strong> والجلسات من 662 لـ <strong>4,267</strong> (+544%)" src="https://i.postimg.cc/NjDsHybK/kys-astady-mtjr-adwat-mnzlyh-wkhrbyt-mqarnh-shhryn.webp" alt="نتائج Google Analytics - متجر أجهزة منزلية" loading="lazy">
                     </div>
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر أجهزة منزلية وكهربائية في السعودية</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+119%</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">CTR بعد التحسين</span><strong class="gsc-key-value">2.8%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين</p>
                     </div>
@@ -2928,17 +3048,39 @@
         }
 
         /* لو الكارت فيه صورة واحدة بس — التابات تتخفي تلقائي */
+        function updateGscKeyMetrics(card, image) {
+            if (!card || !image) return;
+            const metrics = [
+                { value: image.dataset.metricOneValue, label: image.dataset.metricOneLabel },
+                { value: image.dataset.metricTwoValue, label: image.dataset.metricTwoLabel }
+            ];
+            card.querySelectorAll('.gsc-key-metric').forEach((metricEl, index) => {
+                const metric = metrics[index];
+                const valueEl = metricEl.querySelector('.gsc-key-value');
+                const labelEl = metricEl.querySelector('.gsc-key-label');
+                if (!metric?.value || !metric?.label || !valueEl || !labelEl) {
+                    metricEl.hidden = true;
+                    return;
+                }
+                valueEl.textContent = metric.value;
+                labelEl.textContent = metric.label;
+                metricEl.hidden = false;
+            });
+        }
         document.querySelectorAll('.gsc-card').forEach(card => {
             const imgs = card.querySelectorAll('.gsc-shot img');
             const tabs = card.querySelector('.gsc-tabs');
+            let activeImage = card.querySelector('.gsc-shot img.active') || imgs[0];
             if (imgs.length < 2 && tabs) {
                 tabs.style.display = 'none';
                 if (imgs.length === 1) {
                     imgs[0].classList.add('active');
+                    activeImage = imgs[0];
                     const sum = card.querySelector('.gsc-sum');
                     if (sum && imgs[0].dataset.sum) sum.innerHTML = imgs[0].dataset.sum;
                 }
             }
+            updateGscKeyMetrics(card, activeImage);
         });
         function gscTab(btn) {
             const card = btn?.closest('.gsc-card');
@@ -2953,6 +3095,7 @@
             });
             const sum = card.querySelector('.gsc-sum');
             if (sum && activeImg && activeImg.dataset.sum) sum.innerHTML = activeImg.dataset.sum;
+            updateGscKeyMetrics(card, activeImg);
         }
         function gscSlide(dir) {
             const s = document.getElementById('gscSlider');

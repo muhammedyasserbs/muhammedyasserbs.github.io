@@ -18,7 +18,12 @@ const CASES = [
         flag: "sa",
         title: "متجر أجهزة منزلية وكهربائية سعودي",
         desc: "تأسيس SEO من الصفر لمتجر أجهزة منزلية على سلة وتحويل جوجل لقناة مبيعات حقيقية",
-        result: "42.8 ألف ريال مبيعات و+544% نمو عضوي من جوجل في شهرين"
+        result: "42.8 ألف ريال مبيعات و+544% نمو عضوي من جوجل في شهرين",
+        highlights: [
+            { value: "42.8 ألف ريال", label: "مبيعات عضوية" },
+            { value: "+544%", label: "نمو عضوي" }
+        ],
+        period: "في أول شهرين قياس"
     },
     {
         url: "case-study-oils-store.html",
@@ -30,7 +35,12 @@ const CASES = [
         flag: "sa",
         title: "متجر زيوت طبيعية وعطارة سعودي",
         desc: "استلام المتجر بعد نقل دومين وإعادة بناء هوية، وتحويل البحث العضوي لقناة مبيعات حقيقية",
-        result: "+106 ألف ريال مبيعات Organic و +501% نمو في الزيارات في 6 شهور"
+        result: "+106 ألف ريال مبيعات Organic و +501% نمو في الزيارات في 6 شهور",
+        highlights: [
+            { value: "+106 ألف ريال", label: "مبيعات Organic" },
+            { value: "+501%", label: "نمو الزيارات" }
+        ],
+        period: "خلال 6 شهور"
     }
  /* مثال لإضافة كيس جديد — انسخ الكتلة دي وعدّلها وحطها فوق:
     ,{
@@ -85,7 +95,18 @@ function renderCases(containerId, limit) {
     const grid = document.getElementById(containerId);
     if (!grid) return;
     const list = limit > 0 ? CASES.slice(0, limit) : CASES;
-    grid.innerHTML = list.map((c, i) => `
+    grid.innerHTML = list.map((c, i) => {
+        const highlights = Array.isArray(c.highlights) && c.highlights.length
+            ? c.highlights
+            : [{ value: c.result, label: 'النتيجة الرئيسية' }];
+        const metrics = highlights.map(metric => `
+            <span class="portfolio-result-metric">
+                <b>${metric.value}</b>
+                <small>${metric.label}</small>
+            </span>`).join('');
+        const period = c.period ? `<span class="portfolio-result-period">${c.period}</span>` : '';
+
+        return `
         <a href="${c.url}" class="portfolio-card fade-up visible" style="transition-delay:${(i * 0.1).toFixed(1)}s;position:relative;overflow:visible;">
             ${c.flag && FLAGS[c.flag] ? `<span class="card-flag" style="position:absolute;top:-16px;right:-14px;z-index:5;width:58px;height:58px;border-radius:50%;overflow:hidden;border:2px solid rgba(59,130,246,0.35);background:#0F172A;box-shadow:0 4px 14px rgba(0,0,0,0.45);display:block;"><img src="${FLAGS[c.flag]}" alt="علم الدولة" style="width:100%;height:100%;object-fit:cover;display:block;"></span>` : ``}
             <div class="portfolio-thumb" style="border-radius:16px 16px 0 0;">
@@ -95,8 +116,13 @@ function renderCases(containerId, limit) {
             <div class="portfolio-body">
                 <h3>${c.title}</h3>
                 <p>${c.desc}</p>
-                <div class="portfolio-result">${RESULT_SVG} ${c.result}</div>
+                <div class="portfolio-result" role="group" aria-label="أبرز نتيجة: ${c.result}">
+                    <span class="portfolio-result-kicker"><span class="portfolio-result-icon" aria-hidden="true">${RESULT_SVG}</span>أبرز نتيجة</span>
+                    <span class="portfolio-result-metrics">${metrics}</span>
+                    ${period}
+                </div>
                 <span class="card-more">اقرأ الكيس استادي كامل ${ARROW_SVG}</span>
             </div>
-        </a>`).join("");
+        </a>`;
+    }).join("");
 }

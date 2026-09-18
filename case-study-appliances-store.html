@@ -72,11 +72,29 @@
         .case-cover { max-width: 900px; margin: 30px auto 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(59, 130, 246, 0.08); }
         .case-cover img { width: 100%; display: block; }
 
-        /* Key stats */
-        .stats-row { max-width: 900px; margin: -40px auto 0; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 0 20px; }
-        .stat-box { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 14px; padding: 18px 12px; text-align: center; }
-        .stat-box .num { font-size: 1.6rem; font-weight: 900; font-family: 'Inter', sans-serif; background: var(--gradient1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .stat-box .lbl { color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; font-weight: 600; }
+        /* Key stats: الأرقام الأساسية تظهر كخلاصة مباشرة فوق القصة. */
+        .stats-row { max-width: 900px; margin: -40px auto 0; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding: 0 20px; }
+        .stat-box {
+            position: relative;
+            min-height: 108px;
+            display: grid;
+            align-content: center;
+            gap: 5px;
+            overflow: hidden;
+            padding: 18px 12px;
+            text-align: center;
+            background: linear-gradient(145deg, rgba(6, 182, 212, 0.13), var(--card-bg) 68%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(6, 182, 212, 0.32);
+            border-radius: 15px;
+            box-shadow: 0 12px 30px rgba(2, 6, 23, 0.16);
+        }
+        .stat-box::before { content: ''; position: absolute; top: 0; right: 18%; left: 18%; height: 2px; border-radius: 999px; background: var(--gradient1); }
+        .stat-box::after { content: ''; position: absolute; top: -42px; left: -28px; width: 92px; height: 92px; border-radius: 50%; background: radial-gradient(circle, rgba(52, 211, 153, 0.16), transparent 68%); pointer-events: none; }
+        .stat-box .num { position: relative; z-index: 1; color: #67E8F9; font-size: clamp(1.35rem, 2.45vw, 1.85rem); font-weight: 900; font-family: 'Inter', 'Cairo', sans-serif; line-height: 1.18; letter-spacing: -0.03em; text-shadow: 0 5px 20px rgba(6, 182, 212, 0.18); }
+        .stat-box .lbl { position: relative; z-index: 1; color: var(--text-secondary); font-size: 0.75rem; line-height: 1.55; font-weight: 700; }
+        body.light .stat-box { background: linear-gradient(145deg, rgba(6, 182, 212, 0.11), var(--card-bg) 68%); }
+        body.light .stat-box .num { color: #0E7490; }
 
         /* Content */
         .case-content { max-width: 900px; margin: 0 auto; padding: 50px 30px 70px; }
@@ -122,11 +140,37 @@
         .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 12px; border: 1px solid var(--border); }
         .lightbox .close-x { position: absolute; top: 20px; right: 25px; color: var(--text); font-size: 2rem; cursor: pointer; line-height: 1; }
 
-        /* Results */
-        .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
-        .result-item { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: 12px; padding: 16px 18px; }
-        .result-item .r-num { color: #10B981; font-weight: 900; font-size: 1.25rem; font-family: 'Inter', sans-serif; }
-        .result-item .r-lbl { color: var(--text-secondary); font-size: 0.83rem; margin-top: 4px; line-height: 1.6; }
+        /* Results: ترتيب بصري يخلّي الرقم الحقيقي يتشاف قبل الشرح. */
+        .results-block { position: relative; overflow: hidden; border-color: rgba(16, 185, 129, 0.36); background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), var(--card-bg) 44%); }
+        .results-block::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px; background: linear-gradient(90deg, transparent, #10B981, #06B6D4, transparent); }
+        .results-block > * { position: relative; z-index: 1; }
+        .results-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+        .result-item {
+            position: relative;
+            min-height: 122px;
+            display: grid;
+            align-content: center;
+            gap: 6px;
+            overflow: hidden;
+            padding: 19px 19px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.13), rgba(6, 182, 212, 0.07));
+        }
+        .result-item::after { content: ''; position: absolute; left: -24px; bottom: -35px; width: 98px; height: 98px; border-radius: 50%; background: radial-gradient(circle, rgba(52, 211, 153, 0.16), transparent 69%); pointer-events: none; }
+        .result-item .r-num { position: relative; z-index: 1; color: #34D399; font-weight: 900; font-size: clamp(1.36rem, 2.5vw, 1.78rem); font-family: 'Inter', 'Cairo', sans-serif; line-height: 1.2; letter-spacing: -0.03em; }
+        .result-item .r-lbl { position: relative; z-index: 1; color: var(--text-secondary); font-size: 0.84rem; margin: 0; line-height: 1.65; font-weight: 600; }
+        .results-grid .result-item:nth-child(-n + 2) { border-color: rgba(16, 185, 129, 0.54); background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(6, 182, 212, 0.11)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 10px 24px rgba(16, 185, 129, 0.08); }
+        .results-grid .result-item:nth-child(-n + 2) .r-num { color: #6EE7B7; font-size: clamp(1.55rem, 2.8vw, 2rem); }
+        .results-table-title { display: flex; align-items: center; gap: 8px; }
+        .results-table-title::before { content: '↔'; width: 26px; height: 26px; display: inline-grid; place-items: center; flex: none; border-radius: 8px; background: rgba(6, 182, 212, 0.12); color: #67E8F9; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+        .results-table-wrap { overflow-x: auto; border: 1px solid rgba(16, 185, 129, 0.28); border-radius: 14px; background: rgba(15, 23, 42, 0.18); box-shadow: 0 10px 24px rgba(2, 6, 23, 0.09); }
+        .results-table { min-width: 520px; }
+        .results-table th:last-child, .results-table td:last-child { background: rgba(16, 185, 129, 0.08); }
+        .results-table tbody td:nth-child(2) { opacity: 0.74; }
+        body.light .result-item { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.06)); }
+        body.light .result-item .r-num, body.light .results-grid .result-item:nth-child(-n + 2) .r-num { color: #047857; }
+        body.light .results-table-wrap { background: rgba(255, 255, 255, 0.56); }
 
         /* Quote */
         .case-quote { border-right: 4px solid var(--accent); background: rgba(59,130,246,0.06); border-radius: 12px; padding: 22px 24px; margin-top: 6px; }
@@ -197,9 +241,13 @@
             .case-hero h1 { font-size: 1.6rem; }
 
             .stats-row { grid-template-columns: repeat(2, 1fr); margin-top: -25px; }
+            .stat-box { min-height: 98px; padding: 16px 10px; }
+            .stat-box .num { font-size: 1.48rem; }
             .case-content { padding: 35px 20px 50px; }
             .case-block { padding: 22px 18px; }
             .results-grid { grid-template-columns: 1fr; }
+            .result-item { min-height: 112px; padding: 18px 16px; }
+            .results-grid .result-item:nth-child(-n + 2) .r-num { font-size: 1.75rem; }
             .whatsapp-float { bottom: 20px; left: 20px; }
             .back-to-top { bottom: 20px; right: 20px; }
         }
@@ -363,7 +411,7 @@
             </div>
         </div>
 
-        <div class="case-block fade-up">
+        <div class="case-block fade-up results-block">
             <h2><span class="ico" style="background:rgba(16,185,129,0.12);color:#10B981;">📈</span> النتائج بالأرقام</h2>
             <div class="results-grid">
                 <div class="result-item"><div class="r-num">+544%</div><div class="r-lbl">نمو الجلسات العضوية (من 662 لـ 4,267 جلسة)</div></div>
@@ -376,9 +424,9 @@
                 <div class="result-item"><div class="r-num">CTR 2.8%</div><div class="r-lbl">معدل النقر قفز من 1.6% (+75% تحسن)</div></div>
             </div>
 
-            <h3 style="font-size:1.05rem;font-weight:700;margin:26px 0 14px;">مقارنة قبل وبعد <span style="font-weight:400;font-size:0.78rem;color:var(--text-secondary);">(مايو-يونيو مقارنة بمارس-أبريل 2026)</span></h3>
-            <div style="overflow-x:auto;">
-                <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+            <h3 class="results-table-title" style="font-size:1.05rem;font-weight:700;margin:26px 0 14px;">مقارنة قبل وبعد <span style="font-weight:400;font-size:0.78rem;color:var(--text-secondary);">(مايو-يونيو مقارنة بمارس-أبريل 2026)</span></h3>
+            <div class="results-table-wrap">
+                <table class="results-table" style="width:100%;border-collapse:collapse;font-size:0.9rem;">
                     <thead>
                         <tr style="background:rgba(59,130,246,0.1);">
                             <th style="padding:12px 16px;text-align:right;border:1px solid var(--border);color:var(--text);">المؤشر</th>
