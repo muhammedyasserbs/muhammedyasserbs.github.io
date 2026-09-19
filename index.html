@@ -184,7 +184,7 @@
         .gsc-tab .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
         .gsc-tab[data-tab="gsc"] .dot { background: #4285F4; }
         .gsc-tab[data-tab="ga"] .dot { background: #F18F01; }
-        .gsc-tab[data-tab="ai"] .dot { background: #8B5CF6; }
+        .gsc-tab[data-tab^="ai"] .dot { background: #8B5CF6; }
         .gsc-tab.active { background: var(--card-bg); color: var(--text); border-color: rgba(59, 130, 246, 0.45); }
         .gsc-tab:hover:not(.active) { color: var(--text); }
         .gsc-shot { position: relative; cursor: zoom-in; height: 240px; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; }
@@ -1352,6 +1352,13 @@
             line-height: 1.35;
             white-space: nowrap;
         }
+        .gsc-card-mashalih .gsc-tabs { flex-wrap: wrap; gap: 6px; }
+        .gsc-card-mashalih .gsc-tab {
+            flex: 1 1 calc(33.333% - 4px);
+            padding: 6px 7px;
+            font-size: 0.67rem;
+            white-space: nowrap;
+        }
         .gsc-sum { margin: 0; font-size: 0.89rem; line-height: 1.85; }
         .gsc-sum strong { color: #34D399; font-weight: 900; white-space: nowrap; }
         .gsc-key-metrics {
@@ -2154,6 +2161,29 @@
                             <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+39.10%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات قفزت من 468 لـ <strong>651 (+39.10%)</strong> والظهور من 8.83 ألف لـ <strong>9.89 ألف (+12.08%)</strong> خلال آخر 28 يوم.</p>
+                    </div>
+                </div>
+                <div class="gsc-card gsc-card-mashalih fade-up" style="transition-delay:0.21s">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)" title="Search Console" aria-label="Search Console: النقرات والظهور"><span class="dot"></span>Search Console</button>
+                        <button class="gsc-tab" data-tab="analytics-90" onclick="gscTab(this)" title="Google Analytics — 3 شهور" aria-label="Google Analytics: 3 شهور"><span class="dot"></span>Analytics</button>
+                        <button class="gsc-tab" data-tab="ai-impressions" onclick="gscTab(this)" title="AI Search Console — الظهور" aria-label="AI Search Console: الظهور"><span class="dot"></span>AI · ظهور</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-metric-one-value="846" data-metric-one-label="نقرة من البحث" data-metric-two-value="+118.60%" data-metric-two-label="نمو النقرات" data-sum="النقرات قفزت من 387 لـ &lt;strong&gt;846 (+118.60%)&lt;/strong&gt; والظهور من 22.6 ألف لـ &lt;strong&gt;61.8 ألف (+173.97%)&lt;/strong&gt; خلال 3 شهور." src="assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/كونسول متجر مشالح (3 شهور).png" width="1279" height="671" alt="لقطة Search Console لمتجر براند لبيع المشالح: 846 نقرة و61.8 ألف ظهور خلال 3 شهور" loading="lazy" decoding="async">
+                        <img data-shot="analytics-90" data-metric-one-value="4,065 ريال" data-metric-one-label="إيراد عضوي" data-metric-two-value="+62.86%" data-metric-two-label="نمو الجلسات العضوية" data-sum="الإيرادات العضوية قفزت من 0.00 إلى &lt;strong&gt;4,065.00 ريال&lt;/strong&gt; والجلسات من 840 إلى &lt;strong&gt;1,368 (+62.86%)&lt;/strong&gt; خلال 3 شهور." src="assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/اناليتيكس متجر مشالح (3 شهور).png" width="1536" height="840" alt="لقطة Google Analytics لمتجر براند لبيع المشالح: نمو الجلسات والإيرادات العضوية خلال 3 شهور" loading="lazy" decoding="async">
+                        <img data-shot="ai-impressions" data-metric-one-value="7.74 ألف" data-metric-one-label="ظهور في ميزات AI" data-metric-two-value="3 شهور" data-metric-two-label="النطاق الظاهر" data-sum="اللقطة تعرض &lt;strong&gt;7.74 ألف ظهور&lt;/strong&gt; في ميزات الذكاء الاصطناعي خلال نطاق 3 شهور الظاهر فيها." src="assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/كونسول ai متجر مشالح (3 شهور).png" width="1282" height="558" alt="لقطة AI Search Console لمتجر براند لبيع المشالح: 7.74 ألف ظهور خلال 3 شهور" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر براند لبيع المشالح</span>
+                            <span class="gsc-period">3 شهور</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">846</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+118.60%</strong></div>
+                        </div>
+                        <p class="gsc-sum">النقرات قفزت من 387 لـ <strong>846 (+118.60%)</strong> والظهور من 22.6 ألف لـ <strong>61.8 ألف (+173.97%)</strong> خلال 3 شهور.</p>
                     </div>
                 </div>
                 </div>
