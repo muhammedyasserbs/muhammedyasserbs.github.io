@@ -2186,6 +2186,25 @@
                         <p class="gsc-sum">النقرات قفزت من 387 لـ <strong>846 (+118.60%)</strong> والظهور من 22.6 ألف لـ <strong>61.8 ألف (+173.97%)</strong> خلال 3 شهور.</p>
                     </div>
                 </div>
+                <div class="gsc-card fade-up" style="transition-delay:0.24s">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)" title="Search Console"><span class="dot"></span>Search Console</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-metric-one-value="1.6 ألف" data-metric-one-label="نقرة من البحث" data-metric-two-value="+261.54%" data-metric-two-label="نمو النقرات" data-sum="النقرات قفزت من 442 لـ &lt;strong&gt;1.6 ألف (+261.54%)&lt;/strong&gt; والظهور من 26.1 ألف لـ &lt;strong&gt;145 ألف (+454.03%)&lt;/strong&gt; خلال 3 شهور." src="assets/results-evidence/متجر مياه وعصائر صغير (3 شهور)/متجر مياه وعصائر صغير 3 شهور كونسول.png" width="1318" height="523" alt="نتائج Search Console لمتجر مياه وعصائر صغير: 1.6 ألف نقرة و145 ألف ظهور خلال 3 شهور" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر مياه وعصائر صغير</span>
+                            <span class="gsc-period">3 شهور</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">1.6 ألف</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+261.54%</strong></div>
+                        </div>
+                        <p class="gsc-sum">النقرات قفزت من 442 لـ <strong>1.6 ألف (+261.54%)</strong> والظهور من 26.1 ألف لـ <strong>145 ألف (+454.03%)</strong> خلال 3 شهور.</p>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -3140,7 +3159,7 @@
             statNumbers.forEach(animateCounter);
         }
 
-        /* لو الكارت فيه صورة واحدة بس — التابات تتخفي تلقائي */
+        /* كارت الصورة الواحدة يثبت اللقطة والتاب الظاهر يعرّف مصدرها بوضوح. */
         function updateGscKeyMetrics(card, image) {
             if (!card || !image) return;
             const metrics = [
@@ -3162,10 +3181,8 @@
         }
         document.querySelectorAll('.gsc-card').forEach(card => {
             const imgs = card.querySelectorAll('.gsc-shot img');
-            const tabs = card.querySelector('.gsc-tabs');
             let activeImage = card.querySelector('.gsc-shot img.active') || imgs[0];
-            if (imgs.length < 2 && tabs) {
-                tabs.style.display = 'none';
+            if (imgs.length < 2) {
                 if (imgs.length === 1) {
                     imgs[0].classList.add('active');
                     activeImage = imgs[0];
