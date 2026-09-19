@@ -184,6 +184,7 @@
         .gsc-tab .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
         .gsc-tab[data-tab="gsc"] .dot { background: #4285F4; }
         .gsc-tab[data-tab="ga"] .dot { background: #F18F01; }
+        .gsc-tab[data-tab="ai"] .dot { background: #8B5CF6; }
         .gsc-tab.active { background: var(--card-bg); color: var(--text); border-color: rgba(59, 130, 246, 0.45); }
         .gsc-tab:hover:not(.active) { color: var(--text); }
         .gsc-shot { position: relative; cursor: zoom-in; height: 240px; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; }
@@ -2045,7 +2046,7 @@
     <!-- Results (نتائج من Search Console) -->
     <section id="results" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up"><h2>النتائج <span>اللي حققتها</span></h2><p>دي لقطات مباشرة من Google Search Console وGoogle Analytics لمشاريع اشتغلت عليها</p></div>
+            <div class="section-header fade-up"><h2>النتائج <span>اللي حققتها</span></h2><p>دي لقطات مباشرة من Google Search Console وميزات AI وGoogle Analytics لمشاريع اشتغلت عليها</p></div>
             <div class="gsc-slider-wrap fade-up">
                 <button class="gsc-nav prev" onclick="gscSlide(1)" aria-label="السابق">‹</button>
                 <button class="gsc-nav next" onclick="gscSlide(-1)" aria-label="التالي">›</button>
@@ -2132,6 +2133,27 @@
                             <div class="gsc-key-metric"><span class="gsc-key-label">تغيّر الظهور</span><strong class="gsc-key-value">-4.36%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات قفزت من 406 لـ <strong>500 (+23.15%)</strong> والظهور من 39.9 ألف لـ <strong>38.1 ألف (-4.36%)</strong> خلال آخر 28 يوم.</p>
+                    </div>
+                </div>
+                <div class="gsc-card fade-up" style="transition-delay:0.18s">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)" title="Search Console"><span class="dot"></span>Search Console</button>
+                        <button class="gsc-tab" data-tab="ai" onclick="gscTab(this)" title="AI Search Console"><span class="dot"></span>AI Search Console</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-metric-one-value="651" data-metric-one-label="نقرة من البحث" data-metric-two-value="+39.10%" data-metric-two-label="نمو النقرات" data-sum="النقرات قفزت من 468 لـ &lt;strong&gt;651 (+39.10%)&lt;/strong&gt; والظهور من 8.83 ألف لـ &lt;strong&gt;9.89 ألف (+12.08%)&lt;/strong&gt; خلال آخر 28 يوم." src="assets/results-evidence/متجر براند لبيع الفساتين (شهر)/متجر فساتين كونسول شهر.png" width="1316" height="522" alt="نتائج Search Console لمتجر براند لبيع الفساتين: 651 نقرة و9.89 ألف ظهور خلال آخر 28 يومًا" loading="lazy" decoding="async">
+                        <img data-shot="ai" data-metric-one-value="680" data-metric-one-label="ظهور في ميزات AI" data-metric-two-value="+47.83%" data-metric-two-label="نمو الظهور" data-sum="الظهور في ميزات الذكاء الاصطناعي قفز من 460 لـ &lt;strong&gt;680 (+47.83%)&lt;/strong&gt; خلال آخر 28 يوم." src="assets/results-evidence/متجر براند لبيع الفساتين (شهر)/كونسول ai متجر فساتين شهر.png" width="1331" height="616" alt="نتائج AI Search Console لمتجر براند لبيع الفساتين: 680 ظهور في ميزات الذكاء الاصطناعي خلال آخر 28 يومًا" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر براند لبيع الفساتين</span>
+                            <span class="gsc-period">شهر</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">651</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+39.10%</strong></div>
+                        </div>
+                        <p class="gsc-sum">النقرات قفزت من 468 لـ <strong>651 (+39.10%)</strong> والظهور من 8.83 ألف لـ <strong>9.89 ألف (+12.08%)</strong> خلال آخر 28 يوم.</p>
                     </div>
                 </div>
                 </div>
