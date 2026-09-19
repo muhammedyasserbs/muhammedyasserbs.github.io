@@ -13,9 +13,9 @@
     <meta property="og:description" content="خبير On-Page & Technical SEO - متخصص في تحسين ظهور المواقع والمتاجر ومواقع SaaS في Google">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://i.postimg.cc/XvYJFGrX/muhammed-yasser-seo-specialist.png">
-    <meta property="og:url" content="https://muhammedyasserbs.github.io/my-portfolio/">
+    <meta property="og:url" content="https://muhammedyasserbs.github.io/">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://muhammedyasserbs.github.io/my-portfolio/">
+    <link rel="canonical" href="https://muhammedyasserbs.github.io/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Muhammed Yasser | SEO Specialist">
     <meta name="twitter:description" content="خبير On-Page & Technical SEO - متخصص في تحسين ظهور المواقع والمتاجر ومواقع SaaS في Google">
@@ -125,33 +125,29 @@
         .section-header h2 span { background: var(--gradient1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .section-header p { color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
         .section-alt { background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        /* ===== آراء العملاء ===== */
-        .testi-slider-wrap { position: relative; }
-        .testi-grid { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 10px 4px 20px; scrollbar-width: none; }
-        .testi-grid::-webkit-scrollbar { display: none; }
-        .testi-card { flex: 0 0 calc(50% - 11px); scroll-snap-align: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; backdrop-filter: blur(10px); position: relative; transition: all 0.35s ease; display: flex; flex-direction: column; }
-        .testi-card .testi-text { flex: 1; }
-        .testi-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); }
-        .testi-card .quote-mark { position: absolute; top: 18px; left: 22px; font-size: 3rem; line-height: 1; color: rgba(59, 130, 246, 0.15); font-family: serif; }
-        .testi-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 12px; }
-        .testi-text { color: var(--text); font-size: 0.95rem; line-height: 2; margin-bottom: 18px; }
-        .testi-who { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); padding-top: 16px; }
-        .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--gradient1); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 1rem; flex-shrink: 0; }
-        .testi-who .w-name { font-size: 0.88rem; font-weight: 700; }
-        .testi-who .w-role { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
-        @media (max-width: 768px) { .testi-card { flex: 0 0 88%; } .testi-nav { display: none; } }
-        .testi-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 42px; height: 42px; border-radius: 50%; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border); color: var(--accent); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; backdrop-filter: blur(10px); }
-        .testi-nav:hover { background: var(--accent); color: #fff; }
-        .testi-nav.prev { right: -14px; }
-        .testi-nav.next { left: -14px; }
-
         /* ===== شريط المنصات في الهيرو ===== */
-        .hero-platforms { display: flex; align-items: center; gap: 18px; margin-top: 28px; flex-wrap: wrap; }
+        .hero-platforms { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
         .hero-platforms .hp-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 600; }
+        /* أربع مسارات مرئية متساوية: المركز والمسافة بين كل شعارين ثابتان بالنظر. */
+        .hero-platform-logos {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            align-items: center;
+            width: min(424px, 100%);
+            column-gap: 18px;
+        }
+        .hero-platform-logo { min-width: 0; height: 70px; display: grid; place-items: center; }
+        .hero-platform-logo > img { display: block; max-width: 100%; margin: 0; }
         .hero-platforms img { height: 26px; width: auto; object-fit: contain; filter: grayscale(1) opacity(0.55); transition: filter 0.3s; }
         .hero-platforms img.hp-big { height: 54px; }
         .hero-platforms img:hover { filter: grayscale(0) opacity(1); }
-        @media (max-width: 768px) { .hero-platforms { justify-content: center; } .hero-platforms img { height: 22px; } .hero-platforms img.hp-big { height: 44px; } }
+        @media (max-width: 768px) {
+            .hero-platforms { justify-content: center; gap: 10px; }
+            .hero-platform-logos { width: min(304px, 100%); column-gap: 8px; }
+            .hero-platform-logo { height: 58px; }
+            .hero-platforms img { height: 22px; }
+            .hero-platforms img.hp-big { height: 44px; }
+        }
 
         /* ===== بريلودر ===== */
         #preloader { position: fixed; inset: 0; z-index: 9999; background: var(--primary); display: flex; align-items: center; justify-content: center; transition: opacity 0.45s ease, visibility 0.45s; animation: preloader-autohide 0.4s ease 2.2s forwards; }
@@ -458,10 +454,10 @@
         .faq-answer p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.8; }
         .faq-arrow { transition: transform 0.3s; font-size: 0.8rem; color: var(--accent); }
         .faq-arrow.open { transform: rotate(180deg); }
-        
-        @media (max-width: 768px) { 
-            .whatsapp-float { bottom: 20px; left: 20px; } 
-            .back-to-top { bottom: 20px; right: 20px; } 
+
+        @media (max-width: 768px) {
+            .whatsapp-float { bottom: 20px; left: 20px; }
+            .back-to-top { bottom: 20px; right: 20px; }
         }
 
         @media (max-width: 1024px) {
@@ -499,7 +495,1302 @@
             .timeline-content { width: 100%; }
             .timeline-dot { display: none; }
         }
-    
+
+
+
+        /* ===== تحسينات مستوحاة من النسخة المرجعية ===== */
+        /* شريط بسيط يوضح مكانك في الصفحة بدون ما يغطي المحتوى */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1101;
+            height: 3px;
+            background: var(--gradient1);
+            box-shadow: 0 1px 12px rgba(59, 130, 246, 0.45);
+            transform: scaleX(0);
+            transform-origin: right center;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        /* شريط البحث في الهيرو: يفضل النص الثابت لو JavaScript غير متاح */
+        .search-pill .q {
+            min-width: 118px;
+            direction: auto;
+            unicode-bidi: plaintext;
+        }
+
+        /* ===== الخدمات بشكل Accordion ===== */
+        .services-accordion {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            gap: 13px;
+        }
+        .service-accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-accordion-item:hover {
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 10px 35px rgba(59, 130, 246, 0.08);
+        }
+        .service-accordion-item summary {
+            display: grid;
+            grid-template-columns: 58px minmax(0, 1fr) 38px;
+            align-items: center;
+            gap: 17px;
+            padding: 18px 22px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+        .service-accordion-item summary::-webkit-details-marker { display: none; }
+        .service-accordion-item summary::marker,
+        .problem-accordion-item summary::marker { content: ''; }
+        .service-accordion-item summary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -4px;
+        }
+        .service-accordion-number {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent2);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 800;
+            direction: ltr;
+        }
+        .service-accordion-copy { min-width: 0; }
+        .service-accordion-title {
+            display: block;
+            color: var(--text);
+            font-size: 1.08rem;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+        .service-accordion-hint {
+            display: block;
+            color: var(--text-secondary);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.79rem;
+            margin-top: 3px;
+        }
+        .service-accordion-toggle,
+        .problem-accordion-toggle {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            line-height: 1;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+        .service-accordion-item[open] .service-accordion-toggle,
+        .problem-accordion-item[open] .problem-accordion-toggle {
+            color: #fff;
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: rotate(45deg);
+        }
+        .service-accordion-panel {
+            border-top: 1px solid transparent;
+        }
+        .service-accordion-item[open] .service-accordion-panel {
+            border-top-color: var(--border);
+            animation: accordionReveal 0.35s ease both;
+        }
+        .service-accordion-panel-inner {
+            padding: 18px 24px 23px 97px;
+        }
+        .service-accordion-panel p,
+        .problem-accordion-panel p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.9;
+        }
+        .service-accordion-list,
+        .problem-accordion-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px 22px;
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .service-accordion-list li,
+        .problem-accordion-list li {
+            position: relative;
+            padding-right: 19px;
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.7;
+        }
+        .service-accordion-list li::before,
+        .problem-accordion-list li::before {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            top: 1px;
+            color: var(--accent2);
+            font-size: 0.7rem;
+        }
+        @keyframes accordionReveal {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== المشاكل التي أتعامل معها ===== */
+        #problems { position: relative; }
+        .problems-accordion {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            gap: 13px;
+        }
+        .problem-accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .problem-accordion-item:hover {
+            border-color: rgba(6, 182, 212, 0.48);
+            box-shadow: 0 10px 35px rgba(6, 182, 212, 0.08);
+        }
+        .problem-accordion-item summary {
+            display: grid;
+            grid-template-columns: 50px minmax(0, 1fr) auto 36px;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 22px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+        .problem-accordion-item summary::-webkit-details-marker { display: none; }
+        .problem-accordion-item summary:focus-visible {
+            outline: 2px solid var(--accent2);
+            outline-offset: -4px;
+        }
+        .problem-accordion-number {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--accent2);
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 800;
+            direction: ltr;
+        }
+        .problem-accordion-copy { min-width: 0; }
+        .problem-accordion-title {
+            display: block;
+            color: var(--text);
+            font-size: 1.04rem;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+        .problem-accordion-subtitle {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 3px;
+        }
+        .problem-accordion-tag {
+            padding: 5px 10px;
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 999px;
+            background: rgba(6, 182, 212, 0.08);
+            color: var(--accent2);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .problem-accordion-panel {
+            border-top: 1px solid transparent;
+        }
+        .problem-accordion-item[open] .problem-accordion-panel {
+            border-top-color: var(--border);
+            animation: accordionReveal 0.35s ease both;
+        }
+        .problem-accordion-panel-inner {
+            padding: 18px 24px 23px 86px;
+        }
+
+        /* ===== معاينة نتيجة البحث ===== */
+        .serp-tool-grid {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+        .serp-editor,
+        .serp-preview-shell {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            backdrop-filter: blur(10px);
+        }
+        .serp-field + .serp-field { margin-top: 18px; }
+        .serp-field label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--text);
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .serp-count {
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.73rem;
+            font-weight: 700;
+            direction: ltr;
+        }
+        .serp-count.is-warning { color: #F59E0B; }
+        .serp-count.is-over { color: #EF4444; }
+        .serp-field input,
+        .serp-field textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.42);
+            color: var(--text);
+            font-family: 'Cairo', 'Inter', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        body.light .serp-field input,
+        body.light .serp-field textarea { background: rgba(255, 255, 255, 0.9); }
+        .serp-field textarea { min-height: 104px; resize: vertical; }
+        .serp-field input:focus,
+        .serp-field textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .serp-meter {
+            display: block;
+            height: 4px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.22);
+            margin-top: 9px;
+        }
+        .serp-meter i {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--gradient1);
+            transition: width 0.2s ease, background 0.2s ease;
+        }
+        .serp-meter i.is-warning { background: #F59E0B; }
+        .serp-meter i.is-over { background: #EF4444; }
+        .serp-editor-note {
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            line-height: 1.75;
+            margin-top: 18px;
+        }
+        .serp-preview-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-secondary);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.73rem;
+            font-weight: 700;
+            margin-bottom: 13px;
+        }
+        .serp-preview-label::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4285F4;
+            box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.12);
+        }
+        .serp-result {
+            min-height: 223px;
+            background: #fff;
+            color: #202124;
+            border-radius: 13px;
+            padding: 22px;
+            direction: ltr;
+            text-align: left;
+            box-shadow: 0 10px 28px rgba(2, 6, 23, 0.18);
+        }
+        .serp-result-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 9px;
+        }
+        .serp-result-mark {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e8f0fe;
+            color: #1a73e8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 800;
+        }
+        .serp-result-site {
+            display: block;
+            color: #202124;
+            font-family: Arial, sans-serif;
+            font-size: 0.83rem;
+            line-height: 1.2;
+        }
+        .serp-result-url {
+            display: block;
+            overflow: hidden;
+            color: #4d5156;
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+            line-height: 1.35;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .serp-result-title {
+            overflow: hidden;
+            color: #1a0dab;
+            font-family: Arial, sans-serif;
+            font-size: clamp(1.18rem, 2.5vw, 1.42rem);
+            font-weight: 400;
+            line-height: 1.35;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .serp-result-description {
+            display: -webkit-box;
+            overflow: hidden;
+            color: #4d5156;
+            font-family: Arial, sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.58;
+            margin-top: 7px;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .serp-guidance {
+            min-height: 50px;
+            margin: 14px 0 0;
+            padding: 11px 13px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            line-height: 1.65;
+        }
+        .serp-guidance strong { color: #10B981; }
+
+        /* ===== ما بعد إرسال الفورم ===== */
+        .after-contact-steps {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .after-contact-step {
+            position: relative;
+            min-height: 194px;
+            padding: 23px 21px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .after-contact-step:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.1);
+        }
+        .after-contact-number {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 17px;
+            border-radius: 11px;
+            background: var(--gradient1);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            direction: ltr;
+            box-shadow: 0 7px 18px rgba(59, 130, 246, 0.26);
+        }
+        .after-contact-step h3 {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+        .after-contact-step p {
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.8;
+            margin-top: 7px;
+        }
+
+        @media (max-width: 768px) {
+            .search-pill .q { min-width: 100px; }
+            .service-accordion-item summary {
+                grid-template-columns: 44px minmax(0, 1fr) 30px;
+                gap: 12px;
+                padding: 16px;
+            }
+            .service-accordion-number {
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                font-size: 0.75rem;
+            }
+            .service-accordion-title { font-size: 0.96rem; }
+            .service-accordion-hint { font-size: 0.71rem; }
+            .service-accordion-toggle,
+            .problem-accordion-toggle {
+                width: 28px;
+                height: 28px;
+                border-radius: 9px;
+                font-size: 1.15rem;
+            }
+            .service-accordion-panel-inner,
+            .problem-accordion-panel-inner { padding: 16px 18px 20px; }
+            .service-accordion-list,
+            .problem-accordion-list { grid-template-columns: 1fr; gap: 7px; }
+            .problem-accordion-item summary {
+                grid-template-columns: 42px minmax(0, 1fr) 28px;
+                gap: 11px;
+                padding: 16px;
+            }
+            .problem-accordion-number {
+                width: 36px;
+                height: 36px;
+                font-size: 0.72rem;
+            }
+            .problem-accordion-title { font-size: 0.94rem; }
+            .problem-accordion-subtitle { font-size: 0.74rem; }
+            .problem-accordion-tag {
+                grid-column: 2;
+                grid-row: 2;
+                justify-self: start;
+                margin-top: -2px;
+                font-size: 0.65rem;
+            }
+            .problem-accordion-toggle { grid-column: 3; grid-row: 1; }
+            .serp-tool-grid { grid-template-columns: 1fr; gap: 18px; }
+            .serp-editor,
+            .serp-preview-shell { padding: 20px; }
+            .serp-result { min-height: 205px; padding: 18px; }
+            .after-contact-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+            .after-contact-step { min-height: 182px; padding: 19px 17px; }
+            .after-contact-number { margin-bottom: 14px; }
+        }
+        @media (max-width: 460px) {
+            .after-contact-steps { grid-template-columns: 1fr; }
+            .after-contact-step { min-height: auto; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-progress,
+            .service-accordion-item,
+            .problem-accordion-item,
+            .after-contact-step,
+            .serp-meter i { transition: none; }
+            .service-accordion-item[open] .service-accordion-panel,
+            .problem-accordion-item[open] .problem-accordion-panel { animation: none; }
+        }
+
+
+
+        /* ===== تحسينات الحركة والعرض المطلوبة ===== */
+        :root {
+            --gold: #F59E0B;
+            --gold-soft: rgba(245, 158, 11, 0.13);
+        }
+
+        /* نفس فكرة أدوات العمل: عناصر مباشرة تتكرر ويقيسها محرك marquee ثم يلفها بلا فراغ. */
+        .seo-ticker {
+            position: relative;
+            overflow: hidden;
+            margin: 10px 0 8px;
+            padding: 12px 0;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #fff;
+            box-shadow: 0 12px 30px -15px rgba(59, 130, 246, 0.72);
+            transform: rotate(-0.45deg) scaleX(1.01);
+            direction: ltr;
+            touch-action: pan-y;
+            cursor: grab;
+            user-select: none;
+        }
+        .seo-ticker.is-dragging { cursor: grabbing; }
+        .seo-ticker::before,
+        .seo-ticker::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+            width: 70px;
+            pointer-events: none;
+        }
+        .seo-ticker::before { right: 0; background: linear-gradient(90deg, transparent, var(--accent)); }
+        .seo-ticker::after { left: 0; background: linear-gradient(90deg, var(--accent2), transparent); }
+        .seo-ticker-track {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            width: max-content;
+            direction: ltr;
+            will-change: transform;
+        }
+        .seo-ticker-item {
+            flex: none;
+            margin-inline: 10px;
+            color: #fff;
+            direction: rtl;
+            unicode-bidi: plaintext;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+        .seo-ticker-divider {
+            flex: none;
+            margin-inline: 10px;
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-style: normal;
+        }
+
+        /* شريط الأرقام */
+        .stats-bar {
+            padding: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .stats-bar .container {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 27px 12px;
+            border-inline-start: 1px dashed rgba(148, 163, 184, 0.22);
+        }
+        .stat-item:last-child { border-inline-end: 1px dashed rgba(148, 163, 184, 0.22); }
+        .stat-item .number {
+            background: none;
+            color: var(--accent2);
+            -webkit-text-fill-color: var(--accent2);
+            font-family: 'Inter', sans-serif;
+            direction: ltr;
+            unicode-bidi: isolate;
+            font-size: clamp(1.75rem, 3.3vw, 2.45rem);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .stat-item .description {
+            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .stat-item:nth-child(2) .number {
+            color: var(--gold);
+            -webkit-text-fill-color: var(--gold);
+        }
+
+        /* الخدمات: نفس أسلوب الصفوف المرقمة المرجعي مع الذهبي كلون ثانوي. */
+        .svc-index {
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 1.5px solid var(--text);
+        }
+        .svc-row {
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+        .svc-row[open] { border-bottom-color: rgba(245, 158, 11, 0.42); }
+        .svc-btn {
+            width: 100%;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto auto;
+            align-items: center;
+            gap: clamp(14px, 3vw, 27px);
+            padding: 22px 8px;
+            color: var(--text);
+            cursor: pointer;
+            list-style: none;
+            text-align: right;
+            transition: padding 0.3s ease;
+        }
+        .svc-btn::-webkit-details-marker { display: none; }
+        .svc-btn::marker { content: ''; }
+        .svc-btn:hover { padding-right: 18px; }
+        .svc-btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: -3px;
+        }
+        .svc-num {
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            direction: ltr;
+        }
+        .svc-title {
+            min-width: 0;
+            font-size: clamp(1.12rem, 2.4vw, 1.48rem);
+            font-weight: 800;
+            line-height: 1.45;
+            transition: color 0.25s ease;
+        }
+        .svc-btn:hover .svc-title,
+        .svc-row[open] .svc-title { color: var(--gold); }
+        .svc-hint {
+            color: var(--text-secondary);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.78rem;
+            white-space: nowrap;
+        }
+        .svc-plus {
+            width: 22px;
+            height: 22px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease, transform 0.35s ease;
+        }
+        .svc-row[open] .svc-plus {
+            color: var(--gold);
+            transform: rotate(45deg);
+        }
+        .svc-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.45s cubic-bezier(.25, .8, .3, 1);
+        }
+        .svc-row[open] .svc-body { grid-template-rows: 1fr; }
+        .svc-in { min-height: 0; overflow: hidden; }
+        .svc-in-pad { max-width: 70ch; padding: 0 8px 26px; }
+        .svc-in-pad > p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.85;
+        }
+        .svc-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px 26px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .svc-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 9px;
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.7;
+        }
+        .svc-list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            flex: none;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 0 4px var(--gold-soft);
+            transform: translateY(-1px);
+        }
+
+        /* النتائج: لقطة كاملة بعرض الكارت، من غير crop أو ارتفاع ثابت. */
+        .gsc-grid {
+            gap: 20px;
+            padding: 6px 3px 18px;
+            scroll-padding-inline: 3px;
+        }
+        .gsc-card {
+            --result-tilt: 0deg;
+            flex: 0 0 calc((100% - 40px) / 3);
+            rotate: var(--result-tilt);
+            overflow: hidden;
+            border-radius: 18px;
+            background: var(--card-bg);
+            border-color: var(--border);
+            transition: transform 0.32s ease, rotate 0.32s ease, border-color 0.32s ease, box-shadow 0.32s ease;
+            will-change: transform;
+        }
+        .gsc-card:nth-child(odd) { --result-tilt: 0.28deg; }
+        .gsc-card:nth-child(even) { --result-tilt: -0.28deg; }
+        .gsc-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 18px 42px rgba(6, 182, 212, 0.12);
+        }
+        .gsc-tabs {
+            gap: 8px;
+            padding: 15px 18px 0;
+        }
+        .gsc-tab {
+            flex: initial;
+            padding: 7px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+        }
+        .gsc-tab.active {
+            background: var(--gradient1);
+            border-color: transparent;
+            color: #fff;
+        }
+        .gsc-tab.active .dot { background: #fff; }
+        .gsc-shot {
+            display: block;
+            height: auto;
+            aspect-ratio: auto;
+            margin: 14px 18px 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(15, 23, 42, 0.45);
+        }
+        .gsc-shot img {
+            display: none;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: none;
+            margin: 0;
+            object-fit: contain;
+            object-position: center;
+        }
+        .gsc-shot img.active { display: block; animation: resultShotIn 0.35s ease; }
+        @keyframes resultShotIn {
+            from { opacity: 0; transform: scale(0.985); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .gsc-shot::after {
+            content: '🔍 تكبير اختياري';
+            pointer-events: none;
+        }
+        .gsc-meta { padding: 14px 18px 19px; }
+        .gsc-niche {
+            display: inline-block;
+            margin-bottom: 8px;
+            padding: 4px 12px;
+            border: 1px solid rgba(6, 182, 212, 0.24);
+            border-radius: 999px;
+            background: rgba(6, 182, 212, 0.08);
+            color: var(--accent2);
+            font-size: 0.81rem;
+        }
+        .gsc-sum { margin: 0; font-size: 0.89rem; line-height: 1.85; }
+        .gsc-sum strong { color: #34D399; font-weight: 900; white-space: nowrap; }
+        .gsc-key-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin: 0 0 12px;
+        }
+        .gsc-key-metric {
+            min-width: 0;
+            display: grid;
+            gap: 3px;
+            padding: 10px 11px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.08));
+        }
+        .gsc-key-label { color: var(--text-secondary); font-size: 0.67rem; font-weight: 700; line-height: 1.4; }
+        .gsc-key-value {
+            display: block;
+            color: #34D399;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: clamp(1rem, 1.35vw, 1.2rem);
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+        body.light .gsc-key-metric { background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(6, 182, 212, 0.07)); }
+        body.light .gsc-key-value { color: #047857; }
+        #results .gsc-card:nth-child(2) .gsc-niche {
+            border-color: rgba(245, 158, 11, 0.34);
+            background: var(--gold-soft);
+            color: var(--gold);
+        }
+        .gsc-nav {
+            width: 44px;
+            height: 44px;
+            background: var(--card-bg);
+            box-shadow: 0 10px 26px rgba(2, 6, 23, 0.22);
+        }
+
+        /* على الكمبيوتر تظهر الأدلة الثلاثة معًا؛ على التابلت تبقى كارتين وعلى الموبايل كارت واحد. */
+        @media (min-width: 1024px) {
+            #results .gsc-grid {
+                overflow: visible;
+                scroll-snap-type: none;
+                padding-inline: 0;
+            }
+            #results .gsc-nav { display: none; }
+        }
+        @media (min-width: 769px) and (max-width: 1023px) {
+            #results .gsc-card { flex: 0 0 calc((100% - 20px) / 2); }
+        }
+
+        /* حركة كروت الكيس استادي تحافظ على الميل البسيط حتى مع ظهور fade-up. */
+        .portfolio-card {
+            --case-tilt: 0deg;
+            rotate: var(--case-tilt);
+            transition: transform 0.34s ease, rotate 0.34s ease, border-color 0.34s ease, box-shadow 0.34s ease;
+            will-change: transform;
+        }
+        .portfolio-card:nth-child(odd) { --case-tilt: 0.38deg; }
+        .portfolio-card:nth-child(even) { --case-tilt: -0.38deg; }
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.55);
+            box-shadow: 0 18px 42px rgba(2, 6, 23, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.08);
+        }
+        .portfolio-card:hover .portfolio-thumb img { transform: scale(1.055); }
+
+        /* كارت الكيس استادي يعرض النتيجة كدليل بصري قبل الوصف الطويل. */
+        .portfolio-card {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.09), var(--card-bg) 58%, rgba(6, 182, 212, 0.05));
+        }
+        .portfolio-thumb { height: 212px; }
+        .portfolio-body { padding: 23px; }
+        .portfolio-body h3 { margin-bottom: 9px; font-weight: 800; }
+        .portfolio-body p { margin-bottom: 18px; }
+        .portfolio-result {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            padding: 15px 16px 14px;
+            border: 1px solid rgba(16, 185, 129, 0.38);
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.17), rgba(6, 182, 212, 0.1));
+            color: var(--text);
+        }
+        .portfolio-result::after {
+            content: '';
+            position: absolute;
+            top: -48px;
+            left: -38px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.16), transparent 68%);
+            pointer-events: none;
+        }
+        .portfolio-result > * { position: relative; z-index: 1; }
+        .portfolio-result-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #6EE7B7;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+        .portfolio-result-icon {
+            width: 23px;
+            height: 23px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 7px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #34D399;
+        }
+        .portfolio-result-icon svg { width: 14px; height: 14px; }
+        .portfolio-result-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .portfolio-result-metric {
+            min-width: 0;
+            display: grid;
+            gap: 3px;
+            padding: 8px 9px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.22);
+        }
+        .portfolio-result-metric b {
+            color: #D1FAE5;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: clamp(0.96rem, 1.45vw, 1.2rem);
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+        .portfolio-result-metric small { color: var(--text-secondary); font-size: 0.67rem; font-weight: 700; line-height: 1.4; }
+        .portfolio-result-period { display: block; margin-top: 8px; color: #A7F3D0; font-size: 0.7rem; font-weight: 700; }
+        body.light .portfolio-result { background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(6, 182, 212, 0.08)); }
+        body.light .portfolio-result-kicker, body.light .portfolio-result-period { color: #047857; }
+        body.light .portfolio-result-metric { background: rgba(255, 255, 255, 0.7); border-color: rgba(16, 185, 129, 0.2); }
+        body.light .portfolio-result-metric b { color: #047857; }
+        .card-more { margin-top: 16px; }
+
+        /* معاينة النتيجة تكون RTL بالكامل مع بقاء الرابط قابلًا للقراءة. */
+        #serp-preview .serp-result {
+            direction: rtl;
+            text-align: right;
+        }
+        #serp-preview .serp-result-head {
+            direction: rtl;
+            justify-content: flex-start;
+        }
+        #serp-preview .serp-result-site,
+        #serp-preview .serp-result-title,
+        #serp-preview .serp-result-description {
+            direction: rtl;
+            text-align: right;
+        }
+        #serp-preview .serp-result-url {
+            direction: ltr;
+            text-align: right;
+            unicode-bidi: plaintext;
+        }
+
+        /* السيو أم الإعلانات: مقارنة صريحة ومختصرة، بدون وعود بنتيجة مضمونة. */
+        #compare { position: relative; }
+        .compare-grid {
+            max-width: 940px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+        .vs-badge {
+            align-self: center;
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(245, 158, 11, 0.46);
+            border-radius: 50%;
+            background: var(--gold-soft);
+            color: var(--gold);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 900;
+            box-shadow: 0 10px 24px rgba(245, 158, 11, 0.1);
+        }
+        .cmp-card {
+            padding: 28px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+        }
+        .cmp-card h3 {
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .cmp-card ul {
+            display: grid;
+            gap: 11px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .cmp-card li {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.89rem;
+            line-height: 1.75;
+        }
+        .cmp-card li::before { flex: none; font-family: 'Inter', sans-serif; font-weight: 900; }
+        .cmp-ads { border-color: rgba(239, 68, 68, 0.36); }
+        .cmp-ads h3, .cmp-ads li::before { color: #EF4444; }
+        .cmp-ads li::before { content: '−'; }
+        .cmp-ads:hover { border-color: rgba(239, 68, 68, 0.64); box-shadow: 0 16px 38px rgba(239, 68, 68, 0.09); }
+        .cmp-seo { border-color: rgba(6, 182, 212, 0.42); }
+        .cmp-seo h3, .cmp-seo li::before { color: var(--accent2); }
+        .cmp-seo li::before { content: '✓'; }
+        .cmp-seo:hover { border-color: rgba(6, 182, 212, 0.66); box-shadow: 0 16px 38px rgba(6, 182, 212, 0.1); }
+        .cmp-truth {
+            max-width: 760px;
+            margin: 26px auto 0;
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.98rem;
+            line-height: 1.85;
+        }
+        .cmp-truth strong { color: var(--gold); }
+        @media (max-width: 768px) {
+            .compare-grid { grid-template-columns: 1fr; gap: 14px; }
+            .vs-badge { justify-self: center; width: 50px; height: 50px; }
+            .cmp-card { padding: 23px 20px; }
+            .cmp-truth { font-size: 0.9rem; }
+        }
+
+        /* تعديلات محددة داخل الهيرو فقط: الشعارات، الصورة، وكارت النتيجة الأولى. */
+        .hero-platforms img.hp-big { height: 70px; }
+        .profile-photo-wrapper { width: min(380px, 88vw); }
+        .photo-card {
+            overflow: hidden;
+            transform: rotate(0.6deg);
+            animation: heroPhotoFloat 6s ease-in-out infinite;
+        }
+        .photo-card img { height: 380px; }
+        @keyframes heroPhotoFloat {
+            0%, 100% { transform: translateY(0) rotate(0.6deg); }
+            50% { transform: translateY(-10px) rotate(0.6deg); }
+        }
+        .rank-card {
+            right: -16px;
+            bottom: -22px;
+            padding: 13px 18px;
+            border-color: var(--border);
+            transform: rotate(2deg);
+            animation: rankCardFloat 6s ease-in-out 1.2s infinite;
+        }
+        @keyframes rankCardFloat {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .rank-pos-wrap { position: relative; display: inline-block; }
+        .rank-card .pos {
+            background: var(--gradient1);
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.7rem;
+        }
+        .rank-scribble {
+            position: absolute;
+            top: -11px;
+            right: -13px;
+            width: calc(100% + 26px);
+            height: calc(100% + 22px);
+            overflow: visible;
+            pointer-events: none;
+        }
+        .rank-scribble path {
+            stroke-dasharray: 170;
+            stroke-dashoffset: 170;
+            animation: drawRankScribble 0.8s ease 0.8s forwards;
+        }
+        @keyframes drawRankScribble { to { stroke-dashoffset: 0; } }
+        .rank-card .lbl { font-size: 0.78rem; }
+        .rank-card .lbl strong { font-size: 0.9rem; }
+
+        /* حركة هادئة وموحّدة للكروت من غير مبالغة أو تأثير على المحتوى. */
+        :is(
+            #process .process-step,
+            #problems .problem-accordion-item,
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #platforms .platform-card,
+            #tools .tool-item,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #after-contact .after-contact-step,
+            #compare .cmp-card,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form
+        ) {
+            --surface-tilt: 0deg;
+            rotate: var(--surface-tilt);
+            transition: transform 0.34s ease, rotate 0.34s ease, border-color 0.34s ease, box-shadow 0.34s ease;
+        }
+        :is(
+            #process .process-step,
+            #problems .problem-accordion-item,
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #platforms .platform-card,
+            #tools .tool-item,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #after-contact .after-contact-step,
+            #compare .cmp-card,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form
+        ):hover { transform: translateY(-6px); }
+        #process .process-step:nth-child(odd),
+        #platforms .platform-card:nth-child(odd),
+        #tools .tool-item:nth-child(odd),
+        #after-contact .after-contact-step:nth-child(odd),
+        #compare .cmp-ads,
+        #contact .contact-item:nth-child(odd),
+        #experience .timeline-item:nth-child(odd) .timeline-content,
+        #serp-preview .serp-editor,
+        #contact .contact-profile-card { --surface-tilt: 0.2deg; }
+        #process .process-step:nth-child(even),
+        #platforms .platform-card:nth-child(even),
+        #tools .tool-item:nth-child(even),
+        #after-contact .after-contact-step:nth-child(even),
+        #compare .cmp-seo,
+        #contact .contact-item:nth-child(even),
+        #experience .timeline-item:nth-child(even) .timeline-content,
+        #serp-preview .serp-preview-shell,
+        #contact .contact-form { --surface-tilt: -0.2deg; }
+        :is(
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form
+        ):hover {
+            border-color: rgba(59, 130, 246, 0.46);
+            box-shadow: 0 16px 38px rgba(59, 130, 246, 0.11);
+        }
+
+        @media (max-width: 768px) {
+            .seo-ticker { margin-top: 6px; padding: 10px 0; transform: rotate(-0.35deg) scaleX(1.01); }
+            .seo-ticker-item { margin-inline: 8px; font-size: 0.78rem; }
+            .seo-ticker-divider { margin-inline: 8px; }
+            .stats-bar .container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+            .stat-item { padding: 20px 8px; }
+            .stat-item .number { font-size: 1.8rem; }
+            .stat-item .description { font-size: 0.78rem; }
+            .svc-btn {
+                grid-template-columns: auto minmax(0, 1fr) auto;
+                gap: 12px;
+                padding: 18px 4px;
+            }
+            .svc-btn:hover { padding-right: 10px; }
+            .svc-title { font-size: 1rem; }
+            .svc-hint { display: none; }
+            .svc-list { grid-template-columns: 1fr; gap: 7px; }
+            .svc-in-pad { padding: 0 4px 21px; }
+            .gsc-grid { gap: 16px; padding: 5px 2px 16px; }
+            .gsc-card { flex-basis: 100%; --result-tilt: 0deg; rotate: 0deg; }
+            .gsc-tabs { padding: 12px 12px 0; }
+            .gsc-tab { padding: 6px 11px; font-size: 0.71rem; }
+            .gsc-shot { margin: 12px 12px 0; }
+            .gsc-meta { padding: 13px 14px 17px; }
+            .gsc-niche { font-size: 0.75rem; }
+            .gsc-sum { font-size: 0.8rem; }
+            .portfolio-card { --case-tilt: 0deg; rotate: 0deg; }
+            :is(
+                #process .process-step,
+                #problems .problem-accordion-item,
+                #serp-preview .serp-editor,
+                #serp-preview .serp-preview-shell,
+                #platforms .platform-card,
+                #tools .tool-item,
+                #experience .timeline-content,
+                #faq .faq-item,
+                #after-contact .after-contact-step,
+                #compare .cmp-card,
+                #contact .contact-profile-card,
+                #contact .contact-item,
+                #contact .contact-form
+            ) { --surface-tilt: 0deg; rotate: 0deg; }
+            .hero-platforms img.hp-big { height: 58px; }
+            .profile-photo-wrapper { width: min(250px, 82vw); }
+            .photo-card img { height: 250px; }
+            .rank-card { right: -12px; bottom: -17px; padding: 9px 13px; }
+            .rank-card .pos { font-size: 1.25rem; }
+            .rank-card .lbl { font-size: 0.64rem; }
+            .rank-card .lbl strong { font-size: 0.71rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .seo-ticker-track,
+            .photo-card,
+            .rank-card,
+            .rank-scribble path { animation: none; }
+            .seo-ticker-track { transform: none; }
+            .gsc-card,
+            .portfolio-card,
+            .svc-row,
+            #process .process-step,
+            #problems .problem-accordion-item,
+            #serp-preview .serp-editor,
+            #serp-preview .serp-preview-shell,
+            #platforms .platform-card,
+            #tools .tool-item,
+            #experience .timeline-content,
+            #faq .faq-item,
+            #after-contact .after-contact-step,
+            #compare .cmp-card,
+            #contact .contact-profile-card,
+            #contact .contact-item,
+            #contact .contact-form { transition: none; rotate: 0deg; }
+            :is(
+                .gsc-card,
+                .portfolio-card,
+                #process .process-step,
+                #problems .problem-accordion-item,
+                #serp-preview .serp-editor,
+                #serp-preview .serp-preview-shell,
+                #platforms .platform-card,
+                #tools .tool-item,
+                #experience .timeline-content,
+                #faq .faq-item,
+                #after-contact .after-contact-step,
+                #compare .cmp-card,
+                #contact .contact-profile-card,
+                #contact .contact-item,
+                #contact .contact-form
+            ):hover { transform: none; }
+        }
+
     </style>
 
     <!-- Schema Markup -->
@@ -510,7 +1801,7 @@
         "name": "Muhammed Yasser",
         "jobTitle": "SEO Specialist",
         "description": "خبير On-Page & Technical SEO للمواقع والمتاجر الإلكترونية ومواقع SaaS",
-        "url": "https://muhammedyasserbs.github.io/my-portfolio/",
+        "url": "https://muhammedyasserbs.github.io/",
         "email": "muhammedyasserbs@gmail.com",
         "telephone": "+201009332728",
         "address": {
@@ -529,7 +1820,7 @@
         "@type": "ProfessionalService",
         "name": "Muhammed Yasser - SEO Services",
         "description": "خدمات On-Page و Technical SEO للمواقع والمتاجر ومواقع SaaS",
-        "url": "https://muhammedyasserbs.github.io/my-portfolio/",
+        "url": "https://muhammedyasserbs.github.io/",
         "email": "muhammedyasserbs@gmail.com",
         "telephone": "+201009332728",
         "address": {
@@ -619,6 +1910,7 @@
     </script>
 </head>
 <body>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <div id="preloader"><div class="pre-ring"></div></div>
     <div class="bg-animation"><div class="circle"></div><div class="circle"></div><div class="circle"></div></div>
 
@@ -668,10 +1960,12 @@
                 </div>
                 <div class="hero-platforms">
                     <span class="hp-label">بشتغل على:</span>
-                    <img src="https://i.postimg.cc/pTVrtbKD/Salla2-01.png" alt="سلة" title="سلة" class="hp-big" loading="lazy">
-                    <img src="https://i.postimg.cc/Tw21XMnH/Zid-En-01.png" alt="زد" title="زد" class="hp-big" loading="lazy">
-                    <img src="https://i.postimg.cc/xd95B51C/shopify.png" alt="Shopify" title="Shopify" loading="lazy">
-                    <img src="https://i.postimg.cc/d0j3XtZ0/logo-wordpress-49497.png" alt="WordPress" title="WordPress" loading="lazy">
+                    <div class="hero-platform-logos">
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/pTVrtbKD/Salla2-01.png" alt="سلة" title="سلة" class="hp-big" loading="lazy"></span>
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/Tw21XMnH/Zid-En-01.png" alt="زد" title="زد" class="hp-big" loading="lazy"></span>
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/xd95B51C/shopify.png" alt="Shopify" title="Shopify" loading="lazy"></span>
+                        <span class="hero-platform-logo"><img src="https://i.postimg.cc/d0j3XtZ0/logo-wordpress-49497.png" alt="WordPress" title="WordPress" loading="lazy"></span>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
@@ -679,7 +1973,7 @@
                     <div class="profile-photo-wrapper">
                         <div class="search-pill">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <span class="q">seo specialist</span>
+                            <span class="q" id="heroSearchQuery" dir="auto">seo specialist</span>
                             <span class="caret"></span>
                         </div>
                         <div class="photo-backdrop"></div>
@@ -688,7 +1982,10 @@
                             <img src="https://i.postimg.cc/XvYJFGrX/muhammed-yasser-seo-specialist.png" alt="Muhammed Yasser - SEO Specialist">
                         </div>
                         <div class="rank-card">
-                            <span class="pos">#1</span>
+                            <span class="rank-pos-wrap">
+                                <span class="pos">#1</span>
+                                <svg class="rank-scribble" viewBox="0 0 70 46" aria-hidden="true"><path d="M10 27 C 9 12, 55 5, 62 19 C 68 32, 26 44, 13 36 C 4 30, 16 13, 42 10" fill="none" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round"/></svg>
+                            </span>
                             <span class="lbl"><strong>النتيجة الأولى</strong>في نتائج البحث</span>
                         </div>
                     </div>
@@ -697,65 +1994,36 @@
         </div>
     </section>
 
+
+    <!-- شريط خدمات متحرك فوق الأرقام -->
+    <div class="seo-ticker" aria-hidden="true">
+        <div class="seo-ticker-track">
+            <span class="seo-ticker-item">بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">Technical SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">On-Page SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">بحث الكلمات المفتاحية</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">Technical SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">SEO لمتاجر سلة وزد</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">On-Page SEO</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">تحسين معدل التحويل</span><i class="seo-ticker-divider">✦</i>
+            <span class="seo-ticker-item">مواقع SaaS</span><i class="seo-ticker-divider">✦</i>
+        </div>
+    </div>
+
     <!-- Stats -->
     <div class="stats-bar">
         <div class="container">
             <div class="stat-item fade-up"><div class="number">+2</div><div class="description">سنة خبرة في SEO</div></div>
-            <div class="stat-item fade-up"><div class="number">30+</div><div class="description">مشروع ناجح</div></div>
-            <div class="stat-item fade-up"><div class="number">500+</div><div class="description">كلمة مفتاحية في الصفحة الأولى</div></div>
+            <div class="stat-item fade-up"><div class="number">+30</div><div class="description">مشروع ناجح</div></div>
+            <div class="stat-item fade-up"><div class="number">+500</div><div class="description">كلمة مفتاحية في الصفحة الأولى</div></div>
             <div class="stat-item fade-up"><div class="number">100%</div><div class="description">رضا العملاء</div></div>
         </div>
     </div>
 
-    
 
-    <!-- Services -->
-    <section id="services">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>خدماتي <span>المتخصصة</span></h2>
-                <p>حلول SEO شاملة لرفع ظهور متجرك الإلكتروني وزيادة مبيعاتك</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(59,130,246,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-                    <h3>بحث الكلمات المفتاحية</h3>
-                    <p>تحليل شامل للسوق والمنافسين لتحديد الكلمات الأكثر قيمة</p>
-                    <ul><li>تحليل حجم البحث والمنافسة</li><li>كلمات مفتاحية طويلة الذيل</li><li>تحليل نية البحث</li><li>رصد كلمات المنافسين</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(6,182,212,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
-                    <h3>On-Page SEO & كتابة المحتوى</h3>
-                    <p>تحسين كل عنصر في صفحات متجرك لتحقيق أعلى ترتيب</p>
-                    <ul><li>كتابة وصف المنتجات المتوافق مع SEO</li><li>تحسين H1, H2, Meta Tags</li><li>تحسين الروابط الداخلية</li><li>تحسين ALT text للصور</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(139,92,246,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></div>
-                    <h3>Technical SEO</h3>
-                    <p>ضمان أن موقعك محسن تقنياً لزحف وأرشفة محركات البحث</p>
-                    <ul><li>إعداد Sitemap و Robots.txt</li><li>بنية Silo Structure</li><li>فحص شامل بـ Screaming Frog</li><li>تحسين Core Web Vitals</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(59,130,246,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-                    <h3>تتبع الأداء والتقارير</h3>
-                    <p>متابعة مستمرة لأداء متجرك مع تقارير دورية مفصلة</p>
-                    <ul><li>تتبع ترتيب الكلمات المفتاحية</li><li>تحليل بيانات Search Console</li><li>تقارير Ahrefs و SEMrush</li><li>تقارير أداء شهرية</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(93,202,124,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#5DCA7C" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-                    <h3>SEO المتاجر الإلكترونية</h3>
-                    <p>تحسين شامل للمتاجر والمواقع الإلكترونية لزيادة المبيعات والزيارات</p>
-                    <ul><li>تحسين صفحات المنتجات والتصنيفات</li><li>Schema Markup للمنتجات</li><li>تحسين تجربة المستخدم</li><li>تحسين نسبة التحويل</li></ul>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="service-icon" style="background:rgba(108,99,255,0.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-                    <h3>SEO للمواقع الخدمية و SaaS</h3>
-                    <p>استراتيجيات SEO مخصصة لجذب العملاء المحتملين</p>
-                    <ul><li>تحسين صفحات الخدمات Landing Pages</li><li>استراتيجية محتوى SaaS</li><li>تحسين Conversion Rate</li><li>Building Topical Authority</li></ul>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Results (نتائج من Search Console) -->
     <section id="results" class="section-alt">
@@ -771,12 +2039,16 @@
                         <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
                     </div>
                     <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين" src="https://i.postimg.cc/ZnGVpmJ4/mtjr-jwfna-kwnswl-mqarnt-shhryn.png" alt="نتائج Search Console - متجر زيت زيتون في السعودية" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 22.2 ألف لـ <strong>31.3 ألف ريال (+40.8%)</strong> والجلسات من 2,988 لـ <strong>6,419</strong> (+114%)" src="https://i.postimg.cc/wv3Ck6Yk/analtyks-jwfna-mqarnt-shhryn.png" alt="نتائج Google Analytics - متجر زيت زيتون في السعودية" loading="lazy">
+                        <img class="active" data-shot="gsc" data-metric-one-value="7.21 ألف" data-metric-one-label="نقرة من البحث" data-metric-two-value="+115%" data-metric-two-label="نمو النقرات" data-sum="النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين" src="https://i.postimg.cc/ZnGVpmJ4/mtjr-jwfna-kwnswl-mqarnt-shhryn.png" alt="نتائج Search Console - متجر زيت زيتون في السعودية" loading="lazy">
+                        <img data-shot="ga" data-metric-one-value="31.3 ألف ريال" data-metric-one-label="إيرادات عضوية" data-metric-two-value="+114%" data-metric-two-label="نمو الجلسات" data-sum="الإيرادات العضوية قفزت من 22.2 ألف لـ <strong>31.3 ألف ريال (+40.8%)</strong> والجلسات من 2,988 لـ <strong>6,419</strong> (+114%)" src="https://i.postimg.cc/wv3Ck6Yk/analtyks-jwfna-mqarnt-shhryn.png" alt="نتائج Google Analytics - متجر زيت زيتون في السعودية" loading="lazy">
                     </div>
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر زيت زيتون في السعودية</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">7.21 ألف</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+115%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات قفزت من 3.35 ألف لـ <strong>7.21 ألف (+115%)</strong> والظهور من 589 ألف لـ <strong>880 ألف</strong> خلال شهرين</p>
                     </div>
@@ -787,12 +2059,16 @@
                         <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
                     </div>
                     <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور" src="https://i.postimg.cc/SNSpbcpM/kwnswl-mtjr-zywt-tbyʿyt.webp" alt="نتائج Search Console - متجر زيوت وعطارة" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 26.5 ألف لـ <strong>106.3 ألف ريال</strong> والجلسات من 3,131 لـ <strong>18,839</strong> (+501%)" src="https://i.postimg.cc/DyvK31KG/analytyks-mtjr-zywt-tbyʿyt.webp" alt="نتائج Google Analytics - متجر زيوت وعطارة" loading="lazy">
+                        <img class="active" data-shot="gsc" data-metric-one-value="17.1 ألف" data-metric-one-label="نقرة من البحث" data-metric-two-value="1.45 مليون" data-metric-two-label="مرة ظهور" data-sum="النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور" src="https://i.postimg.cc/SNSpbcpM/kwnswl-mtjr-zywt-tbyʿyt.webp" alt="نتائج Search Console - متجر زيوت وعطارة" loading="lazy">
+                        <img data-shot="ga" data-metric-one-value="106.3 ألف ريال" data-metric-one-label="إيرادات عضوية" data-metric-two-value="+501%" data-metric-two-label="نمو الجلسات" data-sum="الإيرادات العضوية قفزت من 26.5 ألف لـ <strong>106.3 ألف ريال</strong> والجلسات من 3,131 لـ <strong>18,839</strong> (+501%)" src="https://i.postimg.cc/DyvK31KG/analytyks-mtjr-zywt-tbyʿyt.webp" alt="نتائج Google Analytics - متجر زيوت وعطارة" loading="lazy">
                     </div>
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر زيوت وعطارة في السعودية</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">17.1 ألف</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">مرة ظهور</span><strong class="gsc-key-value">1.45 مليون</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات قفزت من 2.56 ألف لـ <strong>17.1 ألف</strong> والظهور من 123 ألف لـ <strong>1.45 مليون</strong> خلال 6 شهور</p>
                     </div>
@@ -803,18 +2079,168 @@
                         <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
                     </div>
                     <div class="gsc-shot" onclick="openLightbox(this)">
-                        <img class="active" data-shot="gsc" data-sum="النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين" src="https://i.postimg.cc/3JJWP2cQ/kwnswl-mtjr-ajhzt-mnzlyt-wkhrbyt.webp" alt="نتائج Search Console - متجر أجهزة منزلية" loading="lazy">
-                        <img data-shot="ga" data-sum="الإيرادات العضوية قفزت من 689 لـ <strong>42,859 ريال</strong> والجلسات من 662 لـ <strong>4,267</strong> (+544%)" src="https://i.postimg.cc/NjDsHybK/kys-astady-mtjr-adwat-mnzlyh-wkhrbyt-mqarnh-shhryn.webp" alt="نتائج Google Analytics - متجر أجهزة منزلية" loading="lazy">
+                        <img class="active" data-shot="gsc" data-metric-one-value="+119%" data-metric-one-label="نمو النقرات" data-metric-two-value="2.8%" data-metric-two-label="CTR بعد التحسين" data-sum="النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين" src="https://i.postimg.cc/3JJWP2cQ/kwnswl-mtjr-ajhzt-mnzlyt-wkhrbyt.webp" alt="نتائج Search Console - متجر أجهزة منزلية" loading="lazy">
+                        <img data-shot="ga" data-metric-one-value="42,859 ريال" data-metric-one-label="إيرادات عضوية" data-metric-two-value="+544%" data-metric-two-label="نمو الجلسات" data-sum="الإيرادات العضوية قفزت من 689 لـ <strong>42,859 ريال</strong> والجلسات من 662 لـ <strong>4,267</strong> (+544%)" src="https://i.postimg.cc/NjDsHybK/kys-astady-mtjr-adwat-mnzlyh-wkhrbyt-mqarnh-shhryn.webp" alt="نتائج Google Analytics - متجر أجهزة منزلية" loading="lazy">
                     </div>
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر أجهزة منزلية وكهربائية في السعودية</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+119%</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">CTR بعد التحسين</span><strong class="gsc-key-value">2.8%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين</p>
                     </div>
                 </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>خدماتي <span>المتخصصة</span></h2>
+                <p>اضغط على أي خدمة عشان تشوف تفاصيل الشغل فيها</p>
+            </div>
+            <div class="svc-index fade-up">
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">01</span>
+                        <span class="svc-title" role="heading" aria-level="3">بحث الكلمات المفتاحية</span>
+                        <span class="svc-hint">حجم البحث · النية · المنافسون</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </summary>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>تحليل شامل للسوق والمنافسين لتحديد الكلمات الأكثر قيمة لمتجرك.</p>
+                        <ul class="svc-list">
+                            <li>تحليل حجم البحث والمنافسة</li>
+                            <li>كلمات مفتاحية طويلة الذيل</li>
+                            <li>تحليل نية البحث</li>
+                            <li>رصد كلمات المنافسين</li>
+                        </ul>
+                    </div></div></div>
+                </details>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">02</span>
+                        <span class="svc-title" role="heading" aria-level="3">On-Page SEO وكتابة المحتوى</span>
+                        <span class="svc-hint">Meta Tags · العناوين · المحتوى</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </summary>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>تحسين كل عنصر في صفحات متجرك لتحقيق أعلى ترتيب ممكن.</p>
+                        <ul class="svc-list">
+                            <li>كتابة وصف المنتجات المتوافق مع SEO</li>
+                            <li>تحسين H1 وH2 وMeta Tags</li>
+                            <li>تحسين الروابط الداخلية</li>
+                            <li>تحسين ALT text للصور</li>
+                        </ul>
+                    </div></div></div>
+                </details>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">03</span>
+                        <span class="svc-title" role="heading" aria-level="3">Technical SEO</span>
+                        <span class="svc-hint">الزحف · الفهرسة · السرعة</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </summary>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>ضمان أن موقعك محسن تقنيًا لزحف وأرشفة محركات البحث.</p>
+                        <ul class="svc-list">
+                            <li>إعداد Sitemap وRobots.txt</li>
+                            <li>بنية Silo Structure</li>
+                            <li>فحص شامل بـ Screaming Frog</li>
+                            <li>تحسين Core Web Vitals</li>
+                        </ul>
+                    </div></div></div>
+                </details>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">04</span>
+                        <span class="svc-title" role="heading" aria-level="3">تتبع الأداء والتقارير</span>
+                        <span class="svc-hint">Search Console · Analytics · تقارير شهرية</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </summary>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>متابعة مستمرة لأداء متجرك مع تقارير دورية مفصلة وواضحة.</p>
+                        <ul class="svc-list">
+                            <li>تتبع ترتيب الكلمات المفتاحية</li>
+                            <li>تحليل بيانات Search Console</li>
+                            <li>تقارير Ahrefs وSEMrush</li>
+                            <li>تقارير أداء شهرية</li>
+                        </ul>
+                    </div></div></div>
+                </details>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">05</span>
+                        <span class="svc-title" role="heading" aria-level="3">SEO المتاجر الإلكترونية</span>
+                        <span class="svc-hint">المنتجات · Schema · التحويل</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </summary>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>تحسين شامل للمتاجر والمواقع الإلكترونية لزيادة المبيعات والزيارات.</p>
+                        <ul class="svc-list">
+                            <li>تحسين صفحات المنتجات والتصنيفات</li>
+                            <li>Schema Markup للمنتجات</li>
+                            <li>تحسين تجربة المستخدم</li>
+                            <li>تحسين نسبة التحويل</li>
+                        </ul>
+                    </div></div></div>
+                </details>
+                <details class="svc-row">
+                    <summary class="svc-btn">
+                        <span class="svc-num">06</span>
+                        <span class="svc-title" role="heading" aria-level="3">SEO للمواقع الخدمية وSaaS</span>
+                        <span class="svc-hint">Landing Pages · المحتوى · Topical Authority</span>
+                        <svg class="svc-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </summary>
+                    <div class="svc-body"><div class="svc-in"><div class="svc-in-pad">
+                        <p>استراتيجيات SEO مخصصة لجذب العملاء المحتملين بجودة أعلى.</p>
+                        <ul class="svc-list">
+                            <li>تحسين صفحات الخدمات Landing Pages</li>
+                            <li>استراتيجية محتوى SaaS</li>
+                            <li>تحسين Conversion Rate</li>
+                            <li>Building Topical Authority</li>
+                        </ul>
+                    </div></div></div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- السيو أم الإعلانات؟ -->
+    <section id="compare" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>السيو أم <span>الإعلانات؟</span></h2>
+                <p>كل قناة ليها دور؛ الاختيار الصح بيعتمد على هدفك ومرحلة مشروعك.</p>
+            </div>
+            <div class="compare-grid fade-up">
+                <article class="cmp-card cmp-ads">
+                    <h3>عيوب الإعلانات</h3>
+                    <ul>
+                        <li>نتائج فورية، لكنها تتوقف بمجرد توقف الدفع.</li>
+                        <li>كل نقرة تُدفع من ميزانيتك.</li>
+                        <li>عند التوقف، تختفي الزيارات.</li>
+                        <li>لا يبني أصلًا يبقى ملكًا لك.</li>
+                    </ul>
+                </article>
+                <div class="vs-badge" aria-hidden="true">أم</div>
+                <article class="cmp-card cmp-seo">
+                    <h3>SEO</h3>
+                    <ul>
+                        <li>بياخد وقت في البداية، لكنه بيبني ظهورًا عضويًا تدريجيًا.</li>
+                        <li>مفيش تكلفة مباشرة على كل نقرة من Google.</li>
+                        <li>بيخدم الصفحات اللي عليها بحث فعلي من عملاء محتملين.</li>
+                        <li>قيمته بتتراكم مع التحسين والمتابعة على المدى الطويل.</li>
+                    </ul>
+                </article>
+            </div>
+            <p class="cmp-truth fade-up">الأفضل مش دايمًا واحد بدل التاني: <strong>الإعلانات</strong> تدعم احتياجك السريع، و<strong>السيو</strong> يبني حضورًا عضويًا على المدى الطويل.</p>
         </div>
     </section>
 
@@ -834,9 +2260,155 @@
             </div>
         </div>
     </section>
+
+    <!-- معاينة شكل النتيجة في Google -->
+    <section id="serp-preview" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>شكل موقعك في <span>Google</span></h2>
+                <p>اكتب عنوان الصفحة والوصف وشوف معاينة تقريبية لنتيجتك قبل النشر.</p>
+            </div>
+            <div class="serp-tool-grid">
+                <div class="serp-editor fade-up">
+                    <div class="serp-field">
+                        <label for="serpTitleInput"><span>عنوان الصفحة (Title)</span><b class="serp-count" id="serpTitleCount">0 / 60</b></label>
+                        <input id="serpTitleInput" type="text" maxlength="120" autocomplete="off" placeholder="مثال: أفضل غسالات أوتوماتيك في السعودية | اسم متجرك">
+                        <span class="serp-meter" aria-hidden="true"><i id="serpTitleMeter"></i></span>
+                    </div>
+                    <div class="serp-field">
+                        <label for="serpDescriptionInput"><span>وصف الميتا (Meta Description)</span><b class="serp-count" id="serpDescriptionCount">0 / 155</b></label>
+                        <textarea id="serpDescriptionInput" maxlength="320" placeholder="اكتب وصفًا واضحًا يشرح الصفحة ويشجع العميل على الدخول..."></textarea>
+                        <span class="serp-meter" aria-hidden="true"><i id="serpDescriptionMeter"></i></span>
+                    </div>
+                    <div class="serp-field">
+                        <label for="serpUrlInput"><span>رابط الصفحة (اختياري)</span></label>
+                        <input id="serpUrlInput" type="text" inputmode="url" dir="ltr" style="text-align:left" autocomplete="url" placeholder="example.com/category">
+                    </div>
+                    <p class="serp-editor-note">المعاينة للتوضيح فقط؛ Google ممكن يغيّر العنوان أو الوصف حسب بحث المستخدم والجهاز.</p>
+                </div>
+                <div class="serp-preview-shell fade-up" style="transition-delay:0.12s">
+                    <span class="serp-preview-label">معاينة نتيجة البحث</span>
+                    <div class="serp-result" aria-live="polite" dir="rtl">
+                        <div class="serp-result-head">
+                            <span class="serp-result-mark" aria-hidden="true">م</span>
+                            <span>
+                                <span class="serp-result-site" id="serpPreviewSite" dir="auto">موقعك</span>
+                                <span class="serp-result-url" id="serpPreviewUrl" dir="ltr">example.com</span>
+                            </span>
+                        </div>
+                        <p class="serp-result-title" id="serpPreviewTitle">عنوان صفحتك يظهر هنا</p>
+                        <p class="serp-result-description" id="serpPreviewDescription">وصف الميتا هيظهر هنا ويساعد العميل يفهم الصفحة قبل ما يضغط على النتيجة.</p>
+                    </div>
+                    <p class="serp-guidance" id="serpGuidance">اكتب عنوانًا ووصفًا عشان تشوف تقييم الطول المناسب للعرض.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المشاكل التي أتعامل معها -->
+    <section id="problems">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>المشاكل اللي <span>بحلّها</span></h2>
+                <p>لو واحدة من دول بتحصل في موقعك، البداية بتكون من السبب الحقيقي مش من تخمين.</p>
+            </div>
+            <div class="problems-accordion">
+                <details class="problem-accordion-item fade-up" open>
+                    <summary>
+                        <span class="problem-accordion-number">01</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">صفحات متجرك مش بتظهر في Google</span>
+                            <span class="problem-accordion-subtitle">أول خطوة: نتأكد إن Google يقدر يوصل للصفحات المهمة.</span>
+                        </span>
+                        <span class="problem-accordion-tag">الفهرسة والزحف</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>لما صفحات مهمة تبقى مستبعدة أو مش ظاهرة في البحث، بنراجع أسباب الزحف والفهرسة قبل أي تحسينات تانية.</p>
+                            <ul class="problem-accordion-list">
+                                <li>مراجعة Robots.txt ووسم noindex</li>
+                                <li>فحص Sitemap وCanonical</li>
+                                <li>تحديد الصفحات المستبعدة</li>
+                                <li>تقوية الروابط الداخلية للصفحات المهمة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="problem-accordion-item fade-up" style="transition-delay:0.06s">
+                    <summary>
+                        <span class="problem-accordion-number">02</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">عندك زيارات لكن المبيعات العضوية ضعيفة</span>
+                            <span class="problem-accordion-subtitle">مش كل زيارة جاهزة للشراء، وده بيغير طريقة اختيار الصفحات والكلمات.</span>
+                        </span>
+                        <span class="problem-accordion-tag">نية الشراء</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>الزيارات وحدها مش الهدف. بنركز على الكلمات والصفحات اللي تقرّب العميل من قرار الشراء.</p>
+                            <ul class="problem-accordion-list">
+                                <li>تحديد الكلمات الشرائية للمنتجات والتصنيفات</li>
+                                <li>تحسين Title وMeta Description</li>
+                                <li>توضيح مسار العميل للصفحات المهمة</li>
+                                <li>تحسين المحتوى حسب نية البحث</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="problem-accordion-item fade-up" style="transition-delay:0.12s">
+                    <summary>
+                        <span class="problem-accordion-number">03</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">المنتجات أو الصفحات المتشابهة بتنافس بعض</span>
+                            <span class="problem-accordion-subtitle">تكرار العناوين والمحتوى بيصعّب على Google فهم الصفحة الأهم.</span>
+                        </span>
+                        <span class="problem-accordion-tag">On-Page SEO</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>لما صفحات متشابهة تستخدم نفس العناوين أو تتكلم عن نفس الموضوع، بنوضح دور كل صفحة عشان ما تتنافسش مع بعضها.</p>
+                            <ul class="problem-accordion-list">
+                                <li>عناوين Title وH1 مميزة</li>
+                                <li>Meta Descriptions واضحة ومختلفة</li>
+                                <li>تنظيم التصنيفات وصفحات المنتجات</li>
+                                <li>استخدام Canonical عند الحاجة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+                <details class="problem-accordion-item fade-up" style="transition-delay:0.18s">
+                    <summary>
+                        <span class="problem-accordion-number">04</span>
+                        <span class="problem-accordion-copy">
+                            <span class="problem-accordion-title" role="heading" aria-level="3">الظهور أو النقرات بتقل ومش عارف السبب</span>
+                            <span class="problem-accordion-subtitle">بنبدأ بالبيانات عشان نحدد الصفحة أو الكلمة المتأثرة فعلًا.</span>
+                        </span>
+                        <span class="problem-accordion-tag">تحليل الأداء</span>
+                        <span class="problem-accordion-toggle" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="problem-accordion-panel">
+                        <div class="problem-accordion-panel-inner">
+                            <p>بدل ما نجرّب تغييرات عشوائية، بنقارن بيانات Search Console وAnalytics ونرتب الأولويات حسب التأثير.</p>
+                            <ul class="problem-accordion-list">
+                                <li>تحديد الصفحات والكلمات المتأثرة</li>
+                                <li>فحص المشاكل التقنية أو تغييرات المحتوى</li>
+                                <li>تحسين CTR من نتيجة البحث</li>
+                                <li>خطة تجمع المكاسب السريعة والتحسين المستمر</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- منهجية العمل -->
     <section id="process" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up"><h2>منهجية <span>العمل</span></h2><p>خطوات مضمونة لتحقيق نتائج مستدامة لمتجرك</p></div>
+            <div class="section-header fade-up"><h2>منهجية <span>العمل</span></h2><p>خطوات واضحة لبناء نمو مستدام لمتجرك</p></div>
             <div class="process-steps">
                 <div class="process-step fade-up"><div class="step-number">1</div><h3>التحليل والبحث</h3><p>تحليل شامل للموقع والمنافسين والكلمات المفتاحية + مراجعة تقنية</p></div>
                 <div class="process-step fade-up"><div class="step-number">2</div><h3>وضع الاستراتيجية</h3><p>بناء خطة SEO متكاملة تشمل On-Page و Technical و Content Strategy</p></div>
@@ -930,6 +2502,34 @@
                         <p class="platform-desc">SEO لمواقع مبرمجة<br>بشكل خاص</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header fade-up"><h2>مسيرتي <span>العملية</span></h2><p>مسار مهني متميز في عالم تحسين محركات البحث</p></div>
+            <div class="timeline">
+                <div class="timeline-item fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="date">أبريل 2025 - حتى الآن</div>
+                        <h3>SEO Specialist</h3>
+                        <div class="company">TAR</div>
+                        <p>إدارة تحسين محركات البحث للعملاء • تحليل المواقع وكتابة المحتوى المتوافق مع SEO • تحسين On-Page و Technical SEO للمواقع والمتاجر الإلكترونية ومواقع SaaS • رصد الكلمات المفتاحية وتتبع الأداء</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="date">فبراير 2024 - أبريل 2024</div>
+                        <h3>Marketing Intern</h3>
+                        <div class="company">Azzrk - أزرق</div>
+                        <p>تدريب عملي في التسويق الرقمي • تعلم أساسيات SEO والتسويق الإلكتروني • بناء الاستراتيجيات الرقمية والعمل على مشاريع حقيقية</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1118,74 +2718,13 @@
                         <div class="tool-name">Tag Manager</div>
                         <div class="tool-desc">إدارة أدوات التتبع</div>
                     </div>
-                
-                </div>
-            </div>
-        </div>
-    </section>
 
-    
-
-    <!-- Experience -->
-    <section id="experience">
-        <div class="container">
-            <div class="section-header fade-up"><h2>مسيرتي <span>العملية</span></h2><p>مسار مهني متميز في عالم تحسين محركات البحث</p></div>
-            <div class="timeline">
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="date">أبريل 2025 - حتى الآن</div>
-                        <h3>SEO Specialist</h3>
-                        <div class="company">TAR</div>
-                        <p>إدارة تحسين محركات البحث للعملاء • تحليل المواقع وكتابة المحتوى المتوافق مع SEO • تحسين On-Page و Technical SEO للمواقع والمتاجر الإلكترونية ومواقع SaaS • رصد الكلمات المفتاحية وتتبع الأداء</p>
-                    </div>
                 </div>
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="date">فبراير 2024 - أبريل 2024</div>
-                        <h3>Marketing Intern</h3>
-                        <div class="company">Azzrk - أزرق</div>
-                        <p>تدريب عملي في التسويق الرقمي • تعلم أساسيات SEO والتسويق الإلكتروني • بناء الاستراتيجيات الرقمية والعمل على مشاريع حقيقية</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
-    <!-- Testimonials -->
-    <section id="testimonials" class="section-alt">
-        <div class="container">
-            <div class="section-header fade-up"><h2>آراء <span>العملاء</span></h2><p>اللي بيقولوه أصحاب المشاريع اللي اشتغلت معاهم</p></div>
-            <div class="testi-slider-wrap fade-up">
-                <button class="testi-nav prev" onclick="testiSlide(1)" aria-label="السابق">‹</button>
-                <button class="testi-nav next" onclick="testiSlide(-1)" aria-label="التالي">›</button>
-                <div class="testi-grid" id="testiSlider">
-                <div class="testi-card fade-up">
-                    <span class="quote-mark">"</span>
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">كنا بندفع آلاف الريالات شهريًا في الإعلانات، دلوقتي البحث العضوي بيجيب لنا طلبات يومية من غير ما ندفع ريال. أفضل استثمار عملناه للمتجر.</p>
-                    <div class="testi-who">
-                        <div class="testi-avatar">ع</div>
-                        <div><div class="w-name">صاحب متجر زيوت وعطارة</div><div class="w-role">متجر إلكتروني · السعودية</div></div>
-                    </div>
-                </div>
-                <div class="testi-card fade-up" style="transition-delay:0.1s">
-                    <span class="quote-mark">"</span>
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">أول مرة نشوف مبيعات حقيقية جاية من جوجل. الشغل كان منظم بتقارير واضحة كل شهر، وكل رقم كان له إثبات قدامنا.</p>
-                    <div class="testi-who">
-                        <div class="testi-avatar">م</div>
-                        <div><div class="w-name">مدير متجر أجهزة منزلية</div><div class="w-role">متجر إلكتروني · السعودية</div></div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="faq">
         <div class="container">
             <div class="section-header fade-up">
@@ -1260,15 +2799,37 @@
         </div>
     </section>
 
-    <!-- CTA -->
-    <div class="cta-section">
-        <h2>جاهز تزود <span>مبيعاتك العضوية؟</span></h2>
-        <p>احجز استشارة SEO مجانية واكتشف فرص النمو في متجرك</p>
-        <a href="#contact" class="btn btn-primary" style="font-size:1.05rem">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            احجز استشارتك المجانية
-        </a>
-    </div>
+    <!-- ما بعد إرسال الفورم -->
+    <section id="after-contact" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>بعد ما تبعت <span>الفورم</span>، إيه اللي بيحصل؟</h2>
+                <p>خطوات واضحة من أول رسالة لحد ما نحدد أنسب بداية لمشروعك.</p>
+            </div>
+            <ol class="after-contact-steps">
+                <li class="after-contact-step fade-up">
+                    <span class="after-contact-number">01</span>
+                    <h3>تبعت تفاصيل موقعك</h3>
+                    <p>تكتب رابط الموقع واحتياجك في الفورم عشان تكون الصورة واضحة من البداية.</p>
+                </li>
+                <li class="after-contact-step fade-up" style="transition-delay:0.08s">
+                    <span class="after-contact-number">02</span>
+                    <h3>يوصلك تأكيد بالإيميل</h3>
+                    <p>الرد التلقائي بيأكد إن رسالتك وصلت بنجاح ومش محتاج تتابع عليها تاني.</p>
+                </li>
+                <li class="after-contact-step fade-up" style="transition-delay:0.16s">
+                    <span class="after-contact-number">03</span>
+                    <h3>أراجع احتياج مشروعك</h3>
+                    <p>أطلع على الرابط والتفاصيل اللي بعتها عشان أحدد أهم نقاط البداية.</p>
+                </li>
+                <li class="after-contact-step fade-up" style="transition-delay:0.24s">
+                    <span class="after-contact-number">04</span>
+                    <h3>أرد عليك خلال 24 ساعة</h3>
+                    <p>أرجعلك بالخطوة المناسبة للتواصل وبداية شغل واضح على أهداف موقعك.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
 
     <!-- Contact -->
     <section id="contact">
@@ -1372,7 +2933,8 @@
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="cases-data.js"></script><script>
+    <script src="cases-data.js"></script>
+    <script>
         try { renderCases("homeCasesGrid", 3); } catch (e) { console.warn("cases-data.js لم يتم تحميله:", e); }
         /* ===== بريلودر ===== */
         window.addEventListener('load', () => {
@@ -1395,6 +2957,64 @@
             }
         } catch (e) {}
 
+
+        /* ===== شريط تقدّم القراءة ===== */
+        (function initScrollProgress() {
+            try {
+                const progress = document.getElementById('scrollProgress');
+                if (!progress) return;
+                const updateProgress = () => {
+                    const root = document.documentElement;
+                    const scrollable = root.scrollHeight - root.clientHeight;
+                    const ratio = scrollable > 0 ? Math.min(Math.max(root.scrollTop / scrollable, 0), 1) : 0;
+                    progress.style.transform = `scaleX(${ratio})`;
+                };
+                window.addEventListener('scroll', updateProgress, { passive: true });
+                window.addEventListener('resize', updateProgress);
+                updateProgress();
+            } catch (error) {
+                console.warn('تعذر تشغيل شريط تقدّم الصفحة:', error);
+            }
+        })();
+
+        /* ===== كتابة كلمات بحث متحركة في الهيرو ===== */
+        (function initHeroSearchTyping() {
+            try {
+                const query = document.getElementById('heroSearchQuery');
+                if (!query || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                const phrases = ['seo specialist', 'سيو متجر سلة', 'Technical SEO', 'خبير SEO للمتاجر'];
+                let phraseIndex = 0;
+                let characterIndex = 0;
+                let deleting = false;
+
+                const type = () => {
+                    const phrase = phrases[phraseIndex];
+                    if (!deleting) {
+                        characterIndex += 1;
+                        query.textContent = phrase.slice(0, characterIndex);
+                        if (characterIndex === phrase.length) {
+                            deleting = true;
+                            window.setTimeout(type, 1800);
+                            return;
+                        }
+                    } else {
+                        characterIndex -= 1;
+                        query.textContent = phrase.slice(0, characterIndex);
+                        if (characterIndex === 0) {
+                            deleting = false;
+                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                        }
+                    }
+                    window.setTimeout(type, deleting ? 38 : 78);
+                };
+
+                query.textContent = '';
+                type();
+            } catch (error) {
+                console.warn('تعذر تشغيل كتابة شريط البحث:', error);
+            }
+        })();
+
         /* ===== عداد الأرقام المتحرك ===== */
         function animateCounter(el) {
             const raw = el.textContent.trim();
@@ -1412,38 +3032,59 @@
             }
             requestAnimationFrame(tick);
         }
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting && !e.target.dataset.counted) {
-                    e.target.dataset.counted = "1";
-                    animateCounter(e.target);
-                }
-            });
-        }, { threshold: 0.6 });
-        document.querySelectorAll('.stat-item .number').forEach(el => counterObserver.observe(el));
-
-        function testiSlide(dir) {
-            const s = document.getElementById('testiSlider');
-            if (!s) return;
-            const card = s.querySelector('.testi-card');
-            const step = card ? card.offsetWidth + 22 : 400;
-            s.scrollBy({ left: dir * step, behavior: 'smooth' });
+        const statNumbers = document.querySelectorAll('.stat-item .number');
+        if ('IntersectionObserver' in window) {
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting && !e.target.dataset.counted) {
+                        e.target.dataset.counted = "1";
+                        animateCounter(e.target);
+                    }
+                });
+            }, { threshold: 0.6 });
+            statNumbers.forEach(el => counterObserver.observe(el));
+        } else {
+            statNumbers.forEach(animateCounter);
         }
+
         /* لو الكارت فيه صورة واحدة بس — التابات تتخفي تلقائي */
+        function updateGscKeyMetrics(card, image) {
+            if (!card || !image) return;
+            const metrics = [
+                { value: image.dataset.metricOneValue, label: image.dataset.metricOneLabel },
+                { value: image.dataset.metricTwoValue, label: image.dataset.metricTwoLabel }
+            ];
+            card.querySelectorAll('.gsc-key-metric').forEach((metricEl, index) => {
+                const metric = metrics[index];
+                const valueEl = metricEl.querySelector('.gsc-key-value');
+                const labelEl = metricEl.querySelector('.gsc-key-label');
+                if (!metric?.value || !metric?.label || !valueEl || !labelEl) {
+                    metricEl.hidden = true;
+                    return;
+                }
+                valueEl.textContent = metric.value;
+                labelEl.textContent = metric.label;
+                metricEl.hidden = false;
+            });
+        }
         document.querySelectorAll('.gsc-card').forEach(card => {
             const imgs = card.querySelectorAll('.gsc-shot img');
             const tabs = card.querySelector('.gsc-tabs');
+            let activeImage = card.querySelector('.gsc-shot img.active') || imgs[0];
             if (imgs.length < 2 && tabs) {
                 tabs.style.display = 'none';
                 if (imgs.length === 1) {
                     imgs[0].classList.add('active');
+                    activeImage = imgs[0];
                     const sum = card.querySelector('.gsc-sum');
                     if (sum && imgs[0].dataset.sum) sum.innerHTML = imgs[0].dataset.sum;
                 }
             }
+            updateGscKeyMetrics(card, activeImage);
         });
         function gscTab(btn) {
-            const card = btn.closest('.gsc-card');
+            const card = btn?.closest('.gsc-card');
+            if (!card) return;
             const tab = btn.dataset.tab;
             card.querySelectorAll('.gsc-tab').forEach(t => t.classList.toggle('active', t === btn));
             let activeImg = null;
@@ -1454,30 +3095,42 @@
             });
             const sum = card.querySelector('.gsc-sum');
             if (sum && activeImg && activeImg.dataset.sum) sum.innerHTML = activeImg.dataset.sum;
+            updateGscKeyMetrics(card, activeImg);
         }
         function gscSlide(dir) {
             const s = document.getElementById('gscSlider');
             if (!s) return;
             const card = s.querySelector('.gsc-card');
-            const step = card ? card.offsetWidth + 22 : 400;
+            const gap = parseFloat(getComputedStyle(s).columnGap) || 20;
+            const step = card ? card.offsetWidth + gap : 400;
             s.scrollBy({ left: dir * step, behavior: 'smooth' });
         }
         function openLightbox(el) {
-            const img = el.querySelector('img.active') || el.querySelector('img');
-            document.getElementById('lightboxImg').src = img.src;
-            document.getElementById('lightbox').classList.add('open');
+            const img = el?.querySelector('img.active') || el?.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            if (!img || !lightbox || !lightboxImg) return;
+            lightboxImg.src = img.src;
+            lightbox.classList.add('open');
             document.body.style.overflow = 'hidden';
         }
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('open');
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox) return;
+            lightbox.classList.remove('open');
             document.body.style.overflow = '';
         }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        const fadeItems = document.querySelectorAll('.fade-up');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            fadeItems.forEach(el => observer.observe(el));
+        } else {
+            fadeItems.forEach(el => el.classList.add('visible'));
+        }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -1604,6 +3257,92 @@
             }
         }
 
+
+        /* ===== معاينة نتيجة Google — تفاعلية وبدون أي API ===== */
+        (function initSerpPreview() {
+            try {
+                const titleInput = document.getElementById('serpTitleInput');
+                const descriptionInput = document.getElementById('serpDescriptionInput');
+                const urlInput = document.getElementById('serpUrlInput');
+                const previewTitle = document.getElementById('serpPreviewTitle');
+                const previewDescription = document.getElementById('serpPreviewDescription');
+                const previewSite = document.getElementById('serpPreviewSite');
+                const previewUrl = document.getElementById('serpPreviewUrl');
+                const guidance = document.getElementById('serpGuidance');
+                const titleCount = document.getElementById('serpTitleCount');
+                const descriptionCount = document.getElementById('serpDescriptionCount');
+                const titleMeter = document.getElementById('serpTitleMeter');
+                const descriptionMeter = document.getElementById('serpDescriptionMeter');
+
+                if (!titleInput || !descriptionInput || !urlInput || !previewTitle || !previewDescription || !previewSite || !previewUrl || !guidance || !titleCount || !descriptionCount || !titleMeter || !descriptionMeter) return;
+
+                const setMeter = (value, limit, countElement, meterElement) => {
+                    const percentage = Math.min((value / limit) * 100, 100);
+                    const state = value > limit ? 'is-over' : (value > limit * 0.86 ? 'is-warning' : '');
+                    countElement.textContent = `${value} / ${limit}`;
+                    countElement.classList.toggle('is-warning', state === 'is-warning');
+                    countElement.classList.toggle('is-over', state === 'is-over');
+                    meterElement.style.width = `${percentage}%`;
+                    meterElement.classList.toggle('is-warning', state === 'is-warning');
+                    meterElement.classList.toggle('is-over', state === 'is-over');
+                };
+
+                const normalizeUrl = (value) => {
+                    const raw = value.trim().replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+                    if (!raw) return { site: 'موقعك', url: 'example.com' };
+                    const host = raw.split('/')[0] || raw;
+                    return { site: host, url: raw };
+                };
+
+                const updatePreview = () => {
+                    const title = titleInput.value.trim();
+                    const description = descriptionInput.value.trim();
+                    const urlData = normalizeUrl(urlInput.value);
+                    const titleLength = title.length;
+                    const descriptionLength = description.length;
+
+                    previewTitle.textContent = title || 'عنوان صفحتك يظهر هنا';
+                    previewDescription.textContent = description || 'وصف الميتا هيظهر هنا ويساعد العميل يفهم الصفحة قبل ما يضغط على النتيجة.';
+                    previewSite.textContent = urlData.site;
+                    previewUrl.textContent = urlData.url;
+                    setMeter(titleLength, 60, titleCount, titleMeter);
+                    setMeter(descriptionLength, 155, descriptionCount, descriptionMeter);
+
+                    if (!title && !description) {
+                        guidance.textContent = 'اكتب عنوانًا ووصفًا عشان تشوف تقييم الطول المناسب للعرض.';
+                    } else if (titleLength > 60 || descriptionLength > 155) {
+                        guidance.innerHTML = '<strong>ملاحظة:</strong> النص الطويل ممكن يتقص في نتيجة البحث، فحاول تخلي أهم معلومة في البداية.';
+                    } else if ((titleLength && titleLength < 25) || (descriptionLength && descriptionLength < 70)) {
+                        guidance.innerHTML = '<strong>نصيحة:</strong> تقدر تستفيد من مساحة أكبر وتوضح للعميل فائدة الصفحة بشكل أدق.';
+                    } else {
+                        guidance.innerHTML = '<strong>ممتاز:</strong> طول العنوان والوصف مناسب تقريبًا للعرض في نتائج البحث.';
+                    }
+                };
+
+                [titleInput, descriptionInput, urlInput].forEach((input) => input.addEventListener('input', updatePreview));
+                updatePreview();
+            } catch (error) {
+                console.warn('تعذر تشغيل معاينة نتيجة البحث:', error);
+            }
+        })();
+
+        /* ===== Accordion الخدمات: خدمة واحدة مفتوحة في كل مرة ===== */
+        (function initServicesAccordion() {
+            try {
+                const serviceRows = Array.from(document.querySelectorAll('.svc-index .svc-row'));
+                serviceRows.forEach((row) => {
+                    row.addEventListener('toggle', () => {
+                        if (!row.open) return;
+                        serviceRows.forEach((otherRow) => {
+                            if (otherRow !== row && otherRow.open) otherRow.open = false;
+                        });
+                    });
+                });
+            } catch (error) {
+                console.warn('تعذر تشغيل Accordion الخدمات:', error);
+            }
+        })();
+
         /* TRUE Seamless Infinite Marquee + drag/swipe
            Why this is seamless:
            1) We take ONE original set of cards.
@@ -1715,11 +3454,13 @@
             requestAnimationFrame(animate);
         }
 
-        // Platforms moves right. Tools moves left.
+        // كل المسارات تستخدم نفس محرك الـ infinite loop: مسار الخدمات ثم المنصات والأدوات.
+        initSeamlessMarquee({ marqueeSelector: '.seo-ticker', trackSelector: '.seo-ticker-track', direction: -1, speed: 55 });
         initSeamlessMarquee({ marqueeSelector: '.platforms-marquee', trackSelector: '.platforms-track', direction: 1, speed: 60 });
         initSeamlessMarquee({ marqueeSelector: '.tools-marquee', trackSelector: '.tools-track', direction: -1, speed: 55 });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1308cdebfef1852',t:'MTc4MjY5MDE3MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+<script>
         const fy = document.getElementById('footerYear'); if (fy) fy.textContent = new Date().getFullYear();
-    </script></body>
+    </script>
+</body>
 </html>
