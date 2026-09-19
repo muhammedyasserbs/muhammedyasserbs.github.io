@@ -1334,6 +1334,23 @@
             color: var(--accent2);
             font-size: 0.81rem;
         }
+        .gsc-period {
+            display: inline-flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            padding: 4px 11px;
+            border: 1px solid rgba(245, 158, 11, 0.36);
+            border-radius: 999px;
+            background: var(--gold-soft);
+            color: var(--gold);
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 0.71rem;
+            font-weight: 800;
+            line-height: 1.35;
+            white-space: nowrap;
+        }
         .gsc-sum { margin: 0; font-size: 0.89rem; line-height: 1.85; }
         .gsc-sum strong { color: #34D399; font-weight: 900; white-space: nowrap; }
         .gsc-key-metrics {
@@ -1375,14 +1392,14 @@
             box-shadow: 0 10px 26px rgba(2, 6, 23, 0.22);
         }
 
-        /* على الكمبيوتر تظهر الأدلة الثلاثة معًا؛ على التابلت تبقى كارتين وعلى الموبايل كارت واحد. */
+        /* على الكمبيوتر تظهر 3 كروت معًا، والأسهم تكمل السلايدر لباقي النتائج. */
         @media (min-width: 1024px) {
             #results .gsc-grid {
-                overflow: visible;
-                scroll-snap-type: none;
-                padding-inline: 0;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-inline: 3px;
             }
-            #results .gsc-nav { display: none; }
+            #results .gsc-nav { display: flex; }
         }
         @media (min-width: 769px) and (max-width: 1023px) {
             #results .gsc-card { flex: 0 0 calc((100% - 20px) / 2); }
@@ -2028,7 +2045,7 @@
     <!-- Results (نتائج من Search Console) -->
     <section id="results" class="section-alt">
         <div class="container">
-            <div class="section-header fade-up"><h2>النتائج <span>اللي حققتها</span></h2><p>دي لقطات مباشرة من Google Search Console لمشاريع اشتغلت عليها</p></div>
+            <div class="section-header fade-up"><h2>النتائج <span>اللي حققتها</span></h2><p>دي لقطات مباشرة من Google Search Console وGoogle Analytics لمشاريع اشتغلت عليها</p></div>
             <div class="gsc-slider-wrap fade-up">
                 <button class="gsc-nav prev" onclick="gscSlide(1)" aria-label="السابق">‹</button>
                 <button class="gsc-nav next" onclick="gscSlide(-1)" aria-label="التالي">›</button>
@@ -2045,6 +2062,7 @@
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر زيت زيتون في السعودية</span>
+                            <span class="gsc-period">شهرين</span>
                         </div>
                         <div class="gsc-key-metrics" aria-live="polite">
                             <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">7.21 ألف</strong></div>
@@ -2065,6 +2083,7 @@
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر زيوت وعطارة في السعودية</span>
+                            <span class="gsc-period">6 شهور</span>
                         </div>
                         <div class="gsc-key-metrics" aria-live="polite">
                             <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">17.1 ألف</strong></div>
@@ -2085,12 +2104,34 @@
                     <div class="gsc-meta">
                         <div class="g-top">
                             <span class="gsc-niche">متجر أجهزة منزلية وكهربائية في السعودية</span>
+                            <span class="gsc-period">شهرين</span>
                         </div>
                         <div class="gsc-key-metrics" aria-live="polite">
                             <div class="gsc-key-metric"><span class="gsc-key-label">نمو النقرات</span><strong class="gsc-key-value">+119%</strong></div>
                             <div class="gsc-key-metric"><span class="gsc-key-label">CTR بعد التحسين</span><strong class="gsc-key-value">2.8%</strong></div>
                         </div>
                         <p class="gsc-sum">النقرات زادت <strong>+119%</strong> ومعدل النقر CTR اتحسن من 1.6% لـ <strong>2.8%</strong> في شهرين</p>
+                    </div>
+                </div>
+                <div class="gsc-card fade-up" style="transition-delay:0.14s">
+                    <div class="gsc-tabs">
+                        <button class="gsc-tab active" data-tab="gsc" onclick="gscTab(this)"><span class="dot"></span>Search Console</button>
+                        <button class="gsc-tab" data-tab="ga" onclick="gscTab(this)"><span class="dot"></span>Analytics</button>
+                    </div>
+                    <div class="gsc-shot" onclick="openLightbox(this)">
+                        <img class="active" data-shot="gsc" data-metric-one-value="500" data-metric-one-label="نقرة من البحث" data-metric-two-value="-4.36%" data-metric-two-label="تغيّر الظهور" data-sum="النقرات قفزت من 406 لـ &lt;strong&gt;500 (+23.15%)&lt;/strong&gt; والظهور من 39.9 ألف لـ &lt;strong&gt;38.1 ألف (-4.36%)&lt;/strong&gt; خلال آخر 28 يوم." src="assets/results-evidence/اعواد سكر (شهر)/كونسول اعواد سكر شهر.png" width="1315" height="512" alt="نتائج Search Console لمتجر سكر في السعودية: 500 نقرة و38.1 ألف ظهور خلال آخر 28 يومًا" loading="lazy" decoding="async">
+                        <img data-shot="ga" data-metric-one-value="+84.27%" data-metric-one-label="نمو الإيراد العضوي" data-metric-two-value="+22.09%" data-metric-two-label="نمو الجلسات العضوية" data-sum="الإيرادات العضوية قفزت من 1,452.40 لـ &lt;strong&gt;2,676.40 ريال (+84.27%)&lt;/strong&gt; والجلسات من 498 لـ &lt;strong&gt;608 (+22.09%)&lt;/strong&gt;." src="assets/results-evidence/اعواد سكر (شهر)/انالتيكس اعواد شهر.png" width="1545" height="775" alt="نتائج Google Analytics لمتجر سكر في السعودية: نمو الإيرادات والجلسات العضوية" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gsc-meta">
+                        <div class="g-top">
+                            <span class="gsc-niche">متجر سكر في السعودية</span>
+                            <span class="gsc-period">شهر</span>
+                        </div>
+                        <div class="gsc-key-metrics" aria-live="polite">
+                            <div class="gsc-key-metric"><span class="gsc-key-label">نقرة من البحث</span><strong class="gsc-key-value">500</strong></div>
+                            <div class="gsc-key-metric"><span class="gsc-key-label">تغيّر الظهور</span><strong class="gsc-key-value">-4.36%</strong></div>
+                        </div>
+                        <p class="gsc-sum">النقرات قفزت من 406 لـ <strong>500 (+23.15%)</strong> والظهور من 39.9 ألف لـ <strong>38.1 ألف (-4.36%)</strong> خلال آخر 28 يوم.</p>
                     </div>
                 </div>
                 </div>
