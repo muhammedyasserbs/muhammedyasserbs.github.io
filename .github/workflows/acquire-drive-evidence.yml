@@ -1,6 +1,11 @@
 name: Inspect supplied Arena reference
 
 on:
+  push:
+    branches:
+      - arena/01a0b4e9-my-portfolio
+    paths:
+      - '.github/workflows/acquire-drive-evidence.yml'
   workflow_dispatch:
 
 permissions:
