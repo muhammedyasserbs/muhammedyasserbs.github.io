@@ -1,0 +1,129 @@
+name: Inspect supplied Arena reference
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Capture rendered reference
+        env:
+          TARGET_URL: https://01a0bb30-149b-7266-a914-8bcf6b03ed49.arena.site/
+        run: |
+          cat > capture-reference.cjs <<'NODE'
+          const fs = require('fs/promises');
+          const path = require('path');
+          const { chromium } = require('playwright');
+
+          const out = path.resolve('reference-inspection');
+          const target = process.env.TARGET_URL;
+          const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+          async function saveFrame(frame, index) {
+            const prefix = path.join(out, `frame-${index}`);
+            const details = await frame.evaluate(() => ({
+              url: location.href,
+              title: document.title,
+              readyState: document.readyState,
+              html: document.documentElement.outerHTML,
+              viewport: {
+                width: innerWidth,
+                height: innerHeight,
+                scrollHeight: document.documentElement.scrollHeight,
+                bodyScrollHeight: document.body ? document.body.scrollHeight : 0
+              },
+              links: Array.from(document.querySelectorAll('link')).map(el => ({
+                rel: el.rel,
+                href: el.href,
+                as: el.as
+              })),
+              scripts: Array.from(document.scripts).map(el => el.src || '[inline]'),
+              images: Array.from(document.images).map(el => ({
+                src: el.currentSrc || el.src,
+                alt: el.alt,
+                width: el.naturalWidth,
+                height: el.naturalHeight
+              }))
+            }));
+            await fs.writeFile(`${prefix}.html`, details.html);
+            await fs.writeFile(`${prefix}.json`, JSON.stringify(details, null, 2));
+            try {
+              await frame.locator('body').screenshot({ path: `${prefix}.png` });
+            } catch (error) {
+              await fs.writeFile(`${prefix}-screenshot-error.txt`, String(error.stack || error));
+            }
+          }
+
+          (async () => {
+            await fs.mkdir(out, { recursive: true });
+            const browser = await chromium.launch({
+              headless: true,
+              args: ['--disable-dev-shm-usage']
+            });
+            const context = await browser.newContext({
+              viewport: { width: 1440, height: 1000 },
+              deviceScaleFactor: 1,
+              locale: 'ar-EG'
+            });
+            const page = await context.newPage();
+            const requests = [];
+            const responses = [];
+            page.on('request', request => requests.push({
+              url: request.url(),
+              resourceType: request.resourceType(),
+              method: request.method()
+            }));
+            page.on('response', response => responses.push({
+              url: response.url(),
+              status: response.status(),
+              contentType: response.headers()['content-type'] || ''
+            }));
+
+            await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 120000 });
+            await sleep(9000);
+            for (let y = 0; y < 12000; y += 900) {
+              await page.evaluate(scrollY => window.scrollTo(0, scrollY), y);
+              await sleep(200);
+            }
+            await page.evaluate(() => window.scrollTo(0, 0));
+            await sleep(1000);
+
+            await page.screenshot({ path: path.join(out, 'page-full.png'), fullPage: true });
+            await page.screenshot({ path: path.join(out, 'page-viewport.png') });
+            await fs.writeFile(path.join(out, 'outer.html'), await page.content());
+            await fs.writeFile(path.join(out, 'network.json'), JSON.stringify({ requests, responses }, null, 2));
+            await fs.writeFile(path.join(out, 'page.json'), JSON.stringify({
+              url: page.url(),
+              title: await page.title(),
+              frames: page.frames().map(frame => frame.url())
+            }, null, 2));
+            let index = 0;
+            for (const frame of page.frames()) {
+              await saveFrame(frame, index++);
+            }
+            await browser.close();
+          })().catch(async error => {
+            console.error(error);
+            await fs.mkdir('reference-inspection', { recursive: true });
+            await fs.writeFile('reference-inspection/error.txt', String(error.stack || error));
+            process.exit(1);
+          });
+          NODE
+          node capture-reference.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arena-reference-inspection
+          path: reference-inspection
+          if-no-files-found: error
+          retention-days: 1
