@@ -113,6 +113,9 @@ body { margin: 0; min-width: 320px; overflow-x: hidden; background: #0f172a; }
     mobile.addEventListener('click', (event) => { if (event.target.closest('a')) close(); });
     window.addEventListener('resize', () => { if (window.innerWidth >= 1024) close(); });
   }
+
+  const backToTop = root?.querySelector('footer button[aria-label="ارجع لفوق"]');
+  backToTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 </script>
 </body>
