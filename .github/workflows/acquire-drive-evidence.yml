@@ -22,9 +22,13 @@ jobs:
           npm init -y >/dev/null 2>&1
           npm install --no-save playwright@1.54.2
           npx playwright install --with-deps chromium
-      - name: Capture rendered reference
+      - name: Serve static clone for visual verification
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/static-site.log 2>&1 &
+          sleep 2
+      - name: Capture rendered static clone
         env:
-          TARGET_URL: https://01a0bb30-149b-7266-a914-8bcf6b03ed49.arena.site/
+          TARGET_URL: http://127.0.0.1:4173/
         run: |
           cat > capture-reference.cjs <<'NODE'
           const fs = require('fs/promises');
