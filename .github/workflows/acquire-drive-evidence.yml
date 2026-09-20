@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   capture:
@@ -126,9 +126,10 @@ jobs:
           });
           NODE
           node capture-reference.cjs
-      - uses: actions/upload-artifact@v4
-        with:
-          name: arena-reference-inspection
-          path: reference-inspection
-          if-no-files-found: error
-          retention-days: 1
+      - name: Save temporary inspection output to this branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reference-inspection
+          git commit -m "chore: capture supplied reference for implementation"
+          git push origin "HEAD:arena/01a0b4e9-my-portfolio"
