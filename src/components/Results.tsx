@@ -61,9 +61,11 @@ const SOURCE_META = {
 function ShotFigure({
   shot,
   onZoom,
+  loadImage,
 }: {
   shot: ResultShot;
   onZoom: (s: ZoomTarget) => void;
+  loadImage: boolean;
 }) {
   const Meta = SOURCE_META[shot.source];
   const Icon = Meta.icon;
@@ -98,8 +100,17 @@ function ShotFigure({
         </div>
       </div>
 
-      {/* screenshot — stopping pointer propagation avoids starting slider drag on a tap */}
-      {failed ? (
+      {/* Only keep screenshots close to the active slide in memory. The card
+          layout remains present, so carousel measurement and navigation stay intact. */}
+      {!loadImage ? (
+        <div
+          className="grid h-[190px] place-items-center border border-line-soft bg-[#0b1424] p-5 text-center sm:h-[170px] lg:h-[200px]"
+          role="img"
+          aria-label="سيتم تحميل اللقطة عند الوصول للشريحة"
+        >
+          <div className="h-8 w-16 bg-line/60" aria-hidden="true" />
+        </div>
+      ) : failed ? (
         <div className="grid h-[190px] place-items-center border border-line-soft bg-[#0b1424] p-5 text-center sm:h-[170px] lg:h-[200px]">
           <div>
             <ImageOff className="mx-auto h-5 w-5 text-dim" aria-hidden="true" />
@@ -431,11 +442,15 @@ function Slide({
   index,
   onZoom,
   registerRef,
+  loadImages,
+  active,
 }: {
   slide: ResultSlide;
   index: number;
   onZoom: (s: ZoomTarget) => void;
   registerRef: (el: HTMLDivElement | null) => void;
+  loadImages: boolean;
+  active: boolean;
 }) {
   const cols =
     slide.shots.length === 1
@@ -481,13 +496,13 @@ function Slide({
             search.google.com / search-console
           </span>
           <span className="ml-auto flex items-center gap-1.5 text-[0.62rem] font-medium text-accent">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent blink" />
+            <span className={cn("h-1.5 w-1.5 rounded-full bg-accent", active && "blink")} />
             LIVE PROOF
           </span>
         </div>
         <div className={cn("grid flex-1 gap-px bg-line-soft", cols)}>
           {slide.shots.map((shot) => (
-            <ShotFigure key={shot.src} shot={shot} onZoom={onZoom} />
+            <ShotFigure key={shot.src} shot={shot} onZoom={onZoom} loadImage={loadImages} />
           ))}
         </div>
       </div>
@@ -658,6 +673,10 @@ export default function Results() {
                 slide={slide}
                 index={i}
                 onZoom={setZoom}
+                // Keep the current slide and one neighbour ready, instead of
+                // decoding every screenshot in the carousel at once.
+                loadImages={Math.abs(i - index) <= 1}
+                active={i === index}
                 registerRef={(el) => (slideRefs.current[i] = el)}
               />
             ))}

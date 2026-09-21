@@ -181,6 +181,33 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Backdrop filters force the browser to continually re-rasterize the pixels
+   behind them during a touch scroll. Mobile keeps the same opaque surfaces,
+   without that expensive compositing work. */
+@media (pointer: coarse) {
+  .noise::after {
+    display: none;
+  }
+
+  .backdrop-blur,
+  .backdrop-blur-sm,
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .blink,
+  .animate-ping {
+    animation: none;
+  }
+}
+
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;

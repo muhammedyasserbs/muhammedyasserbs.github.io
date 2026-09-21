@@ -14,6 +14,16 @@ export function Reveal({
   y?: number;
   className?: string;
 }) {
+  // Filter/transform reveal effects are visually nice on a desktop, but they
+  // are a common source of scroll hitching on touch GPUs. On touch and users'
+  // reduced-motion preference, preserve the exact content and layout without
+  // scheduling an offscreen animation for every card.
+  const skipRevealMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches;
+
+  if (skipRevealMotion) return <div className={className}>{children}</div>;
+
   return (
     <motion.div
       className={className}

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import Lenis from "lenis";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import type Lenis from "lenis";
 import { motion } from "framer-motion";
 import Cursor from "./components/Cursor";
 import Nav from "./components/Nav";
@@ -7,35 +7,55 @@ import Hero from "./components/Hero";
 import Marquee from "./components/Marquee";
 import Services from "./components/Services";
 import Results from "./components/Results";
-import CaseStudies from "./components/CaseStudies";
-import Comparison from "./components/Comparison";
-import SerpTool from "./components/SerpTool";
-import Process from "./components/Process";
-import Platforms from "./components/Platforms";
-import Tools from "./components/Tools";
-import Experience from "./components/Experience";
-import FAQ from "./components/FAQ";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { MARQUEE_ITEMS, WHATSAPP } from "./data/content";
 
-export default function App() {
-  useEffect(() => {
-    const lenis = new Lenis({
-      // Slightly shorter easing feels more responsive while retaining Lenis's
-      // smooth deceleration for wheel and anchor navigation.
-      duration: 0.92,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+const BelowFoldSections = lazy(() => import("./components/BelowFoldSections"));
 
-    // Do not keep a permanent RAF loop alive when it cannot improve the page:
-    // the tab is hidden, or the image lightbox owns touch input. This removes
-    // unnecessary work while preserving the exact scrolling behavior onscreen.
+function isHashLink(value: string | null): value is `#${string}` {
+  return Boolean(value && value.startsWith("#") && value !== "#");
+}
+
+export default function App() {
+  // The lower half of the portfolio is useful, but it should not compete with
+  // the hero, nav and Results viewer during first paint / first interaction.
+  const [loadBelowFold, setLoadBelowFold] = useState(() =>
+    typeof window !== "undefined" && isHashLink(window.location.hash),
+  );
+  const requestBelowFold = useCallback(() => setLoadBelowFold(true), []);
+
+  useEffect(() => {
+    if (loadBelowFold) return;
+
+    const load = () => requestBelowFold();
+    const idleId = "requestIdleCallback" in window
+      ? window.requestIdleCallback(load, { timeout: 2000 })
+      : null;
+    const timeoutId = idleId === null ? window.setTimeout(load, 1400) : null;
+    // If the visitor starts interacting before idle time, have the remaining
+    // sections ready before they can reach them.
+    const intentEvents: (keyof WindowEventMap)[] = ["wheel", "touchstart", "keydown"];
+    intentEvents.forEach((event) => window.addEventListener(event, load, { once: true, passive: true }));
+
+    return () => {
+      if (idleId !== null) window.cancelIdleCallback(idleId);
+      if (timeoutId !== null) window.clearTimeout(timeoutId);
+      intentEvents.forEach((event) => window.removeEventListener(event, load));
+    };
+  }, [loadBelowFold, requestBelowFold]);
+
+  useEffect(() => {
+    const useNativeScroll =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let lenis: Lenis | null = null;
+    let disposed = false;
     let raf: number | null = null;
     let lightboxOpen = document.documentElement.classList.contains("lightbox-open");
     let pageVisible = !document.hidden;
-    const canAnimate = () => pageVisible && !lightboxOpen;
+    const waitCleanups = new Set<() => void>();
+    const canAnimate = () => pageVisible && !lightboxOpen && Boolean(lenis);
 
     const stopRaf = () => {
       if (raf !== null) cancelAnimationFrame(raf);
@@ -43,19 +63,69 @@ export default function App() {
     };
     const loop = (time: number) => {
       raf = null;
-      if (!canAnimate()) return;
+      if (!canAnimate() || !lenis) return;
       lenis.raf(time);
       raf = requestAnimationFrame(loop);
     };
     const startRaf = () => {
       if (raf === null && canAnimate()) raf = requestAnimationFrame(loop);
     };
-    startRaf();
 
-    // The image lightbox owns touch gestures while it is open. Pausing both
-    // Lenis and its RAF loop prevents it from competing with pinch/pan.
+    const scrollToElement = (element: HTMLElement) => {
+      if (lenis) {
+        lenis.scrollTo(element, { offset: -70 });
+      } else {
+        // Native scrolling is noticeably smoother and lighter on touch devices.
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    const scrollToHashWhenReady = (hash: string) => {
+      const attempt = () => {
+        const element = document.querySelector<HTMLElement>(hash);
+        if (!element) return false;
+        scrollToElement(element);
+        return true;
+      };
+      if (attempt()) return;
+
+      let observer: MutationObserver | null = null;
+      let timeout: number | null = null;
+      const cleanup = () => {
+        observer?.disconnect();
+        if (timeout !== null) window.clearTimeout(timeout);
+        waitCleanups.delete(cleanup);
+      };
+      observer = new MutationObserver(() => {
+        if (attempt()) cleanup();
+      });
+      timeout = window.setTimeout(cleanup, 5000);
+      waitCleanups.add(cleanup);
+      observer.observe(document.getElementById("root") ?? document.body, {
+        childList: true,
+        subtree: true,
+      });
+    };
+
+    // Keep the Lenis code out of the first mobile download entirely. Desktop
+    // loads it on demand; touch screens use the browser's highly optimized
+    // native scroll path and retain CSS smooth anchor scrolling.
+    if (!useNativeScroll) {
+      void import("lenis").then(({ default: LenisConstructor }) => {
+        if (disposed) return;
+        lenis = new LenisConstructor({
+          duration: 0.86,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        });
+        if (lightboxOpen) lenis.stop();
+        startRaf();
+      });
+    }
+
     const onLightbox = (event: Event) => {
       lightboxOpen = Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open);
+      if (!lenis) return;
       if (lightboxOpen) {
         lenis.stop();
         stopRaf();
@@ -69,32 +139,42 @@ export default function App() {
       if (pageVisible) startRaf();
       else stopRaf();
     };
-    window.addEventListener("portfolio:lightbox", onLightbox);
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    if (lightboxOpen) lenis.stop();
+    const onClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const anchor = target?.closest<HTMLAnchorElement>('a[href^="#"]');
+      if (!anchor) return;
+      const hash = anchor.getAttribute("href");
+      if (!isHashLink(hash)) return;
 
-    // anchor navigation through lenis
-    const onClick = (e: MouseEvent) => {
-      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
-      if (!a) return;
-      const id = a.getAttribute("href");
-      if (!id || id === "#") return;
-      const el = document.querySelector(id);
-      if (el) {
-        e.preventDefault();
-        lenis.scrollTo(el as HTMLElement, { offset: -70 });
+      const element = document.querySelector<HTMLElement>(hash);
+      event.preventDefault();
+      if (element) {
+        scrollToElement(element);
+      } else {
+        requestBelowFold();
+        scrollToHashWhenReady(hash);
       }
     };
+
+    window.addEventListener("portfolio:lightbox", onLightbox);
+    document.addEventListener("visibilitychange", onVisibilityChange);
     document.addEventListener("click", onClick);
 
+    if (isHashLink(window.location.hash)) {
+      requestBelowFold();
+      scrollToHashWhenReady(window.location.hash);
+    }
+
     return () => {
+      disposed = true;
       stopRaf();
+      waitCleanups.forEach((cleanup) => cleanup());
       window.removeEventListener("portfolio:lightbox", onLightbox);
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      lenis.destroy();
       document.removeEventListener("click", onClick);
+      lenis?.destroy();
     };
-  }, []);
+  }, [requestBelowFold]);
 
   return (
     <div className="noise min-h-screen bg-ink text-paper selection:bg-accent selection:text-white">
@@ -106,16 +186,11 @@ export default function App() {
         <Marquee items={MARQUEE_ITEMS} />
         <Services />
         <Results />
-        <CaseStudies />
-        <Comparison />
-        <SerpTool />
-        <Process />
-        <Platforms />
-        <Marquee items={MARQUEE_ITEMS.slice().reverse()} dark />
-        <Tools />
-        <Experience />
-        <FAQ />
-        <Contact />
+        {loadBelowFold && (
+          <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
+            <BelowFoldSections />
+          </Suspense>
+        )}
       </main>
 
       <Footer />
