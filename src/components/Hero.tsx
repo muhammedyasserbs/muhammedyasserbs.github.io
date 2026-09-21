@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Search, Star, TrendingUp, ArrowUpLeft, MousePointerClick } from "lucide-react";
 import { WHATSAPP, STATS, LOGO } from "../data/content";
 import { CountUp, Magnetic } from "./ui";
+import { scrollToSection } from "../utils/scroll";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -251,13 +252,14 @@ export default function Hero() {
                   <ArrowUpLeft className="h-4.5 w-4.5 transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </Magnetic>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2.5 border border-line px-7 h-[52px] font-medium text-paper/85 transition-colors duration-300 hover:border-accent/50 hover:text-accent"
+              <button
+                type="button"
+                onClick={() => scrollToSection("results")}
+                className="inline-flex h-[52px] cursor-pointer items-center gap-2.5 border border-line px-7 font-medium text-paper/85 transition-colors duration-300 hover:border-accent/50 hover:text-accent"
               >
                 <MousePointerClick className="h-4 w-4" />
                 شوف النتايج بالأرقام
-              </a>
+              </button>
             </motion.div>
 
             {/* platforms strip */}

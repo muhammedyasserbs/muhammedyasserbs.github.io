@@ -7,13 +7,14 @@
     <meta name="description" content="بساعد المواقع والمتاجر الإلكترونية تحقق ظهور أفضل في Google من خلال On-Page وTechnical SEO، من تحسين الصفحات والكلمات المفتاحية لإصلاح المشاكل التقنية والأرشفة." />
     <link rel="canonical" href="https://muhammedyasserbs.github.io/" />
     <script>
-      // GitHub Pages serves the same file for / and /index.html. Replace the
-      // duplicate URL immediately while retaining any query string or hash.
-      if (window.location.pathname === "/index.html") {
-        const canonicalUrl = new URL(window.location.href);
-        canonicalUrl.pathname = "/";
-        window.location.replace(canonicalUrl.toString());
-      }
+      // GitHub Pages serves the same file for / and /index.html. Keep one
+      // canonical address and discard legacy hash fragments from old links.
+      const canonicalUrl = new URL(window.location.href);
+      const shouldCanonicalize =
+        canonicalUrl.pathname === "/index.html" || Boolean(canonicalUrl.hash);
+      if (canonicalUrl.pathname === "/index.html") canonicalUrl.pathname = "/";
+      if (canonicalUrl.hash) canonicalUrl.hash = "";
+      if (shouldCanonicalize) window.location.replace(canonicalUrl.toString());
     </script>
     <meta name="theme-color" content="#0f172a" />
     <link rel="preconnect" href="https://i.postimg.cc" />

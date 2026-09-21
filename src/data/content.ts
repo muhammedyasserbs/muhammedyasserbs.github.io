@@ -8,13 +8,13 @@ export const LINKEDIN =
   "https://www.linkedin.com/in/muhammed-yasser-seo-specialist/";
 
 export const NAV_LINKS = [
-  { label: "الخدمات", href: "#services" },
-  { label: "النتائج", href: "#results" },
-  { label: "كيس استادي", href: "#cases" },
-  { label: "طريقة الشغل", href: "#process" },
-  { label: "المنصات", href: "#platforms" },
-  { label: "خبرتي", href: "#experience" },
-  { label: "الأسئلة", href: "#faq" },
+  { label: "الخدمات", target: "services" },
+  { label: "النتائج", target: "results" },
+  { label: "كيس استادي", target: "cases" },
+  { label: "طريقة الشغل", target: "process" },
+  { label: "المنصات", target: "platforms" },
+  { label: "خبرتي", target: "experience" },
+  { label: "الأسئلة", target: "faq" },
 ];
 
 export const STATS = [

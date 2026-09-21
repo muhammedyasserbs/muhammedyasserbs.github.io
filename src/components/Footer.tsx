@@ -1,5 +1,6 @@
 import { ArrowUp, MessageCircle } from "lucide-react";
 import { NAV_LINKS, WHATSAPP, LOGO, LINKEDIN } from "../data/content";
+import { scrollToSection } from "../utils/scroll";
 
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -69,9 +70,14 @@ export default function Footer() {
           <span className="label-mono !text-[0.58rem] text-dim">الموقع</span>
           <nav className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-1">
             {NAV_LINKS.slice(0, 5).map((l) => (
-              <a key={l.href} href={l.href} className="text-[0.84rem] text-muted transition-colors hover:text-accent">
+              <button
+                key={l.target}
+                type="button"
+                onClick={() => scrollToSection(l.target)}
+                className="w-fit cursor-pointer text-[0.84rem] text-muted transition-colors hover:text-accent"
+              >
                 {l.label}
-              </a>
+              </button>
             ))}
           </nav>
         </div>
@@ -93,8 +99,8 @@ export default function Footer() {
             © {new Date().getFullYear()} محمد ياسر — كل الحقوق محفوظة.
           </span>
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="grid h-10 w-10 place-items-center border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+            onClick={() => scrollToSection("top")}
+            className="grid h-10 w-10 cursor-pointer place-items-center border border-line text-muted transition-colors hover:border-accent hover:text-accent"
             aria-label="ارجع لفوق"
           >
             <ArrowUp className="h-4 w-4" />

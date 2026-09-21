@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X, ArrowUpLeft } from "lucide-react";
 import { NAV_LINKS, WHATSAPP, LOGO } from "../data/content";
 import { cn } from "../utils/cn";
+import { scrollToSection } from "../utils/scroll";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +36,12 @@ export default function Nav() {
       >
         <div className="mx-auto max-w-[1400px] px-5 md:px-10 h-[68px] flex items-center justify-between">
           {/* logo */}
-          <a href="#top" className="flex items-center gap-3 group">
+          <button
+            type="button"
+            onClick={() => scrollToSection("top")}
+            className="flex cursor-pointer items-center gap-3 group"
+            aria-label="الرجوع لبداية الصفحة"
+          >
             <span className="h-9 w-9 overflow-hidden border border-line bg-panel transition-colors duration-300 group-hover:border-accent/60">
               <img
                 src={LOGO}
@@ -45,24 +51,25 @@ export default function Nav() {
                 className="h-full w-full object-cover"
               />
             </span>
-            <span className="leading-tight">
+            <span className="leading-tight text-start">
               <span className="block font-display font-bold text-[0.95rem] text-paper">محمد ياسر</span>
               <span className="mt-1.5 block label-mono text-dim !text-[0.55rem]" dir="ltr">
                 SEO SPECIALIST
               </span>
             </span>
-          </a>
+          </button>
 
           {/* desktop links */}
           <nav className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="relative text-[0.83rem] text-muted hover:text-paper transition-colors duration-300 after:absolute after:-bottom-1 after:start-0 after:h-px after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+              <button
+                key={l.target}
+                type="button"
+                onClick={() => scrollToSection(l.target)}
+                className="relative cursor-pointer text-[0.83rem] text-muted hover:text-paper transition-colors duration-300 after:absolute after:-bottom-1 after:start-0 after:h-px after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
               >
                 {l.label}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -109,20 +116,23 @@ export default function Nav() {
             </div>
             <nav className="flex-1 flex flex-col justify-center px-8 gap-1">
               {NAV_LINKS.map((l, i) => (
-                <motion.a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
+                <motion.button
+                  key={l.target}
+                  type="button"
+                  onClick={() => {
+                    scrollToSection(l.target);
+                    setOpen(false);
+                  }}
                   initial={{ opacity: 0, x: 40 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.06 * i, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="group flex items-baseline gap-4 py-3 border-b border-line-soft"
+                  className="group flex cursor-pointer items-baseline gap-4 border-b border-line-soft py-3 text-start"
                 >
                   <span className="label-mono text-accent">0{i + 1}</span>
                   <span className="font-display font-bold text-3xl text-paper group-hover:text-accent transition-colors">
                     {l.label}
                   </span>
-                </motion.a>
+                </motion.button>
               ))}
             </nav>
             <div className="p-8">

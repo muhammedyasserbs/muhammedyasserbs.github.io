@@ -9,19 +9,14 @@ import Services from "./components/Services";
 import Results from "./components/Results";
 import Footer from "./components/Footer";
 import { MARQUEE_ITEMS, WHATSAPP } from "./data/content";
+import { SCROLL_TO_SECTION_EVENT, type ScrollToSectionDetail } from "./utils/scroll";
 
 const BelowFoldSections = lazy(() => import("./components/BelowFoldSections"));
-
-function isHashLink(value: string | null): value is `#${string}` {
-  return Boolean(value && value.startsWith("#") && value !== "#");
-}
 
 export default function App() {
   // The lower half of the portfolio is useful, but it should not compete with
   // the hero, nav and Results viewer during first paint / first interaction.
-  const [loadBelowFold, setLoadBelowFold] = useState(() =>
-    typeof window !== "undefined" && isHashLink(window.location.hash),
-  );
+  const [loadBelowFold, setLoadBelowFold] = useState(false);
   const requestBelowFold = useCallback(() => setLoadBelowFold(true), []);
 
   useEffect(() => {
@@ -29,7 +24,7 @@ export default function App() {
 
     // Allow the first paint and first input handlers to settle, then request
     // the separate tail chunk immediately. This avoids delaying real sections
-    // or anchor navigation on slow networks while still removing their work
+    // or section navigation on slow networks while still removing their work
     // from the critical render path.
     const timer = window.setTimeout(requestBelowFold, 0);
     return () => window.clearTimeout(timer);
@@ -71,14 +66,21 @@ export default function App() {
       }
     };
 
-    const scrollToHashWhenReady = (hash: string) => {
-      const attempt = () => {
-        const element = document.querySelector<HTMLElement>(hash);
-        if (!element) return false;
-        scrollToElement(element);
+    const scrollToTarget = (target: string) => {
+      if (target === "top") {
+        if (lenis) lenis.scrollTo(0);
+        else window.scrollTo({ top: 0, behavior: "smooth" });
         return true;
-      };
-      if (attempt()) return;
+      }
+
+      const element = document.getElementById(target);
+      if (!element) return false;
+      scrollToElement(element);
+      return true;
+    };
+
+    const scrollToTargetWhenReady = (target: string) => {
+      if (scrollToTarget(target)) return;
 
       let observer: MutationObserver | null = null;
       let timeout: number | null = null;
@@ -88,7 +90,7 @@ export default function App() {
         waitCleanups.delete(cleanup);
       };
       observer = new MutationObserver(() => {
-        if (attempt()) cleanup();
+        if (scrollToTarget(target)) cleanup();
       });
       timeout = window.setTimeout(cleanup, 5000);
       waitCleanups.add(cleanup);
@@ -100,7 +102,7 @@ export default function App() {
 
     // Keep the Lenis code out of the first mobile download entirely. Desktop
     // loads it on demand; touch screens use the browser's highly optimized
-    // native scroll path and retain CSS smooth anchor scrolling.
+    // native scroll path for the same button-driven section navigation.
     if (!useNativeScroll) {
       void import("lenis").then(({ default: LenisConstructor }) => {
         if (disposed) return;
@@ -130,39 +132,26 @@ export default function App() {
       if (pageVisible) startRaf();
       else stopRaf();
     };
-    const onClick = (event: MouseEvent) => {
-      const target = event.target instanceof Element ? event.target : null;
-      const anchor = target?.closest<HTMLAnchorElement>('a[href^="#"]');
-      if (!anchor) return;
-      const hash = anchor.getAttribute("href");
-      if (!isHashLink(hash)) return;
+    const onSectionNavigation = (event: Event) => {
+      const target = (event as CustomEvent<ScrollToSectionDetail>).detail?.target;
+      if (!target) return;
+      if (scrollToTarget(target)) return;
 
-      const element = document.querySelector<HTMLElement>(hash);
-      event.preventDefault();
-      if (element) {
-        scrollToElement(element);
-      } else {
-        requestBelowFold();
-        scrollToHashWhenReady(hash);
-      }
+      requestBelowFold();
+      scrollToTargetWhenReady(target);
     };
 
     window.addEventListener("portfolio:lightbox", onLightbox);
+    window.addEventListener(SCROLL_TO_SECTION_EVENT, onSectionNavigation);
     document.addEventListener("visibilitychange", onVisibilityChange);
-    document.addEventListener("click", onClick);
-
-    if (isHashLink(window.location.hash)) {
-      requestBelowFold();
-      scrollToHashWhenReady(window.location.hash);
-    }
 
     return () => {
       disposed = true;
       stopRaf();
       waitCleanups.forEach((cleanup) => cleanup());
       window.removeEventListener("portfolio:lightbox", onLightbox);
+      window.removeEventListener(SCROLL_TO_SECTION_EVENT, onSectionNavigation);
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      document.removeEventListener("click", onClick);
       lenis?.destroy();
     };
   }, [requestBelowFold]);
