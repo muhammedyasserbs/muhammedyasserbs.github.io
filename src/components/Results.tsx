@@ -3,6 +3,7 @@ import {
   useRef,
   useState,
   useCallback,
+  type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { motion, useMotionValue, animate, AnimatePresence, useInView } from "framer-motion";
@@ -150,6 +151,15 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const pointersRef = useRef(new Map<number, Point>());
+  // Desktop mouse dragging has its own document-level path. Unlike pointer
+  // capture alone, it keeps panning reliable if the cursor leaves the stage.
+  const mousePanRef = useRef({
+    active: false,
+    startX: 0,
+    startY: 0,
+    startOffsetX: 0,
+    startOffsetY: 0,
+  });
   const viewRef = useRef<View>({ scale: MIN_SCALE, x: 0, y: 0 });
   const lastTapRef = useRef<{ time: number; x: number; y: number } | null>(null);
   const gestureRef = useRef({
@@ -197,10 +207,38 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
 
   useEffect(() => {
     pointersRef.current.clear();
+    mousePanRef.current.active = false;
     lastTapRef.current = null;
     gestureRef.current.mode = "idle";
     reset();
   }, [zoom.src, reset]);
+
+  useEffect(() => {
+    const stopMousePan = () => {
+      if (!mousePanRef.current.active) return;
+      mousePanRef.current.active = false;
+      setIsInteracting(false);
+    };
+    const moveMousePan = (event: MouseEvent) => {
+      const pan = mousePanRef.current;
+      if (!pan.active) return;
+      event.preventDefault();
+      applyView(
+        viewRef.current.scale,
+        pan.startOffsetX + event.clientX - pan.startX,
+        pan.startOffsetY + event.clientY - pan.startY,
+      );
+    };
+
+    window.addEventListener("mousemove", moveMousePan);
+    window.addEventListener("mouseup", stopMousePan);
+    window.addEventListener("blur", stopMousePan);
+    return () => {
+      window.removeEventListener("mousemove", moveMousePan);
+      window.removeEventListener("mouseup", stopMousePan);
+      window.removeEventListener("blur", stopMousePan);
+    };
+  }, [applyView]);
 
   const startPan = (point: Point) => {
     gestureRef.current = {
@@ -227,7 +265,9 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
+    // Mouse uses the dedicated document-level drag path below; pointer events
+    // stay reserved for touch/pen so the two input models never compete.
+    if (event.pointerType === "mouse") return;
     event.stopPropagation();
     const point = { x: event.clientX, y: event.clientY };
     pointersRef.current.set(event.pointerId, point);
@@ -235,6 +275,20 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
 
     if (pointersRef.current.size >= 2) startPinch();
     else startPan(point);
+    setIsInteracting(true);
+  };
+
+  const handleMouseDown = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || viewRef.current.scale <= MIN_SCALE + 0.01) return;
+    event.preventDefault();
+    event.stopPropagation();
+    mousePanRef.current = {
+      active: true,
+      startX: event.clientX,
+      startY: event.clientY,
+      startOffsetX: viewRef.current.x,
+      startOffsetY: viewRef.current.y,
+    };
     setIsInteracting(true);
   };
 
@@ -305,12 +359,15 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
     >
       <div
         ref={stageRef}
-        className="relative flex w-full items-center justify-center overflow-hidden border border-line bg-[#0b1424]"
+        className={`relative flex w-full items-center justify-center overflow-hidden border border-line bg-[#0b1424] ${
+          isZoomed ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
+        }`}
         style={{ height: "min(78vh, 720px)", touchAction: "none", overscrollBehavior: "contain" }}
         aria-label="صورة قابلة للتكبير. دبل تاب أو كبّر بإصبعين"
         role="group"
         tabIndex={0}
         onPointerDown={handlePointerDown}
+        onMouseDown={handleMouseDown}
         onPointerMove={handlePointerMove}
         onPointerUp={(event) => finishPointer(event)}
         onPointerCancel={(event) => finishPointer(event, true)}
@@ -350,6 +407,7 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
             type="button"
             className="absolute top-3 start-3 inline-flex h-9 items-center gap-2 border border-line bg-ink/90 px-3 text-[0.68rem] text-paper backdrop-blur transition-colors hover:border-accent hover:text-accent"
             onPointerDown={(event) => event.stopPropagation()}
+            onMouseDown={(event) => event.stopPropagation()}
             onClick={(event) => {
               event.stopPropagation();
               reset();
