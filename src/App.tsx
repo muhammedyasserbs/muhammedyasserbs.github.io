@@ -27,21 +27,12 @@ export default function App() {
   useEffect(() => {
     if (loadBelowFold) return;
 
-    const load = () => requestBelowFold();
-    const idleId = "requestIdleCallback" in window
-      ? window.requestIdleCallback(load, { timeout: 2000 })
-      : null;
-    const timeoutId = idleId === null ? window.setTimeout(load, 1400) : null;
-    // If the visitor starts interacting before idle time, have the remaining
-    // sections ready before they can reach them.
-    const intentEvents: (keyof WindowEventMap)[] = ["wheel", "touchstart", "keydown"];
-    intentEvents.forEach((event) => window.addEventListener(event, load, { once: true, passive: true }));
-
-    return () => {
-      if (idleId !== null) window.cancelIdleCallback(idleId);
-      if (timeoutId !== null) window.clearTimeout(timeoutId);
-      intentEvents.forEach((event) => window.removeEventListener(event, load));
-    };
+    // Allow the first paint and first input handlers to settle, then request
+    // the separate tail chunk immediately. This avoids delaying real sections
+    // or anchor navigation on slow networks while still removing their work
+    // from the critical render path.
+    const timer = window.setTimeout(requestBelowFold, 0);
+    return () => window.clearTimeout(timer);
   }, [loadBelowFold, requestBelowFold]);
 
   useEffect(() => {
