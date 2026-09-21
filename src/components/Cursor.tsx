@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function Cursor() {
@@ -8,6 +8,7 @@ export default function Cursor() {
   const y = useMotionValue(-100);
   const rx = useSpring(x, { stiffness: 350, damping: 30, mass: 0.6 });
   const ry = useSpring(y, { stiffness: 350, damping: 30, mass: 0.6 });
+  const hoveringRef = useRef(false);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -17,8 +18,14 @@ export default function Cursor() {
     const move = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
-      const t = e.target as HTMLElement;
-      setHovering(!!t.closest("a, button, [data-hover]"));
+      const target = e.target instanceof Element ? e.target : null;
+      const nextHovering = Boolean(target?.closest("a, button, [data-hover]"));
+      // Mousemove can fire well above 60 times per second. Only schedule a
+      // React state update when the cursor actually enters/leaves an action.
+      if (nextHovering !== hoveringRef.current) {
+        hoveringRef.current = nextHovering;
+        setHovering(nextHovering);
+      }
     };
     window.addEventListener("mousemove", move, { passive: true });
     return () => window.removeEventListener("mousemove", move);

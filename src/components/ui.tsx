@@ -137,18 +137,43 @@ export function Magnetic({ children, strength = 0.35 }: { children: React.ReactN
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 200, damping: 16 });
   const sy = useSpring(y, { stiffness: 200, damping: 16 });
+  const boundsRef = useRef<DOMRect | null>(null);
+  const pointerRef = useRef({ x: 0, y: 0 });
+  const frameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
+
+  const queueUpdate = (clientX: number, clientY: number) => {
+    pointerRef.current = { x: clientX, y: clientY };
+    if (frameRef.current !== null) return;
+
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = null;
+      const bounds = boundsRef.current;
+      if (!bounds) return;
+      x.set((pointerRef.current.x - bounds.left - bounds.width / 2) * strength);
+      y.set((pointerRef.current.y - bounds.top - bounds.height / 2) * strength);
+    });
+  };
 
   return (
     <motion.div
       ref={ref}
       style={{ x: sx, y: sy }}
+      onMouseEnter={() => {
+        boundsRef.current = ref.current?.getBoundingClientRect() ?? null;
+      }}
       onMouseMove={(e) => {
-        const r = ref.current?.getBoundingClientRect();
-        if (!r) return;
-        x.set((e.clientX - r.left - r.width / 2) * strength);
-        y.set((e.clientY - r.top - r.height / 2) * strength);
+        if (!boundsRef.current) boundsRef.current = ref.current?.getBoundingClientRect() ?? null;
+        queueUpdate(e.clientX, e.clientY);
       }}
       onMouseLeave={() => {
+        if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
         x.set(0);
         y.set(0);
       }}

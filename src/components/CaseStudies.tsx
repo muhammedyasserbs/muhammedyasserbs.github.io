@@ -62,6 +62,7 @@ export default function CaseStudies() {
                     src={c.img}
                     alt={c.alt}
                     loading="lazy"
+                    decoding="async"
                     draggable={false}
                     className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                   />

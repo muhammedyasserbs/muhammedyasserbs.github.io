@@ -37,7 +37,13 @@ export default function Nav() {
           {/* logo */}
           <a href="#top" className="flex items-center gap-3 group">
             <span className="h-9 w-9 overflow-hidden border border-line bg-panel transition-colors duration-300 group-hover:border-accent/60">
-              <img src={LOGO} alt="محمد ياسر" className="h-full w-full object-cover" />
+              <img
+                src={LOGO}
+                alt="محمد ياسر"
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
             </span>
             <span className="leading-tight">
               <span className="block font-display font-bold text-[0.95rem] text-paper">محمد ياسر</span>

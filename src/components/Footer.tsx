@@ -26,7 +26,13 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <span className="h-9 w-9 overflow-hidden border border-line bg-ink">
-              <img src={LOGO} alt="محمد ياسر" className="h-full w-full object-cover" />
+              <img
+                src={LOGO}
+                alt="محمد ياسر"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
             </span>
             <div className="leading-tight">
               <span className="block font-display font-bold text-paper">محمد ياسر</span>

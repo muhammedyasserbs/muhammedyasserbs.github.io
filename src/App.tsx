@@ -22,27 +22,56 @@ import { MARQUEE_ITEMS, WHATSAPP } from "./data/content";
 export default function App() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.15,
+      // Slightly shorter easing feels more responsive while retaining Lenis's
+      // smooth deceleration for wheel and anchor navigation.
+      duration: 0.92,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
 
-    let raf: number;
+    // Do not keep a permanent RAF loop alive when it cannot improve the page:
+    // the tab is hidden, or the image lightbox owns touch input. This removes
+    // unnecessary work while preserving the exact scrolling behavior onscreen.
+    let raf: number | null = null;
+    let lightboxOpen = document.documentElement.classList.contains("lightbox-open");
+    let pageVisible = !document.hidden;
+    const canAnimate = () => pageVisible && !lightboxOpen;
+
+    const stopRaf = () => {
+      if (raf !== null) cancelAnimationFrame(raf);
+      raf = null;
+    };
     const loop = (time: number) => {
+      raf = null;
+      if (!canAnimate()) return;
       lenis.raf(time);
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+    const startRaf = () => {
+      if (raf === null && canAnimate()) raf = requestAnimationFrame(loop);
+    };
+    startRaf();
 
-    // The image lightbox owns touch gestures while it is open. Pausing Lenis
-    // prevents its RAF loop from competing with pinch/pan on mobile.
+    // The image lightbox owns touch gestures while it is open. Pausing both
+    // Lenis and its RAF loop prevents it from competing with pinch/pan.
     const onLightbox = (event: Event) => {
-      const open = (event as CustomEvent<{ open?: boolean }>).detail?.open;
-      if (open) lenis.stop();
-      else lenis.start();
+      lightboxOpen = Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open);
+      if (lightboxOpen) {
+        lenis.stop();
+        stopRaf();
+      } else {
+        lenis.start();
+        startRaf();
+      }
+    };
+    const onVisibilityChange = () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) startRaf();
+      else stopRaf();
     };
     window.addEventListener("portfolio:lightbox", onLightbox);
-    if (document.documentElement.classList.contains("lightbox-open")) lenis.stop();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    if (lightboxOpen) lenis.stop();
 
     // anchor navigation through lenis
     const onClick = (e: MouseEvent) => {
@@ -59,8 +88,9 @@ export default function App() {
     document.addEventListener("click", onClick);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stopRaf();
       window.removeEventListener("portfolio:lightbox", onLightbox);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       lenis.destroy();
       document.removeEventListener("click", onClick);
     };

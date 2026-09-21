@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Search, Star, TrendingUp, ArrowUpLeft, MousePointerClick } from "lucide-react";
 import { WHATSAPP, STATS, LOGO } from "../data/content";
@@ -45,7 +46,7 @@ function SerpCard() {
 
         <div className="flex items-center gap-2.5 text-[0.72rem]" dir="ltr">
           <span className="h-6 w-6 overflow-hidden rounded-full border border-line">
-            <img src={LOGO} alt="" className="h-full w-full object-cover" />
+            <img src={LOGO} alt="" decoding="async" className="h-full w-full object-cover" />
           </span>
           <span className="text-paper/70">muhammedyasserbs.github.io</span>
           <span className="text-dim">›</span>
@@ -126,15 +127,41 @@ export default function Hero() {
   const sy = useSpring(my, { stiffness: 60, damping: 18 });
   const rotateX = useTransform(sy, [0, 1], [5, -5]);
   const rotateY = useTransform(sx, [0, 1], [-5, 5]);
+  const boundsRef = useRef<DOMRect | null>(null);
+  const pointerRef = useRef({ x: 0, y: 0 });
+  const frameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
+
+  const queueTiltUpdate = (clientX: number, clientY: number) => {
+    pointerRef.current = { x: clientX, y: clientY };
+    if (frameRef.current !== null) return;
+
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = null;
+      const bounds = boundsRef.current;
+      if (!bounds) return;
+      mx.set((pointerRef.current.x - bounds.left) / bounds.width);
+      my.set((pointerRef.current.y - bounds.top) / bounds.height);
+    });
+  };
 
   return (
     <section
       id="top"
       className="grid-bg relative overflow-hidden pt-[68px]"
+      onMouseEnter={(e) => {
+        boundsRef.current = e.currentTarget.getBoundingClientRect();
+      }}
       onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left) / r.width);
-        my.set((e.clientY - r.top) / r.height);
+        // Cache layout geometry and batch high-frequency pointer events into
+        // one visual update per frame, keeping the tilt responsive on 120Hz mice.
+        if (!boundsRef.current) boundsRef.current = e.currentTarget.getBoundingClientRect();
+        queueTiltUpdate(e.clientX, e.clientY);
       }}
     >
       {/* ambient glow */}

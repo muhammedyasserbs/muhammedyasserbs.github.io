@@ -5,7 +5,7 @@ import {
   useCallback,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { motion, useMotionValue, animate, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, animate, AnimatePresence, useInView } from "framer-motion";
 import {
   Search,
   BarChart3,
@@ -121,6 +121,7 @@ function ShotFigure({
             src={enc(shot.src)}
             alt={shot.alt}
             loading="lazy"
+            decoding="async"
             draggable={false}
             className="h-[190px] w-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/shot:scale-[1.03] sm:h-[170px] lg:h-[200px]"
             onError={() => setFailed(true)}
@@ -328,6 +329,7 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
           ref={imageRef}
           src={enc(zoom.src)}
           alt={zoom.alt}
+          decoding="async"
           draggable={false}
           onLoad={() => applyView(viewRef.current.scale, viewRef.current.x, viewRef.current.y)}
           className="pointer-events-none max-h-full max-w-full select-none object-contain will-change-transform"
@@ -437,8 +439,10 @@ function Slide({
 
 export default function Results() {
   const n = RESULT_SLIDES.length;
+  const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const isResultsInView = useInView(sectionRef, { amount: 0.05 });
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const x = useMotionValue(0);
   const [index, setIndex] = useState(0);
@@ -490,12 +494,12 @@ export default function Results() {
     [n],
   );
 
-  /* autoplay */
+  /* Only animate the carousel while it can actually be seen. */
   useEffect(() => {
-    if (paused || zoom) return;
+    if (paused || zoom || !isResultsInView) return;
     const t = setInterval(() => setIndex((i) => (i + 1) % n), 5000);
     return () => clearInterval(t);
-  }, [paused, zoom, n]);
+  }, [paused, zoom, isResultsInView, n]);
 
   /* esc close */
   useEffect(() => {
@@ -506,6 +510,7 @@ export default function Results() {
 
   return (
     <section
+      ref={sectionRef}
       id="results"
       className="relative overflow-hidden border-t border-line-soft py-24 md:py-32"
       onMouseEnter={() => setPaused(true)}

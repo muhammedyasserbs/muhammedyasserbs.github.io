@@ -187,7 +187,13 @@ export default function SerpTool() {
                   <div dir="rtl" className="text-right">
                     <div className="flex items-center gap-3">
                       <span className="h-7 w-7 shrink-0 overflow-hidden rounded-full border border-line bg-ink">
-                        <img src={LOGO} alt="" className="h-full w-full object-cover" />
+                        <img
+                          src={LOGO}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover"
+                        />
                       </span>
                       <div className="min-w-0 leading-tight">
                         <span className="block text-[0.8rem] text-[#bdc1c6]">موقعك</span>
