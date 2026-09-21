@@ -4,10 +4,8 @@ import { Asterisk } from "lucide-react";
 export default function Marquee({ items, dark = false }: { items: string[]; dark?: boolean }) {
   const row = [...items, ...items];
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const scrollingRef = useRef(false);
   // Start enabled as a safe fallback for browsers without IntersectionObserver.
   const [isVisible, setIsVisible] = useState(true);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
     if (!("IntersectionObserver" in window) || !marqueeRef.current) return;
@@ -17,27 +15,6 @@ export default function Marquee({ items, dark = false }: { items: string[]; dark
     );
     observer.observe(marqueeRef.current);
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    let settleTimer: number | null = null;
-    const onScroll = () => {
-      if (!scrollingRef.current) {
-        scrollingRef.current = true;
-        setIsScrolling(true);
-      }
-      if (settleTimer !== null) window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(() => {
-        scrollingRef.current = false;
-        setIsScrolling(false);
-      }, 160);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (settleTimer !== null) window.clearTimeout(settleTimer);
-    };
   }, []);
 
   return (
@@ -53,9 +30,9 @@ export default function Marquee({ items, dark = false }: { items: string[]; dark
         className="marquee-track flex w-max items-center gap-8 whitespace-nowrap"
         style={{
           ["--marquee-duration" as string]: "34s",
-          // Pause only while the page itself is moving, so the decorative
-          // transform never competes with scrolling on slower devices.
-          animationPlayState: isVisible && !isScrolling ? "running" : "paused",
+          // Preserve the marquee motion while it is visible; the observer only
+          // pauses it after it has left the viewport.
+          animationPlayState: isVisible ? "running" : "paused",
           direction: "rtl",
         }}
       >

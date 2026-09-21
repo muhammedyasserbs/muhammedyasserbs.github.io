@@ -14,21 +14,21 @@ export function Reveal({
   y?: number;
   className?: string;
 }) {
-  // Transform reveals are disabled on touch and reduced-motion clients so
-  // lower-page cards never compete with a mobile scroll for GPU time.
-  const skipRevealMotion =
+  // Keep the reveal treatment on touch devices too. The only exception is an
+  // explicit operating-system reduced-motion preference.
+  const prefersReducedMotion =
     typeof window !== "undefined" &&
-    window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches;
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (skipRevealMotion) return <div className={className}>{children}</div>;
+  if (prefersReducedMotion) return <div className={className}>{children}</div>;
 
   return (
     <m.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.62, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </m.div>
@@ -89,7 +89,7 @@ export function CountUp({
   value,
   prefix = "",
   suffix = "",
-  duration = 1.1,
+  duration = 1.6,
   className,
 }: {
   value: number;

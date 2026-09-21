@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { m, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X, ArrowUpLeft } from "lucide-react";
 import { NAV_LINKS, WHATSAPP, LOGO } from "../data/content";
@@ -8,11 +8,17 @@ import { scrollToSection } from "../utils/scroll";
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const scrolledRef = useRef(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 20 });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const nextScrolled = window.scrollY > 24;
+      if (nextScrolled === scrolledRef.current) return;
+      scrolledRef.current = nextScrolled;
+      setScrolled(nextScrolled);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

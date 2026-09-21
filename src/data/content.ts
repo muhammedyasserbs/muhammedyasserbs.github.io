@@ -165,7 +165,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "3 شهور",
     shots: [
       {
-        src: GH + "assets/results-evidence/متجر مياه وعصائر كبير (3 شهور)/متجر مياه وعصائر كبير 3 شهور كونسول.png",
+        src: GH + "assets/results-evidence/متجر مياه وعصائر كبير (3 شهور)/متجر مياه وعصائر كبير 3 شهور كونسول.webp",
         alt: "نتائج Search Console لمتجر مياه وعصائر كبير: 9.06 ألف نقرة و886 ألف ظهور خلال 3 شهور",
         source: "gsc",
         m1: ["9.06 ألف", "نقرة من البحث"],
@@ -173,7 +173,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "النقرات قفزت من 7.62 ألف لـ **9.06 ألف (+18.98%)** والظهور لـ **886 ألف** خلال 3 شهور",
       },
       {
-        src: GH + "assets/results-evidence/متجر مياه وعصائر كبير (3 شهور)/متجر مياه وعصائر كبير انالتيكس 3 شهور.png",
+        src: GH + "assets/results-evidence/متجر مياه وعصائر كبير (3 شهور)/متجر مياه وعصائر كبير انالتيكس 3 شهور.webp",
         alt: "نتائج Google Analytics لمتجر مياه وعصائر كبير: نمو الإيرادات العضوية",
         source: "ga",
         m1: ["+85.77%", "نمو الإيراد العضوي"],
@@ -188,7 +188,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "3 شهور",
     shots: [
       {
-        src: GH + "assets/results-evidence/متجر مياه وعصائر صغير (3 شهور)/متجر مياه وعصائر صغير 3 شهور كونسول.png",
+        src: GH + "assets/results-evidence/متجر مياه وعصائر صغير (3 شهور)/متجر مياه وعصائر صغير 3 شهور كونسول.webp",
         alt: "نتائج Search Console لمتجر مياه وعصائر صغير: 1.6 ألف نقرة و145 ألف ظهور خلال 3 شهور",
         source: "gsc",
         m1: ["1.6 ألف", "نقرة من البحث"],
@@ -203,7 +203,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "3 شهور",
     shots: [
       {
-        src: GH + "assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/كونسول متجر مشالح (3 شهور).png",
+        src: GH + "assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/كونسول متجر مشالح (3 شهور).webp",
         alt: "لقطة Search Console لمتجر براند لبيع المشالح: 846 نقرة و61.8 ألف ظهور خلال 3 شهور",
         source: "gsc",
         m1: ["846", "نقرة من البحث"],
@@ -211,7 +211,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "النقرات قفزت من 387 لـ **846 (+118.6%)** والظهور من 22.6 ألف لـ **61.8 ألف (+174%)** خلال 3 شهور",
       },
       {
-        src: GH + "assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/اناليتيكس متجر مشالح (3 شهور).png",
+        src: GH + "assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/اناليتيكس متجر مشالح (3 شهور).webp",
         alt: "لقطة Google Analytics لمتجر براند لبيع المشالح: نمو الجلسات والإيرادات العضوية",
         source: "ga",
         m1: ["4,065 ريال", "إيراد عضوي"],
@@ -219,7 +219,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "الإيرادات العضوية انطلقت من صفر لـ **4,065 ريال** والجلسات **+62.86%** خلال 3 شهور",
       },
       {
-        src: GH + "assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/كونسول ai متجر مشالح (3 شهور).png",
+        src: GH + "assets/results-evidence/متجر براند لبيع المشالح (3 شهور)/كونسول ai متجر مشالح (3 شهور).webp",
         alt: "لقطة AI Search Console لمتجر براند المشالح: 7.74 ألف ظهور خلال 3 شهور",
         source: "ai",
         m1: ["7.74 ألف", "ظهور في ميزات AI"],
@@ -234,7 +234,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "28 يوم",
     shots: [
       {
-        src: GH + "assets/results-evidence/متجر براند لبيع الفساتين (شهر)/متجر فساتين كونسول شهر.png",
+        src: GH + "assets/results-evidence/متجر براند لبيع الفساتين (شهر)/متجر فساتين كونسول شهر.webp",
         alt: "نتائج Search Console لمتجر براند لبيع الفساتين: 651 نقرة و9.89 ألف ظهور خلال آخر 28 يومًا",
         source: "gsc",
         m1: ["651", "نقرة من البحث"],
@@ -242,7 +242,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "النقرات قفزت من 468 لـ **651 (+39.1%)** والظهور من 8.83 ألف لـ **9.89 ألف** خلال آخر 28 يوم",
       },
       {
-        src: GH + "assets/results-evidence/متجر براند لبيع الفساتين (شهر)/كونسول ai متجر فساتين شهر.png",
+        src: GH + "assets/results-evidence/متجر براند لبيع الفساتين (شهر)/كونسول ai متجر فساتين شهر.webp",
         alt: "نتائج AI Search Console لمتجر براند الفساتين: 680 ظهور في ميزات الذكاء الاصطناعي",
         source: "ai",
         m1: ["680", "ظهور في ميزات AI"],
@@ -257,7 +257,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "28 يوم",
     shots: [
       {
-        src: GH + "assets/results-evidence/اعواد سكر (شهر)/كونسول اعواد سكر شهر.png",
+        src: GH + "assets/results-evidence/اعواد سكر (شهر)/كونسول اعواد سكر شهر.webp",
         alt: "نتائج Search Console لمتجر سكر في السعودية: 500 نقرة و38.1 ألف ظهور خلال آخر 28 يومًا",
         source: "gsc",
         m1: ["500", "نقرة من البحث"],
@@ -265,7 +265,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "النقرات قفزت من 406 لـ **500 (+23.15%)** خلال آخر 28 يوم",
       },
       {
-        src: GH + "assets/results-evidence/اعواد سكر (شهر)/انالتيكس اعواد شهر.png",
+        src: GH + "assets/results-evidence/اعواد سكر (شهر)/انالتيكس اعواد شهر.webp",
         alt: "نتائج Google Analytics لمتجر سكر في السعودية: نمو الإيرادات والجلسات العضوية",
         source: "ga",
         m1: ["+84.27%", "نمو الإيراد العضوي"],
@@ -280,7 +280,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "28 يوم",
     shots: [
       {
-        src: GH + "assets/results-evidence/موقع خدمات تسويق الالكتروني (شهر)/موقع خدمات تسويق الالكتروني كونسول شهر.png",
+        src: GH + "assets/results-evidence/موقع خدمات تسويق الالكتروني (شهر)/موقع خدمات تسويق الالكتروني كونسول شهر.webp",
         alt: "نتائج Search Console لموقع خدمات تسويق إلكتروني: 358 نقرة و62.9 ألف ظهور خلال آخر 28 يومًا",
         source: "gsc",
         m1: ["358", "نقرة من البحث"],
@@ -288,7 +288,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "النقرات قفزت من 208 لـ **358 (+72.12%)** والظهور من 41.5 ألف لـ **62.9 ألف (+51.5%)** خلال آخر 28 يوم",
       },
       {
-        src: GH + "assets/results-evidence/موقع خدمات تسويق الالكتروني (شهر)/موقع خدمات تسويق الالكتروني كونسول ai شهر.png",
+        src: GH + "assets/results-evidence/موقع خدمات تسويق الالكتروني (شهر)/موقع خدمات تسويق الالكتروني كونسول ai شهر.webp",
         alt: "نتائج AI Search Console لموقع خدمات تسويق إلكتروني: 3.67 ألف ظهور في ميزات الذكاء الاصطناعي",
         source: "ai",
         m1: ["3.67 ألف", "ظهور في ميزات AI"],
@@ -303,7 +303,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
     period: "3 شهور",
     shots: [
       {
-        src: GH + "assets/results-evidence/موقع خدمات هندسية في الرياض (3 شهور)/كونسول موقع خدمات هندسية في الرياض 3 شهور.png",
+        src: GH + "assets/results-evidence/موقع خدمات هندسية في الرياض (3 شهور)/كونسول موقع خدمات هندسية في الرياض 3 شهور.webp",
         alt: "نتائج Search Console لموقع خدمات هندسية في الرياض: 966 نقرة و56.9 ألف ظهور خلال 3 شهور",
         source: "gsc",
         m1: ["966", "نقرة من البحث"],
@@ -311,7 +311,7 @@ export const RESULT_SLIDES: ResultSlide[] = [
         sum: "النقرات قفزت من 253 لـ **966 (+281.82%)** والظهور من 20.8 ألف لـ **56.9 ألف (+174%)** خلال 3 شهور",
       },
       {
-        src: GH + "assets/results-evidence/موقع خدمات هندسية في الرياض (3 شهور)/كونسول ai موقع خدمات هندسية في الرياض 3 شهور.png",
+        src: GH + "assets/results-evidence/موقع خدمات هندسية في الرياض (3 شهور)/كونسول ai موقع خدمات هندسية في الرياض 3 شهور.webp",
         alt: "نتائج AI Search Console لموقع خدمات هندسية في الرياض: 12.5 ألف ظهور خلال 3 شهور",
         source: "ai",
         m1: ["12.5 ألف", "ظهور في ميزات AI"],

@@ -14,7 +14,7 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
         className="block"
         initial={{ y: "110%" }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.62, delay, ease }}
+        transition={{ duration: 1, delay, ease }}
       >
         {children}
       </m.span>
@@ -37,7 +37,7 @@ function SerpCard() {
       <m.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.42, duration: 0.62, ease }}
+        transition={{ delay: 0.9, duration: 0.9, ease }}
         className="relative mt-4 border border-line bg-panel p-5 md:p-6"
       >
         {/* rank badge */}
@@ -92,7 +92,7 @@ function SerpCard() {
       <m.div
         initial={{ opacity: 0, y: 24, rotate: -4 }}
         animate={{ opacity: 1, y: 0, rotate: -3 }}
-        transition={{ delay: 0.58, duration: 0.62, ease }}
+        transition={{ delay: 1.25, duration: 0.9, ease }}
         className="absolute -bottom-8 -start-2 md:-start-10 w-[190px] border border-line bg-card/95 backdrop-blur px-4 py-3.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)]"
       >
         <div className="flex items-center justify-between">
@@ -111,9 +111,9 @@ function SerpCard() {
             strokeWidth="1.5"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ delay: 0.85, duration: 1.05, ease: "easeInOut" }}
+            transition={{ delay: 1.7, duration: 1.6, ease: "easeInOut" }}
           />
-          <m.circle cx="120" cy="6" r="2.5" fill="#3b82f6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }} />
+          <m.circle cx="120" cy="6" r="2.5" fill="#3b82f6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }} />
         </svg>
         <span className="mt-1 block text-[0.62rem] text-dim">آخر 3 شهور — Search Console</span>
       </m.div>
@@ -185,7 +185,7 @@ export default function Hero() {
             <m.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.42, ease }}
+              transition={{ duration: 0.7, ease }}
               className="mb-7 flex items-center gap-3"
             >
               <span className="relative flex h-2 w-2">
@@ -196,8 +196,8 @@ export default function Hero() {
             </m.div>
 
             <h1 className="font-display font-extrabold tracking-tight leading-[1.08] text-[clamp(2.6rem,7vw,5.4rem)] text-paper">
-              <Line delay={0.04}>موقعك يستاهل</Line>
-              <Line delay={0.1}>
+              <Line delay={0.1}>موقعك يستاهل</Line>
+              <Line delay={0.22}>
                 <span className="relative inline-block text-accent">
                   الصفحة الأولى
                   <m.svg
@@ -213,19 +213,19 @@ export default function Hero() {
                       strokeLinecap="round"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: 1 }}
-                      transition={{ delay: 0.52, duration: 0.58, ease: "easeOut" }}
+                      transition={{ delay: 1.1, duration: 0.8, ease: "easeOut" }}
                     />
                   </m.svg>
                 </span>
                 <span className="text-paper/40">.</span>
               </Line>
-              <Line delay={0.16}>مش الصفحة التانية.</Line>
+              <Line delay={0.34}>مش الصفحة التانية.</Line>
             </h1>
 
             <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28, duration: 0.58, ease }}
+              transition={{ delay: 0.55, duration: 0.9, ease }}
               className="mt-7 max-w-xl text-muted leading-loose text-[0.95rem] md:text-[1.05rem]"
             >
               أنا <span className="text-paper font-semibold">محمد ياسر</span> — أخصائي SEO
@@ -238,7 +238,7 @@ export default function Hero() {
             <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.38, duration: 0.58, ease }}
+              transition={{ delay: 0.7, duration: 0.9, ease }}
               className="mt-9 flex flex-wrap items-center gap-4"
             >
               <Magnetic>
@@ -266,7 +266,7 @@ export default function Hero() {
             <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.62 }}
+              transition={{ delay: 0.9, duration: 1 }}
               className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.8rem] text-dim"
             >
               <span className="label-mono !text-[0.6rem]">بشتغل على</span>
@@ -284,7 +284,7 @@ export default function Hero() {
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.68, ease }}
+            transition={{ delay: 0.45, duration: 1.1, ease }}
             className="relative pb-14 hidden sm:block"
           >
             <SerpCard />
@@ -295,7 +295,7 @@ export default function Hero() {
         <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.48, duration: 0.64, ease }}
+          transition={{ delay: 1, duration: 1, ease }}
           className="relative mt-20 md:mt-24 border border-line bg-panel/60 backdrop-blur-sm"
         >
           <div className="grid grid-cols-2 lg:grid-cols-4">

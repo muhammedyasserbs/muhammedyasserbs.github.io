@@ -123,9 +123,8 @@ main {
   color: #ffffff;
 }
 
-/* Film grain stays visually identical, but is intentionally static. Animating a
-   200%-viewport SVG turbulence layer forces continuous compositing while users
-   scroll; a cached static layer is much lighter on mobile GPUs. */
+/* Keep the original animated film grain. It lives on its own composited layer
+   so the visual effect can stay active without forcing layout work. */
 .noise::after {
   content: "";
   position: fixed;
@@ -135,7 +134,17 @@ main {
   pointer-events: none;
   z-index: 90;
   opacity: 0.035;
+  will-change: transform;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 9s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -2%); }
+  80% { transform: translate(3%, 3%); }
 }
 
 /* hairline grid backdrop */
@@ -149,6 +158,11 @@ main {
 @keyframes marquee {
   from { transform: translateX(-50%); }
   to { transform: translateX(0); }
+}
+
+.marquee-track {
+  /* The marquee keeps its original motion, isolated on a compositor layer. */
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -179,22 +193,6 @@ main {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
-}
-
-/* Backdrop filters force the browser to continually re-rasterize the pixels
-   behind them during a touch scroll. Mobile keeps the same opaque surfaces,
-   without that expensive compositing work. */
-@media (pointer: coarse) {
-  .noise::after {
-    display: none;
-  }
-
-  .backdrop-blur,
-  .backdrop-blur-sm,
-  .backdrop-blur-md {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
