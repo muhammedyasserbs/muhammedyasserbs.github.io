@@ -47,7 +47,7 @@ export default function Nav() {
             </span>
             <span className="leading-tight">
               <span className="block font-display font-bold text-[0.95rem] text-paper">محمد ياسر</span>
-              <span className="block label-mono text-dim !text-[0.55rem]" dir="ltr">
+              <span className="mt-1.5 block label-mono text-dim !text-[0.55rem]" dir="ltr">
                 SEO SPECIALIST
               </span>
             </span>
