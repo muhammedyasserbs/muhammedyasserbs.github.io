@@ -30,6 +30,7 @@ const MIN_SCALE = 1;
 const DOUBLE_TAP_SCALE = 2.5;
 const MAX_SCALE = 4;
 const DOUBLE_TAP_DELAY = 280;
+const WHEEL_ZOOM_SENSITIVITY = 0.0015;
 
 type ZoomTarget = { src: string; alt: string };
 type Point = { x: number; y: number };
@@ -251,6 +252,41 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
     };
   }, [applyView]);
 
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const zoomWithWheel = (event: WheelEvent) => {
+      // A non-passive native listener is deliberate: React may register wheel
+      // handlers as passive, which would let the page/Lenis consume the wheel.
+      event.preventDefault();
+      event.stopPropagation();
+
+      const rect = stage.getBoundingClientRect();
+      const modeMultiplier = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? rect.height : 1;
+      const delta = Math.max(-180, Math.min(180, event.deltaY * modeMultiplier));
+      const current = viewRef.current;
+      const nextScale = Math.max(
+        MIN_SCALE,
+        Math.min(MAX_SCALE, current.scale * Math.exp(-delta * WHEEL_ZOOM_SENSITIVITY)),
+      );
+      const ratio = nextScale / current.scale;
+      const pointerX = event.clientX - rect.left - rect.width / 2;
+      const pointerY = event.clientY - rect.top - rect.height / 2;
+
+      // Keep the point below the cursor stable while scaling, then apply the
+      // same bounds used by pinch and drag.
+      applyView(
+        nextScale,
+        (1 - ratio) * pointerX + ratio * current.x,
+        (1 - ratio) * pointerY + ratio * current.y,
+      );
+    };
+
+    stage.addEventListener("wheel", zoomWithWheel, { passive: false });
+    return () => stage.removeEventListener("wheel", zoomWithWheel);
+  }, [applyView]);
+
   const startPan = (point: Point) => {
     gestureRef.current = {
       ...gestureRef.current,
@@ -374,7 +410,7 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
           isZoomed ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
         }`}
         style={{ height: "min(78vh, 720px)", touchAction: "none", overscrollBehavior: "contain" }}
-        aria-label="صورة قابلة للتكبير. دبل تاب أو كبّر بإصبعين"
+        aria-label="صورة قابلة للتكبير. دبل كليك أو عجلة الماوس أو كبّر بإصبعين"
         role="group"
         tabIndex={0}
         onPointerDown={handlePointerDown}
@@ -410,7 +446,7 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
 
         <div className="pointer-events-none absolute bottom-3 start-3 inline-flex items-center gap-2 bg-ink/80 px-3 py-2 text-[0.65rem] text-paper/85 backdrop-blur">
           <ZoomIn className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-          <span>{isZoomed ? `${view.scale.toFixed(1)}× — اسحب الصورة` : "دبل تاب أو بإصبعين للتكبير"}</span>
+          <span>{isZoomed ? `${view.scale.toFixed(1)}× — اسحب الصورة أو استخدم عجلة الماوس` : "دبل كليك أو عجلة الماوس أو بإصبعين للتكبير"}</span>
         </div>
 
         {isZoomed && (
