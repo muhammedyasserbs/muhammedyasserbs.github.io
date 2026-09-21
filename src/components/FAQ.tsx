@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Plus, MessageCircleQuestion } from "lucide-react";
 import { FAQS, WHATSAPP } from "../data/content";
 import { SectionHeader, Reveal } from "./ui";
@@ -64,7 +64,7 @@ export default function FAQ() {
                     </button>
                     <AnimatePresence initial={false}>
                       {isOpen && (
-                        <motion.div
+                        <m.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
@@ -74,7 +74,7 @@ export default function FAQ() {
                           <p className="px-1 pb-7 ps-12 text-[0.9rem] leading-loose text-muted max-w-2xl">
                             {f.a}
                           </p>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>

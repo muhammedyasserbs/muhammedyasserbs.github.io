@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Globe, FlaskConical } from "lucide-react";
 import { SectionHeader, Reveal, Ticks } from "./ui";
 import { LOGO } from "../data/content";
@@ -71,7 +71,7 @@ function Field({
         />
       )}
       <div className="mt-2 h-[3px] w-full bg-line/60">
-        <motion.div
+        <m.div
           className={cn("h-full", t.bar)}
           animate={{ width: `${Math.min((len / max) * 100, 100)}%` }}
           transition={{ type: "spring", stiffness: 240, damping: 26 }}

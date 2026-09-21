@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { X, Check, Megaphone, LineChart } from "lucide-react";
 import { SectionHeader, Reveal } from "./ui";
 import { cn } from "../utils/cn";
@@ -124,12 +124,12 @@ export default function Comparison() {
         </div>
 
         <Reveal delay={0.2}>
-          <motion.p className="mx-auto mt-10 max-w-2xl text-center text-[0.9rem] leading-loose text-muted">
+          <m.p className="mx-auto mt-10 max-w-2xl text-center text-[0.9rem] leading-loose text-muted">
             الأفضل مش دايمًا واحد بدل التاني —{" "}
             <span className="text-paper font-semibold">الإعلانات</span> بتدعم احتياجك السريع،
             و<span className="text-accent font-semibold"> SEO </span>
             بيبني حضور عضوي يشتغل لصالحك على المدى الطويل.
-          </motion.p>
+          </m.p>
         </Reveal>
       </div>
     </section>

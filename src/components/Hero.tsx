@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Search, Star, TrendingUp, ArrowUpLeft, MousePointerClick } from "lucide-react";
 import { WHATSAPP, STATS, LOGO } from "../data/content";
 import { CountUp, Magnetic } from "./ui";
@@ -10,14 +10,14 @@ const ease = [0.22, 1, 0.36, 1] as const;
 function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
     <span className="block overflow-hidden pb-1">
-      <motion.span
+      <m.span
         className="block"
         initial={{ y: "110%" }}
         animate={{ y: 0 }}
-        transition={{ duration: 1, delay, ease }}
+        transition={{ duration: 0.62, delay, ease }}
       >
         {children}
-      </motion.span>
+      </m.span>
     </span>
   );
 }
@@ -34,10 +34,10 @@ function SerpCard() {
       </div>
 
       {/* result card */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9, duration: 0.9, ease }}
+        transition={{ delay: 0.42, duration: 0.62, ease }}
         className="relative mt-4 border border-line bg-panel p-5 md:p-6"
       >
         {/* rank badge */}
@@ -86,13 +86,13 @@ function SerpCard() {
             </span>
           ))}
         </div>
-      </motion.div>
+      </m.div>
 
       {/* floating analytics card */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 24, rotate: -4 }}
         animate={{ opacity: 1, y: 0, rotate: -3 }}
-        transition={{ delay: 1.25, duration: 0.9, ease }}
+        transition={{ delay: 0.58, duration: 0.62, ease }}
         className="absolute -bottom-8 -start-2 md:-start-10 w-[190px] border border-line bg-card/95 backdrop-blur px-4 py-3.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)]"
       >
         <div className="flex items-center justify-between">
@@ -105,18 +105,18 @@ function SerpCard() {
         </div>
         {/* micro sparkline */}
         <svg viewBox="0 0 120 32" className="mt-2 w-full h-8" fill="none" style={{ direction: "ltr" }}>
-          <motion.path
+          <m.path
             d="M0 28 L12 24 L24 26 L36 19 L48 21 L60 14 L72 16 L84 9 L96 11 L108 4 L120 6"
             stroke="#3b82f6"
             strokeWidth="1.5"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ delay: 1.7, duration: 1.6, ease: "easeInOut" }}
+            transition={{ delay: 0.85, duration: 1.05, ease: "easeInOut" }}
           />
-          <motion.circle cx="120" cy="6" r="2.5" fill="#3b82f6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }} />
+          <m.circle cx="120" cy="6" r="2.5" fill="#3b82f6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }} />
         </svg>
         <span className="mt-1 block text-[0.62rem] text-dim">آخر 3 شهور — Search Console</span>
-      </motion.div>
+      </m.div>
     </div>
   );
 }
@@ -182,10 +182,10 @@ export default function Hero() {
         <div className="grid items-center gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10" style={{ perspective: 1200 }}>
           {/* copy */}
           <div>
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease }}
+              transition={{ duration: 0.42, ease }}
               className="mb-7 flex items-center gap-3"
             >
               <span className="relative flex h-2 w-2">
@@ -193,39 +193,39 @@ export default function Hero() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
               <span className="label-mono text-muted" dir="ltr">AVAILABLE FOR NEW PROJECTS</span>
-            </motion.div>
+            </m.div>
 
             <h1 className="font-display font-extrabold tracking-tight leading-[1.08] text-[clamp(2.6rem,7vw,5.4rem)] text-paper">
-              <Line delay={0.1}>موقعك يستاهل</Line>
-              <Line delay={0.22}>
+              <Line delay={0.04}>موقعك يستاهل</Line>
+              <Line delay={0.1}>
                 <span className="relative inline-block text-accent">
                   الصفحة الأولى
-                  <motion.svg
+                  <m.svg
                     viewBox="0 0 340 14"
                     className="absolute -bottom-2 start-0 w-full"
                     fill="none"
                     aria-hidden
                   >
-                    <motion.path
+                    <m.path
                       d="M4 10 C 80 3, 160 12, 336 5"
                       stroke="#3b82f6"
                       strokeWidth="3"
                       strokeLinecap="round"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: 1 }}
-                      transition={{ delay: 1.1, duration: 0.8, ease: "easeOut" }}
+                      transition={{ delay: 0.52, duration: 0.58, ease: "easeOut" }}
                     />
-                  </motion.svg>
+                  </m.svg>
                 </span>
                 <span className="text-paper/40">.</span>
               </Line>
-              <Line delay={0.34}>مش الصفحة التانية.</Line>
+              <Line delay={0.16}>مش الصفحة التانية.</Line>
             </h1>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.9, ease }}
+              transition={{ delay: 0.28, duration: 0.58, ease }}
               className="mt-7 max-w-xl text-muted leading-loose text-[0.95rem] md:text-[1.05rem]"
             >
               أنا <span className="text-paper font-semibold">محمد ياسر</span> — أخصائي SEO
@@ -233,12 +233,12 @@ export default function Hero() {
               <span className="text-paper" dir="ltr">Technical SEO</span>.
               بحسّن ظهور المتاجر الإلكترونية والمواقع الخدمية ومواقع SaaS في نتايج بحث Google،
               عشان العملاء يوصلولك من غير ما تدفع في كل نقرة.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.9, ease }}
+              transition={{ delay: 0.38, duration: 0.58, ease }}
               className="mt-9 flex flex-wrap items-center gap-4"
             >
               <Magnetic>
@@ -260,13 +260,13 @@ export default function Hero() {
                 <MousePointerClick className="h-4 w-4" />
                 شوف النتايج بالأرقام
               </button>
-            </motion.div>
+            </m.div>
 
             {/* platforms strip */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.9, duration: 1 }}
+              transition={{ delay: 0.5, duration: 0.62 }}
               className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.8rem] text-dim"
             >
               <span className="label-mono !text-[0.6rem]">بشتغل على</span>
@@ -276,26 +276,26 @@ export default function Hero() {
                   {i < 4 && <span className="h-1 w-1 rounded-full bg-line" />}
                 </span>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* visual */}
-          <motion.div
+          <m.div
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 1.1, ease }}
+            transition={{ delay: 0.2, duration: 0.68, ease }}
             className="relative pb-14 hidden sm:block"
           >
             <SerpCard />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* stats strip */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 1, ease }}
+          transition={{ delay: 0.48, duration: 0.64, ease }}
           className="relative mt-20 md:mt-24 border border-line bg-panel/60 backdrop-blur-sm"
         >
           <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -317,7 +317,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

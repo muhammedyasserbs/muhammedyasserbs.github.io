@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { m, useInView, useMotionValue, useSpring } from "framer-motion";
 import { cn } from "../utils/cn";
 
 /* ---------- Reveal on scroll ---------- */
@@ -14,10 +14,8 @@ export function Reveal({
   y?: number;
   className?: string;
 }) {
-  // Filter/transform reveal effects are visually nice on a desktop, but they
-  // are a common source of scroll hitching on touch GPUs. On touch and users'
-  // reduced-motion preference, preserve the exact content and layout without
-  // scheduling an offscreen animation for every card.
+  // Transform reveals are disabled on touch and reduced-motion clients so
+  // lower-page cards never compete with a mobile scroll for GPU time.
   const skipRevealMotion =
     typeof window !== "undefined" &&
     window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches;
@@ -25,15 +23,15 @@ export function Reveal({
   if (skipRevealMotion) return <div className={className}>{children}</div>;
 
   return (
-    <motion.div
+    <m.div
       className={className}
-      initial={{ opacity: 0, y, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.62, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -91,7 +89,7 @@ export function CountUp({
   value,
   prefix = "",
   suffix = "",
-  duration = 1.6,
+  duration = 1.1,
   className,
 }: {
   value: number;
@@ -171,7 +169,7 @@ export function Magnetic({ children, strength = 0.35 }: { children: React.ReactN
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       style={{ x: sx, y: sy }}
       onMouseEnter={() => {
@@ -190,6 +188,6 @@ export function Magnetic({ children, strength = 0.35 }: { children: React.ReactN
       className="inline-block"
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { m, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X, ArrowUpLeft } from "lucide-react";
 import { NAV_LINKS, WHATSAPP, LOGO } from "../data/content";
 import { cn } from "../utils/cn";
@@ -21,7 +21,7 @@ export default function Nav() {
   return (
     <>
       {/* scroll progress */}
-      <motion.div
+      <m.div
         className="fixed top-0 inset-x-0 h-[2px] bg-brand z-[80] origin-right"
         style={{ scaleX: progress }}
       />
@@ -97,7 +97,7 @@ export default function Nav() {
       {/* mobile overlay */}
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-[85] bg-ink flex flex-col"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -116,7 +116,7 @@ export default function Nav() {
             </div>
             <nav className="flex-1 flex flex-col justify-center px-8 gap-1">
               {NAV_LINKS.map((l, i) => (
-                <motion.button
+                <m.button
                   key={l.target}
                   type="button"
                   onClick={() => {
@@ -132,7 +132,7 @@ export default function Nav() {
                   <span className="font-display font-bold text-3xl text-paper group-hover:text-accent transition-colors">
                     {l.label}
                   </span>
-                </motion.button>
+                </m.button>
               ))}
             </nav>
             <div className="p-8">
@@ -146,7 +146,7 @@ export default function Nav() {
                 <ArrowUpLeft className="h-5 w-5" />
               </a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

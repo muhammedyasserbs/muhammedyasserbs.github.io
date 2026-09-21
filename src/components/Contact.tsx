@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowUpLeft, MessageCircle, CalendarCheck } from "lucide-react";
 import { WHATSAPP, CONTACT_STEPS } from "../data/content";
 import { SectionHeader, Reveal, Magnetic, Ticks } from "./ui";
@@ -25,7 +25,7 @@ export default function Contact() {
         <Reveal delay={0.2}>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
             <Magnetic strength={0.25}>
-              <motion.a
+              <m.a
                 href={WHATSAPP}
                 target="_blank"
                 rel="noreferrer"
@@ -37,7 +37,7 @@ export default function Contact() {
                 <MessageCircle className="relative h-5 w-5" />
                 <span className="relative">كلمني واتساب</span>
                 <ArrowUpLeft className="relative h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1" />
-              </motion.a>
+              </m.a>
             </Magnetic>
             <div className="flex items-center gap-3 text-[0.82rem] text-muted">
               <CalendarCheck className="h-4.5 w-4.5 text-accent" />

@@ -15,13 +15,13 @@ export default defineConfig({
     },
   },
   build: {
-    // Hashed vendor files stay cached between visits, while the app and its
-    // below-the-fold chunk can load independently instead of one large HTML.
+    // Keep React and icons cached independently. Framer Motion is deliberately
+    // left to Rollup: lightweight animation features stay in the first load,
+    // while Results' drag features remain in its lazy chunk.
     rollupOptions: {
       output: {
         manualChunks: {
           "react-vendor": ["react", "react-dom", "react-dom/client"],
-          motion: ["framer-motion"],
           icons: ["lucide-react"],
         },
       },

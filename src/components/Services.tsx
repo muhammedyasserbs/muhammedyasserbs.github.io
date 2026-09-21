@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Plus, Check } from "lucide-react";
 import { SERVICES } from "../data/content";
 import { SectionHeader, Reveal } from "./ui";
@@ -73,7 +73,7 @@ function ServiceRow({
 
         <AnimatePresence initial={false}>
           {open && (
-            <motion.div
+            <m.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -94,7 +94,7 @@ function ServiceRow({
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

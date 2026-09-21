@@ -6,7 +6,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { motion, useMotionValue, animate, AnimatePresence, useInView } from "framer-motion";
+import { LazyMotion, domMax, m, useMotionValue, animate, AnimatePresence, useInView } from "framer-motion";
 import {
   Search,
   BarChart3,
@@ -396,7 +396,7 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
   const isZoomed = view.scale > MIN_SCALE + 0.01;
 
   return (
-    <motion.figure
+    <m.figure
       className="w-full max-w-6xl touch-none"
       initial={{ scale: 0.94, y: 16 }}
       animate={{ scale: 1, y: 0 }}
@@ -469,7 +469,7 @@ function ZoomableImage({ zoom }: { zoom: ZoomTarget }) {
         <span>{zoom.alt}</span>
         <span className="label-mono !text-[0.55rem] shrink-0 text-dim">اضغط خارج الصورة للإغلاق</span>
       </figcaption>
-    </motion.figure>
+    </m.figure>
   );
 }
 
@@ -618,13 +618,14 @@ export default function Results() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="results"
-      className="relative overflow-hidden border-t border-line-soft py-24 md:py-32"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <LazyMotion features={domMax}>
+      <section
+        ref={sectionRef}
+        id="results"
+        className="relative overflow-hidden border-t border-line-soft py-24 md:py-32"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
       {/* watermark */}
       <span
         aria-hidden
@@ -682,7 +683,7 @@ export default function Results() {
       {/* slider */}
       <Reveal delay={0.1}>
         <div ref={viewportRef} dir="rtl" className="relative mt-12 overflow-hidden">
-          <motion.div
+          <m.div
             ref={trackRef}
             className="flex w-max cursor-grab active:cursor-grabbing"
             style={{
@@ -716,7 +717,7 @@ export default function Results() {
                 registerRef={(el) => (slideRefs.current[i] = el)}
               />
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </Reveal>
 
@@ -725,7 +726,7 @@ export default function Results() {
         <div className="flex items-center gap-5">
           <span className="label-mono !text-[0.55rem] text-dim shrink-0" dir="ltr">DRAG / SCROLL</span>
           <div className="h-px flex-1 bg-line">
-            <motion.div
+            <m.div
               className="h-full bg-brand"
               animate={{ width: `${((index + 1) / n) * 100}%` }}
               transition={{ type: "spring", stiffness: 160, damping: 24 }}
@@ -743,7 +744,7 @@ export default function Results() {
       {/* lightbox */}
       <AnimatePresence>
         {zoom && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-[95] flex items-center justify-center bg-ink/90 p-4 backdrop-blur-md md:p-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -762,9 +763,10 @@ export default function Results() {
               <X className="h-5 w-5" />
             </button>
             <ZoomableImage zoom={zoom} />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </section>
+      </section>
+    </LazyMotion>
   );
 }

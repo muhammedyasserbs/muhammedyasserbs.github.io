@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { PROCESS } from "../data/content";
 import { SectionHeader, Reveal } from "./ui";
 
@@ -20,18 +20,18 @@ export default function Process() {
 
         <div className="relative mt-16 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {/* connector line */}
-          <motion.div
+          <m.div
             className="absolute top-[26px] inset-x-10 hidden xl:block h-px bg-line"
             aria-hidden
           >
-            <motion.div
+            <m.div
               className="h-full bg-accent origin-right"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
             />
-          </motion.div>
+          </m.div>
 
           {PROCESS.map((p, i) => (
             <Reveal key={p.num} delay={0.1 * i}>
