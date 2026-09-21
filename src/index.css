@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0f172a;
+  --color-panel: #101c33;
+  --color-card: #1e293b;
+  --color-line: #23344f;
+  --color-line-soft: rgba(148, 163, 184, 0.12);
+  --color-paper: #e2e8f0;
+  --color-muted: #94a3b8;
+  --color-dim: #5f6f88;
+  --color-accent: #3b82f6;
+  --color-accent2: #06b6d4;
+  --color-accent3: #8b5cf6;
+  --font-display: "Alexandria", "IBM Plex Sans Arabic", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Alexandria", sans-serif;
+  --font-grot: "Space Grotesk", "Alexandria", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* The results lightbox handles pinch, pan and double-tap itself. Locking the
+   document stops browser/page zoom gestures from fighting the modal. */
+html.lightbox-open,
+html.lightbox-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* لا يوجد سكرول أفقي للصفحة على أي جهاز */
+html,
+body,
+#root {
+  max-width: 100vw;
+}
+
+/* إزاحة ثابتة عند الانتقال لأي قسم عشان الناف ما يغطيش العنوان */
+section[id] {
+  scroll-margin-top: 76px;
+}
+
+/* ارتفاع سطر موحد لكل العناوين — مناسب للخطوط العربية */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.5 !important;
+}
+
+/* حماية إضافية للعناصر المرنة على الشاشات الصغيرة */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+main {
+  min-width: 0;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #263450;
+  border: 2px solid #0f172a;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #33456b;
+}
+
+.tnum {
+  font-family: var(--font-grot);
+  font-feature-settings: "tnum";
+  letter-spacing: -0.02em;
+}
+
+.label-mono {
+  font-family: var(--font-grot);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+}
+
+/* brand gradient surface */
+.bg-brand {
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  color: #ffffff;
+}
+
+/* Keep the original animated film grain. It lives on its own composited layer
+   so the visual effect can stay active without forcing layout work. */
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.035;
+  will-change: transform;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 9s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -2%); }
+  80% { transform: translate(3%, 3%); }
+}
+
+/* hairline grid backdrop */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 76px 76px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.marquee-track {
+  /* The marquee keeps its original motion, isolated on a compositor layer. */
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+.blink {
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+/* outlined display text */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(148, 163, 184, 0.22);
+  color: transparent;
+}
+
+.text-stroke-accent {
+  -webkit-text-stroke: 1px rgba(59, 130, 246, 0.5);
+  color: transparent;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .blink,
+  .animate-ping {
+    animation: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
